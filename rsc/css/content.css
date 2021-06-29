@@ -1,0 +1,89 @@
+#container{
+    width:100%;
+    margin: 0px auto;
+}
+
+.navbar-dark {
+    background-color: #343a40!important;
+    height: 60px;
+    line-height: 60px;
+}
+
+.navbar-brand {
+    margin-left: 20px;
+}
+
+.clearfix{
+    clear: both; /*Cuando un elemento flote, los demas deben quedarse en su sitio*/
+}
+
+#brand-icon{
+    width: 175px;
+    padding-left: 12%;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.dropdown-item,
+.dropdown-toggle {
+    color: white;
+    margin-top:0;
+    margin-bottom:.5rem;
+    font-size: 1.25rem;
+    margin-bottom:.5rem;
+    font-weight:500;
+    line-height:1.2;
+}
+
+#my-sidebar {
+    background-image: url(sidebar-bg-xl.jpg);
+    background-size: 100% 100%;
+    
+}
+
+#my-sidebar ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+#headnav ul{
+    list-style: none;
+    float: right;
+    margin-top: 8px;
+}
+
+aside{
+    float: left;
+    width: 200px; /*Esta funcion permite darle con padding un borde interno 
+    a los paneles y calcular cuanto le debe restar al ancho para que luego no se mueva*/
+    min-height: 928px;
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.nav-link, .nav-item,
+.nav-link:hover, .nav-item:hover,
+.nav-link:active, .nav-item:active,
+.nav-link:focus, .nav-item:focus {
+    color: white;
+}
+
+
+#my-sidebar li a:hover {
+    background: #5aaa5a;
+
+}
+
+#my-sidebar li a {
+    padding-left: 40px;
+}
+
+#content{
+    float: left;
+    width: calc(75% - 40px);
+    min-height: 720px;
+    text-align: justify;
+    padding: 20px;
+    margin-left: 5%;
+}
