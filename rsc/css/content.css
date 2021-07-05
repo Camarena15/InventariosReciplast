@@ -87,3 +87,10 @@ aside{
     padding: 20px;
     margin-left: 5%;
 }
+
+#body-bcknd {
+    background-image: url('rsc/css/img/portada1.png'); 
+    background-repeat: no-repeat; 
+    background-size: contain;
+
+}
