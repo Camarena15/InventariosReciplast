@@ -14,6 +14,12 @@
 </head>
 
 <body>
+    <?php
+        session_start();
+        if (!isset($_SESSION["usuario"])) {
+            header("Location:login.php");
+        }
+    ?>
     <div id="container">
         <header>
             <nav class="navbar-expand-md navbar-dark fixed-top bg-dark" id="headnav">
@@ -26,14 +32,16 @@
                     <li class="active">
                         <a class="nav-link dropdown-toggle" href="#ususubmenu" id="userinfo" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <div></div>
+                            <?php 
+                                echo $_SESSION["usuario"]; 
+                            ?>
                         </a>
                         <ul class="dropdown-menu bg-dark" id="ususubmenu">
-                            <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+                            <li><a id="profilebtn" class="dropdown-item" href="profile.php">Mi Perfil</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                            <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -85,27 +93,12 @@
             </ul>
         </aside>
 
-        <section id="content" style="background-image: url('rsc/css/img/portada1.png'); background-repeat: no-repeat; background-size: contain;">
+        <section id="content">
             <img src="rsc/css/img/Icon.jpg" alt="Logo" class="img-fluid" style="width: 100px; float: right;">
             <br><br><br><br><br>
             <h2 style="color: white; float: right;">Reciplast de Occidente S.P.R. de R.L. de C.V.</h2>
+            <br><br>
             <h3 style="color: white; float: right;">Comprometidos con el medio ambiente</h3>
-            <!--<h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe reprehenderit error, adipisci eum
-                blanditiis repellendus maiores quaerat eius, quis qui, explicabo enim deleniti doloremque. Id vero
-                repudiandae beatae corrupti alias?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quae voluptates quidem maxime ullam
-                aperiam? Sed consequuntur atque reprehenderit non exercitationem dicta a corporis minus, odit animi
-                facere sapiente recusandae!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque veniam at corrupti enim ipsum libero
-                iusto officia perferendis cumque voluptatum mollitia velit assumenda officiis ex asperiores, quaerat
-                numquam sed? Aliquam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque repellendus beatae blanditiis quibusdam
-                deserunt, explicabo tenetur soluta ex mollitia consequatur repudiandae quaerat consectetur sapiente
-                alias eligendi ab debitis dolor earum.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam odit ducimus dolores pariatur
-                maiores nihil, unde eius quae distinctio doloribus laudantium vitae voluptatibus ab dolor, amet
-                aspernatur non fuga. Autem.
-            </h4>-->
         </section>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
@@ -118,6 +111,7 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
     <script src="rsc/js/styles.js"></script>
+
 </body>
 
 </html>

@@ -24,6 +24,30 @@
     padding-bottom: 5px;
 }
 
+/*#bodylogin {
+    background-image: url('img/portada1.png')!important; 
+    background-repeat: no-repeat; 
+    background-size: contain;
+}*/
+
+#framelogin {
+    border: inset; 
+    background-color: white; 
+    width: 520px;
+    padding: 25px;
+}
+
+#imglogin {
+    float:right; 
+    width: 200px; 
+    padding: 5px;
+}
+
+.der {
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
 .dropdown-item,
 .dropdown-toggle {
     color: white;
@@ -86,11 +110,23 @@ aside{
     text-align: justify;
     padding: 20px;
     margin-left: 5%;
-}
-
-#body-bcknd {
-    background-image: url('rsc/css/img/portada1.png'); 
+    background-image: url('img/portada1.png'); 
     background-repeat: no-repeat; 
     background-size: contain;
+}
 
+#profileForm {
+    background-color: white;
+    width: 100%;
+    min-height: 720px;
+    text-align: right;
+    padding: 30px;
+}
+
+#profileForm table {
+    margin: auto;
+}
+
+#profileForm input {
+    text-align: justify;
 }
