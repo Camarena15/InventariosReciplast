@@ -4,11 +4,12 @@ $(document).ready(function () {
         $('#wrapper').toggleClass('toggled');
   });
 
-  $("#profilebtn").click(function(){
+  /*$(".dropdown-toggle").click(function(){
     var url = $(this).attr("href");
+    document.getElementById("content").style.backgroundImage = "none";
     $("#content").load(url);
     return false;
-  });
+  });*/
 
 });
 

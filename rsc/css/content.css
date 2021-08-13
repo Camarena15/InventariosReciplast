@@ -48,21 +48,9 @@
     padding-top: 5px;
 }
 
-.dropdown-item,
-.dropdown-toggle {
-    color: white;
-    margin-top:0;
-    margin-bottom:.5rem;
-    font-size: 1.25rem;
-    margin-bottom:.5rem;
-    font-weight:500;
-    line-height:1.2;
-}
-
 #my-sidebar {
-    background-image: url(sidebar-bg-xl.jpg);
+    background-color: #858796!important;
     background-size: 100% 100%;
-    
 }
 
 #my-sidebar ul {
@@ -78,8 +66,7 @@
 
 aside{
     float: left;
-    width: 200px; /*Esta funcion permite darle con padding un borde interno 
-    a los paneles y calcular cuanto le debe restar al ancho para que luego no se mueva*/
+    width: 200px;
     min-height: 928px;
     height: 100%;
     padding-top: 10px;
@@ -100,7 +87,7 @@ aside{
 }
 
 #my-sidebar li a {
-    padding-left: 40px;
+    padding-left: 30px;
 }
 
 #content{
@@ -115,18 +102,22 @@ aside{
     background-size: contain;
 }
 
-#profileForm {
-    background-color: white;
-    width: 100%;
-    min-height: 720px;
-    text-align: right;
-    padding: 30px;
+.dropdown-header {
+   color: rgba(255,255,255,.4);
+   text-transform: uppercase;
+   font-size: .65rem;
 }
 
-#profileForm table {
-    margin: auto;
+.dropdown-item,
+.dropdown-toggle {
+    color: white;
+    margin-top:0;
+    margin-bottom:.5rem;
+    font-size: 1rem;
+    font-weight:500;
+    line-height:1.2;
+    padding-left: 30px;
+    overflow-x: hidden;
 }
 
-#profileForm input {
-    text-align: justify;
-}
+.dropdown-item{font-size: .85rem;}
