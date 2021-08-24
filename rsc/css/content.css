@@ -118,6 +118,11 @@ aside{
     line-height:1.2;
     padding-left: 30px;
     overflow-x: hidden;
+    font-weight: bold;
 }
 
 .dropdown-item{font-size: .85rem;}
+
+h5 {
+    font-weight: bold;
+}

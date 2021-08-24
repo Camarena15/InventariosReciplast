@@ -11,9 +11,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Inventario - Reciplast de Occidente S.P.R. de R.L. de C.V.</title>
-    <link rel="shortcut icon" type="image/x-icon" href="rsc/css/img/logo.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../rsc/css/img/logo.ico">
     <!-- Custom fonts for this template-->
-    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!--<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">-->
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -31,8 +31,8 @@
     <link rel="stylesheet" type="text/css" href="../vendor/datatables/datatables.min.css"/>
     <!--datables estilo bootstrap 4 CSS-->  
     <link rel="stylesheet"  type="text/css" href="../vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="http://reciplast.com.mx/css/carousel.css">
     <link rel="stylesheet" href="../rsc/css/content.css"> 
+    <link rel="stylesheet" href="http://reciplast.com.mx/css/carousel.css">
 </head>
 
 <body>
@@ -76,16 +76,16 @@
                     </a>
                     <ul class="collapse lisst-unstyled" id="catsubmenu"  data-parent="#sidebarul">
                         <li class="dropdown-header" href="#">Catálogos Disponibles:<hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Áreas</a></li>
-                        <li><a class="dropdown-item" href="#">Categorías</a></li>
-                        <li><a class="dropdown-item" href="#">SubCategorías</a></li>
-                        <li><a class="dropdown-item" href="#">Componentes</a></li>
-                        <li><a class="dropdown-item" href="#">Empleados</a></li>
-                        <li><a class="dropdown-item" href="#">Equipos</a></li>  
-                        <li><a class="dropdown-item" href="#">Programa Equipo</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/areas.php">Áreas</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/categorias.php">Categorías</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/subcategorias.php">SubCategorías</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/componentes.php">Componentes</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/empleados.php">Empleados</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/equipos.php">Equipos</a></li>  
+                        <li><a class="dropdown-item" href="/Catalogos/progequipo.php">Programa Equipo</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/productos.php">Productos</a></li>
-                        <li><a class="dropdown-item" href="#">Proveedores</a></li>
-                        <li><a class="dropdown-item" href="/RecycleBin/profile.php">Puestos</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/proveedores.php">Proveedores</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/puestos.php">Puestos</a></li>
                     </ul>
                 </li>
                 <li class="active">
@@ -106,8 +106,8 @@
                     </ul>
                 </li>
                 <li class="active">
-                    <a class="nav-link dropdown-toggle" href="#infsubmenu" id="informes" role="button"
-                        data-bs-toggle="collapse" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="collapse" data-target="#infsubmenu" 
+                    aria-expanded="true" aria-controls="infsubmenu">
                         Informes
                     </a>
                     <ul class="collapse lisst-unstyled" id="infsubmenu">

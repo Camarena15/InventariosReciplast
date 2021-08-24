@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="http://reciplast.com.mx/css/carousel.css">
-    <link rel="stylesheet" href="rsc/css/content.css"> 
+    <link rel="stylesheet" href="../rsc/css/content.css"> 
 
 </head>
 
@@ -55,16 +55,16 @@
                     </a>
                     <ul class="collapse lisst-unstyled" id="catsubmenu">
                         <li class="dropdown-header" href="#">Catálogos Disponibles:<hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Áreas</a></li>
-                        <li><a class="dropdown-item" href="#">Categorías</a></li>
-                        <li><a class="dropdown-item" href="#">SubCategorías</a></li>
-                        <li><a class="dropdown-item" href="#">Componentes</a></li>
-                        <li><a class="dropdown-item" href="#">Empleados</a></li>
-                        <li><a class="dropdown-item" href="#">Equipos</a></li>  
-                        <li><a class="dropdown-item" href="#">Programa Equipo</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/areas.php">Áreas</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/categorias.php">Categorías</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/subcategorias.php">SubCategorías</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/componentes.php">Componentes</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/empleados.php">Empleados</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/equipos.php">Equipos</a></li>  
+                        <li><a class="dropdown-item" href="/Catalogos/progequipo.php">Programa Equipo</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/productos.php">Productos</a></li>
-                        <li><a class="dropdown-item" href="#">Proveedores</a></li>
-                        <li><a class="dropdown-item" href="/RecycleBin/profile.php">Puestos</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/proveedores.php">Proveedores</a></li>
+                        <li><a class="dropdown-item" href="/Catalogos/puestos.php">Puestos</a></li>
                     </ul>
                 </li>
                 <li class="active">
@@ -125,6 +125,7 @@
             </div>
         </footer>
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha384-S58meLBGKxIiQmJ/pJ8ilvFUcGcqgla+mWH9EEKGm6i6rKxSTA2kpXJQJ8n7XK4w"
         crossorigin="anonymous"></script>
