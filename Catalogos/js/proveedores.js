@@ -97,7 +97,6 @@ $(document).ready(function() {
         Celular = fila.find('td:eq(8)').text();
         Representante = fila.find('td:eq(9)').text();
         DescripcionTipoProv = fila.find('td:eq(10)').text();
-        Saldo = fila.find('td:eq(11)').text();
         $("#Nombre").val(Nombre);
         $("#Domicilio").val(Domicilio);
         $("#Colonia").val(Colonia);
@@ -108,7 +107,6 @@ $(document).ready(function() {
         $("#Celular").val(Celular);
         $("#Representante").val(Representante);
         $("#DescripcionTipoProv").val(DescripcionTipoProv);
-        $("#Saldo").val(Saldo);
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white" );
         $(".modal-title").text("Editar Producto");		

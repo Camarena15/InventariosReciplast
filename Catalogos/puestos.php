@@ -20,7 +20,6 @@
                         <tr>
                             <th>IdPuesto</th>
                             <th>Descripción</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>                           

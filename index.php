@@ -57,11 +57,7 @@
                         <li class="dropdown-header" href="#">Catálogos Disponibles:<hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/Catalogos/areas.php">Áreas</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/categorias.php">Categorías</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/subcategorias.php">SubCategorías</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/componentes.php">Componentes</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/empleados.php">Empleados</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/equipos.php">Equipos</a></li>  
-                        <li><a class="dropdown-item" href="/Catalogos/progequipo.php">Programa Equipo</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/productos.php">Productos</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/proveedores.php">Proveedores</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/puestos.php">Puestos</a></li>
@@ -73,15 +69,82 @@
                         Movimientos
                     </a>
                     <ul class="collapse lisst-unstyled" id="movsubmenu">
-                        <li><a class="dropdown-item" href="#">Caja Herramientas</a></li>
-                        <li><a class="dropdown-item" href="#">Compras de Productos</a></li>
-                        <li><a class="dropdown-item" href="#">Compras de Servicio</a></li>
-                        <li><a class="dropdown-item" href="#">Devolución de Productos de Mantto</a></li>
-                        <li><a class="dropdown-item" href="#">Pagos de Compras de Productos</a></li>
-                        <li><a class="dropdown-item" href="#">Pagos de Compras de Servicios</a></li>
-                        <li><a class="dropdown-item" href="#">Requisición de Productos</a></li>
-                        <li><a class="dropdown-item" href="#">Requisición de Servicios</a></li>
-                        <li><a class="dropdown-item" href="#">Vales Consumibles</a></li>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#cajaherr" id="caja" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Caja Herramientas</a></li>
+                        <ul class="collapse lisst-unstyled" id="cajaherr">
+                            <li><a class="dropdown-item" href="/Movimientos/CajaHerr/regCajaHerr.php">Registrar</a></li>
+                            <li><a class="dropdown-item" href="/Movimientos/CajaHerr/consCajaHerr.php">Consultar</a></li>
+                        </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#comprapro" id="compro" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Compras de Productos</a></li>
+                                <ul class="collapse lisst-unstyled" id="comprapro">
+                                    <li><a class="dropdown-item" href="/Movimientos/regComPro.php">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#compraser" id="comser" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Compras de Servicio</a></li>
+                                <ul class="collapse lisst-unstyled" id="compraser">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#devpro" id="depro" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Devolución de Productos de Mantto</a></li>
+                                <ul class="collapse lisst-unstyled" id="devpro">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#pagospro" id="papro" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Pagos de Compras de Productos</a></li>
+                                <ul class="collapse lisst-unstyled" id="pagospro">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#pagosser" id="paser" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Pagos de Compras de Servicios</a></li>
+                                <ul class="collapse lisst-unstyled" id="pagosser">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#reqpro" id="repro" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Requisición de Productos</a></li>
+                                <ul class="collapse lisst-unstyled" id="reqpro">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Modificar</a></li>
+                                    <li><a class="dropdown-item" href="#">Cambiar Estado</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#reqserv" id="reser" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Requisición de Servicios</a></li>
+                                <ul class="collapse lisst-unstyled" id="reqserv">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Modificar</a></li>
+                                    <li><a class="dropdown-item" href="#">Cambiar Estado</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#valescons" id="valcon" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Vales Consumibles</a></li>
+                                <ul class="collapse lisst-unstyled" id="valescons">
+                                    <li><a class="dropdown-item" href="/Movimientos/ValesCons/regValesCons.php">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="/Movimientos/ValesCons/consValesCons.php">Consultar</a></li>
+                                </ul>
                     </ul>
                 </li>
                 <li class="active">

@@ -11,8 +11,7 @@ $(document).ready(function() {
         },
         "columns":[
             {"data": "IdPuesto"},
-            {"data": "Descripcion"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>Editar</i></button>"}
+            {"data": "Descripcion"}
         ],
     
         "language": {

@@ -11,15 +11,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Inventario - Reciplast de Occidente S.P.R. de R.L. de C.V.</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../rsc/css/img/logo.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../../rsc/css/img/logo.ico">
     <!-- Custom fonts for this template-->
-    <!--<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">-->
+    <!--<link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">-->
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../rsc/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../rsc/css/sb-admin-2.min.css" rel="stylesheet">
     <script
     src="https://code.jquery.com/jquery-3.6.0.js"
     integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
@@ -28,10 +28,10 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--datables CSS básico-->
-    <link rel="stylesheet" type="text/css" href="../vendor/datatables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../vendor/datatables/datatables.min.css"/>
     <!--datables estilo bootstrap 4 CSS-->  
-    <link rel="stylesheet"  type="text/css" href="../vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../rsc/css/content.css"> 
+    <link rel="stylesheet"  type="text/css" href="../../vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../../rsc/css/content.css"> 
     <link rel="stylesheet" href="http://reciplast.com.mx/css/carousel.css">
 </head>
 
@@ -39,7 +39,7 @@
     <div id="container">
         <header>
             <nav class="navbar-expand-md navbar-dark fixed-top bg-dark" id="headnav">
-                <a class="navbar-brand" href="../index.php">Reciplast de Occidente, S.P.R. de R.L. de S.A.</a>
+                <a class="navbar-brand" href="../../index.php">Reciplast de Occidente, S.P.R. de R.L. de S.A.</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -64,9 +64,9 @@
         <aside id="my-sidebar">
             <ul id="sidebarul">
                 <li>
-                    <img src="../rsc/css/img/Icon2.png" id="brand-icon">
+                    <img src="../../rsc/css/img/Icon2.png" id="brand-icon">
                 </li>
-                <li class="nav-item"><a class="nav-link" href="../index.php">
+                <li class="nav-item"><a class="nav-link" href="../../index.php">
                         <h5>Inicio</h5>
                     </a></li>
                 <li class="active">
@@ -78,11 +78,7 @@
                         <li class="dropdown-header" href="#">Catálogos Disponibles:<hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/Catalogos/areas.php">Áreas</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/categorias.php">Categorías</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/subcategorias.php">SubCategorías</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/componentes.php">Componentes</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/empleados.php">Empleados</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/equipos.php">Equipos</a></li>  
-                        <li><a class="dropdown-item" href="/Catalogos/progequipo.php">Programa Equipo</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/productos.php">Productos</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/proveedores.php">Proveedores</a></li>
                         <li><a class="dropdown-item" href="/Catalogos/puestos.php">Puestos</a></li>
@@ -94,15 +90,82 @@
                         Movimientos
                     </a>
                     <ul class="collapse lisst-unstyled" id="movsubmenu" data-parent="#sidebarul">
-                        <li><a class="dropdown-item" href="#">Caja Herramientas</a></li>
-                        <li><a class="dropdown-item" href="#">Compras de Productos</a></li>
-                        <li><a class="dropdown-item" href="#">Compras de Servicio</a></li>
-                        <li><a class="dropdown-item" href="#">Devolución de Productos de Mantto</a></li>
-                        <li><a class="dropdown-item" href="#">Pagos de Compras de Productos</a></li>
-                        <li><a class="dropdown-item" href="#">Pagos de Compras de Servicios</a></li>
-                        <li><a class="dropdown-item" href="#">Requisición de Productos</a></li>
-                        <li><a class="dropdown-item" href="#">Requisición de Servicios</a></li>
-                        <li><a class="dropdown-item" href="#">Vales Consumibles</a></li>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#cajaherr" id="caja" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Caja Herramientas</a></li>
+                        <ul class="collapse lisst-unstyled" id="cajaherr">
+                            <li><a class="dropdown-item" href="/Movimientos/CajaHerr/regCajaHerr.php">Registrar</a></li>
+                            <li><a class="dropdown-item" href="/Movimientos/CajaHerr/consCajaHerr.php">Consultar</a></li>
+                        </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#comprapro" id="compro" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Compras de Productos</a></li>
+                                <ul class="collapse lisst-unstyled" id="comprapro">
+                                    <li><a class="dropdown-item" href="/Movimientos/regComPro.php">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#compraser" id="comser" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Compras de Servicio</a></li>
+                                <ul class="collapse lisst-unstyled" id="compraser">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#devpro" id="depro" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Devolución de Productos de Mantto</a></li>
+                                <ul class="collapse lisst-unstyled" id="devpro">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#pagospro" id="papro" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Pagos de Compras de Productos</a></li>
+                                <ul class="collapse lisst-unstyled" id="pagospro">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#pagosser" id="paser" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Pagos de Compras de Servicios</a></li>
+                                <ul class="collapse lisst-unstyled" id="pagosser">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#reqpro" id="repro" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Requisición de Productos</a></li>
+                                <ul class="collapse lisst-unstyled" id="reqpro">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Modificar</a></li>
+                                    <li><a class="dropdown-item" href="#">Cambiar Estado</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#reqserv" id="reser" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Requisición de Servicios</a></li>
+                                <ul class="collapse lisst-unstyled" id="reqserv">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Modificar</a></li>
+                                    <li><a class="dropdown-item" href="#">Cambiar Estado</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
+                        <li class="active">
+                            <a class="nav-link dropdown-toggle" href="#valescons" id="valcon" role="button"
+                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
+                                Vales Consumibles</a></li>
+                                <ul class="collapse lisst-unstyled" id="valescons">
+                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                </ul>
                     </ul>
                 </li>
                 <li class="active">

@@ -33,7 +33,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);       
         break;    
     case 2:        
-        $consulta = "UPDATE proveedores SET Nombre = '$Nombre', Domicilio = '$Domicilio', Colonia = '$Colonia', Ciudad= '$Ciudad', CP = '$CP', Estado='$Estado', Tel = '$Tel', Celular = '$Celular', Representante = '$Representante', DescripcionTipoProv = '$DescripcionTipoProv', Saldo = $Saldo WHERE IdProveedor = $IdProveedor ";		
+        $consulta = "UPDATE proveedores SET Nombre = '$Nombre', Domicilio = '$Domicilio', Colonia = '$Colonia', Ciudad= '$Ciudad', CP = '$CP', Estado='$Estado', Tel = '$Tel', Celular = '$Celular', Representante = '$Representante', DescripcionTipoProv = '$DescripcionTipoProv' WHERE IdProveedor = $IdProveedor ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
