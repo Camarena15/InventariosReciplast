@@ -33,6 +33,9 @@ switch($opcion){
             $resultado->execute(); 	
             $c++;
         }
+        $consulta = "UPDATE detallemanttoint SET Estado = 'D' WHERE IdOrdenInt = $IdOrdenInt";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
         break;
 }
 
