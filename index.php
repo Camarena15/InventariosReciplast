@@ -96,10 +96,10 @@
                         <li class="active">
                             <a class="nav-link dropdown-toggle" href="#devpro" id="depro" role="button"
                                 data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
-                                Devolución de Productos de Mantto</a></li>
+                                Devolución de Productos<br> de Mantto</a></li>
                                 <ul class="collapse lisst-unstyled" id="devpro">
-                                    <li><a class="dropdown-item" href="#">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="#">Consultar</a></li>
+                                    <li><a class="dropdown-item" href="/Movimientos/DevProdM/regDevProdM.php">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="/Movimientos/DevProdM/consDevProdM.php">Consultar</a></li>
                                 </ul>
                         <li class="active">
                             <a class="nav-link dropdown-toggle" href="#pagospro" id="papro" role="button"

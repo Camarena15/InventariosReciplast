@@ -168,7 +168,7 @@ $conexion = $objeto->Conectar();
 
 <br></br>
 <div class="container text-center">
-    <h5>Vales Consumibles Registrados</h5>
+    <h5>Productos en Vale Consumible Registrados</h5>
 </div>
 <div class="container">
     <table class="table table-stripped" id="tablaProductos">
@@ -313,7 +313,7 @@ function registrarValeCons() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Todo correcto!',
-                    text: 'Caja de Herramientas Registrada',
+                    text: 'Vale Consumible Registrado',
                     showConfirmButton: false,
                     footer: '<a href = "consValesCons.php">Ir a consultar</a>'
                 })

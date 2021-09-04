@@ -6,7 +6,7 @@ $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 ?>
 <div class="container">
-    <h1>Registrar Caja de Herramientas</h1>
+    <h1>Registrar Devolución de Producos <br> de Mantenimiento</h1>
 </div>
 <br>
 <form id="frm">
@@ -14,17 +14,68 @@ $conexion = $objeto->Conectar();
         <div class="row">
             <div class="form-group col-md-2">
                 <?php
-             $consulta = "SELECT * FROM cajaherramientas WHERE 1";
+             $consulta = "SELECT * FROM devprodmantto WHERE 1";
              $resultado = $conexion->prepare($consulta);
              $resultado->execute();        
              $data=$resultado->rowCount();
           ?>
-                <label for="InputIdCaja" class="form-label">Id-Caja Herramientas: </label>
-                <input type="number" class="form-control" readonly onmousedown="return false;" id="IdCaja"
+                <label for="InputIdDevolucion" class="form-label">Id-Devolución: </label>
+                <input type="number" class="form-control" readonly onmousedown="return false;" id="IdDevolucion"
                     value="<?php echo ($data + 1) ?>">
             </div>
         </div>
+        <hr>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <!-- SELECT DE NOMBRES -->
+                <?php
+            $consulta = "SELECT IdOrdenInt, Descripcion FROM ordenmanttoint Order By IdOrdenInt ASC";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();  
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+            ?>
+                <label for="inputEmA" class="form-label">Orden de Mantenimiento: </label>
+                <select type="text" class="form-control" id="IdOrdenInt">
+                    <option value="0">Seleccionar Orden Mantto Interno</option>
+                    <?php foreach ($data as $opciones): ?>
 
+                    <option value="<?php echo $opciones['IdOrdenInt'] ?>"><?php echo $opciones['Descripcion'] ?>
+                    </option>
+
+                    <?php endforeach ?>
+                </select>
+            </div>
+        </div>
+        <div>
+            <!--*********************************************************************************************************-->
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $('#IdOrdenInt').val(0);
+                ord();
+
+                $('#IdOrdenInt').change(function() {
+                    ord();
+                });
+            })
+            </script>
+            <script type="text/javascript">
+            function ord() {
+                $.ajax({
+                    type: "POST",
+                    url: "getOrden.php",
+                    data: "ordenint=" + $('#IdOrdenInt').val(),
+                    success: function(r) {
+                        $('#orden').html(r);
+                    }
+                });
+            }
+            </script>
+            <!--*********************************************************************************************************-->
+            <div id="orden">
+                
+            </div>
+        </div>
+        <hr>
         <div class="row">
             <div class="form-group col-md-4">
                 <!-- SELECT DE NOMBRES -->
@@ -34,8 +85,8 @@ $conexion = $objeto->Conectar();
             $resultado->execute();  
             $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
             ?>
-                <label for="inputCp" class="form-label">Nombre Empleado: </label>
-                <select type="text" class="form-control" id="IdEm">
+                <label for="inputEmR" class="form-label">Nombre Empleado Entrega: </label>
+                <select type="text" class="form-control" id="IdEmpleadoEntrega">
                     <option value="0">Seleccione un empleado</option>
                     <?php foreach ($data as $opciones): ?>
 
@@ -45,7 +96,7 @@ $conexion = $objeto->Conectar();
                 </select>
             </div>
             <div class="form-group col-3">
-                <label for="" class="form-label">Fecha Asignación: </label>
+                <label for="" class="form-label">Fecha: </label>
                 <input type="date" class="form-control" id="Fecha">
             </div>
         </div>
@@ -139,7 +190,7 @@ $conexion = $objeto->Conectar();
 
 <br></br>
 <div class="container text-center">
-    <h5>Productos en Cajas de Herramientas Registradas</h5>
+    <h5>Productos Devueltos Registrados</h5>
 </div>
 <div class="container">
     <table class="table table-stripped" id="tablaProductos">
@@ -195,10 +246,10 @@ function registrarTabla() {
             var tcan = parseFloat(cantidad) + parseFloat(cantidad1);
             tr.remove();
             cont++;
-            fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont +'</td>' +
-            '<input type="hidden" value="' + idProducto + '"><input type="hidden" value="' + tcan + '">' +
-            '<td id="idp">' + idProducto + '</td><td>' +
-            tcan + '</td></tr>';
+            fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont + '</td>' +
+                '<input type="hidden" value="' + idProducto + '"><input type="hidden" value="' + tcan + '">' +
+                '<td id="idp">' + idProducto + '</td><td>' +
+                tcan + '</td></tr>';
             $('#tbodydatos').append(fila);
             return false;
         }
@@ -208,9 +259,9 @@ function registrarTabla() {
     // realmente el `cont == 0` ya no hace falta, porque si la tabla está vacía encontrado será false
     if (cont == 0 || !encontrado) {
         cont++;
-        fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont + '</td>' + 
-        '<input type="hidden" value="' + idProducto + '"><input type="hidden" value="' + cantidad + '">' +
-        '<td id="idp">' + idProducto + '</td><td>' +
+        fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont + '</td>' +
+            '<input type="hidden" value="' + idProducto + '"><input type="hidden" value="' + cantidad + '">' +
+            '<td id="idp">' + idProducto + '</td><td>' +
             cantidad + '</td></tr>';
         $('#tbodydatos').append(fila);
         return;
@@ -221,69 +272,67 @@ function registrarTabla() {
 <!-- VALIDAR TODO -->
 <script>
 function validarTodo() {
-        var idEmpleado, nombre, fecha, IdProducto, descripcion, cantidad, IdCaja;
-        fecha=document.getElementById('Fecha').value;
-        IdProducto=document.getElementById('IdProducto').value;
-        descripcion = $('#DescripcionProducto option:selected').text();
-        idEmpleado = document.getElementById('IdEm').value;
-        nombre = $('#IdEm option:selected').text();
-        cantidad=document.getElementById('Cantidad').value;
-        IdCaja=document.getElementById('IdCaja').value;
-        exp=/\w+@\w+\.+[a-z]/;
+    var IdOrdenInt, IdEmpleadoEntrega, Fecha, IdDevolucion;
+    IdOrdenInt = document.getElementById('IdOrdenInt').value;
+    IdEmpleadoEntrega = document.getElementById('IdEmpleadoEntrega').value;
+    Fecha = document.getElementById('Fecha').value;
+    IdDevolucion = document.getElementById('IdDevolucion');
+    exp = /\w+@\w+\.+[a-z]/;
 
-    if (IdCaja == '' || fecha == '' || IdProducto == '' || descripcion == '' || nombre == '' || idEmpleado == '' || cantidad == '') {
+    if (IdDevolucion == '' || IdOrdenInt == 0 || IdEmpleadoEntrega == 0 || Fecha == '') {
         alert("Todos los campos son obligatorios");
         return false;
     }
 
-    registrarOrdenInt();
+    registrarValeCons();
 }
 
-function registrarOrdenInt() {
+function registrarValeCons() {
     var arregloId = new Array();
     let celdasId = document.querySelectorAll('td');
     let k = 0;
     let j = 0;
     for (let i = 0; i < celdasId.length; i++) {
         k++;
-        if (k != 1){
+        if (k != 1) {
             arregloId[j] = celdasId[i].firstChild.data;
             j++;
-        } 
+        }
         if (k == 3) {
-            k=0;
-        }   
+            k = 0;
+        }
     }
-    for (let i = 0; i < arregloId.length; i++){
+    for (let i = 0; i < arregloId.length; i++) {
         console.log(arregloId[i]);
     }
-    let IdCaja, idempleado, fechaA;
+    let IdDevolucion, IdOrdenInt, IdEmpleadoEntrega, Fecha;
     $(document).ready(function() {
-        IdCaja = $.trim($("#IdCaja").val());
-        console.log(IdCaja);
-        idempleado = $.trim($("#IdEm").val());
-        console.log(idempleado);
-        fechaA = $.trim($("#Fecha").val());
-        console.log(fechaA);
+        IdDevolucion = $.trim($("#IdDevolucion").val());
+        console.log(IdDevolucion);
+        IdOrdenInt = $.trim($("#IdOrdenInt").val());
+        console.log(IdOrdenInt);
+        IdEmpleadoEntrega = $.trim($("#IdEmpleadoEntrega").val());
+        Fecha = $.trim($("#Fecha").val());
         opcion = 1;
         $.ajax({
-            url: "CajaHerr.php",
+            url: "DevProdM.php",
             type: "POST",
             datatype: "json",
             data: {
                 opcion: opcion,
-                IdCaja: IdCaja,
-                idempleado: idempleado,
-                fechaA: fechaA,
+                IdDevolucion: IdDevolucion,
+                IdOrdenInt: IdOrdenInt,
+                IdEmpleadoEntrega: IdEmpleadoEntrega,
+                Fecha: Fecha,
                 'arregloId': JSON.stringify(arregloId)
             },
             success: function() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Todo correcto!',
-                    text: 'Caja de Herramientas Registrada',
+                    text: 'Devolución de Productos de Mantenimiento Registrada',
                     showConfirmButton: false,
-                    footer: '<a href = "consCajaHerr.php">Ir a consultar</a>'
+                    footer: '<a href = "consDevProdM.php">Ir a consultar</a>'
                 })
 
             }
