@@ -6,7 +6,7 @@ $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 ?>
 <div class="container">
-    <h1>Registrar Devolución de Producos <br> de Mantenimiento</h1>
+    <h1>Registrar Compras de Productos</h1>
 </div>
 <br>
 <form id="frm">
@@ -14,68 +14,16 @@ $conexion = $objeto->Conectar();
         <div class="row">
             <div class="form-group col-md-2">
                 <?php
-             $consulta = "SELECT * FROM devprodmantto WHERE 1";
+             $consulta = "SELECT * FROM comprasproductos WHERE 1";
              $resultado = $conexion->prepare($consulta);
              $resultado->execute();        
              $data=$resultado->rowCount();
           ?>
-                <label for="InputIdDevolucion" class="form-label">Id-Devolución: </label>
-                <input type="number" class="form-control" readonly onmousedown="return false;" id="IdDevolucion"
+                <label for="InputIdCompra" class="form-label">Id-Compra: </label>
+                <input type="number" class="form-control" readonly onmousedown="return false;" id="IdCompra"
                     value="<?php echo ($data + 1) ?>">
             </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <!-- SELECT DE NOMBRES -->
-                <?php
-            $consulta = "SELECT IdOrdenInt, Descripcion FROM ordenmanttoint Order By IdOrdenInt ASC";
-            $resultado = $conexion->prepare($consulta);
-            $resultado->execute();  
-            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-            ?>
-                <label for="inputEmA" class="form-label">Orden de Mantenimiento: </label>
-                <select type="text" class="form-control" id="IdOrdenInt">
-                    <option value="0">Seleccionar Orden Mantto Interno</option>
-                    <?php foreach ($data as $opciones): ?>
-
-                    <option value="<?php echo $opciones['IdOrdenInt'] ?>"><?php echo $opciones['Descripcion'] ?>
-                    </option>
-
-                    <?php endforeach ?>
-                </select>
-            </div>
-        </div>
-        <div>
-            <!--*********************************************************************************************************-->
-            <script type="text/javascript">
-            $(document).ready(function() {
-                $('#IdOrdenInt').val(0);
-                ord();
-
-                $('#IdOrdenInt').change(function() {
-                    ord();
-                });
-            })
-            </script>
-            <script type="text/javascript">
-            function ord() {
-                $.ajax({
-                    type: "POST",
-                    url: "getOrden.php",
-                    data: "ordenint=" + $('#IdOrdenInt').val(),
-                    success: function(r) {
-                        $('#orden').html(r);
-                    }
-                });
-            }
-            </script>
-            <!--*********************************************************************************************************-->
-            <div id="orden">
-                
-            </div>
-        </div>
-        <hr>
         <div class="row">
             <div class="form-group col-md-4">
                 <!-- SELECT DE NOMBRES -->
@@ -272,14 +220,14 @@ function registrarTabla() {
 <!-- VALIDAR TODO -->
 <script>
 function validarTodo() {
-    var IdOrdenInt, IdEmpleadoEntrega, Fecha, IdDevolucion;
+    var IdOrdenInt, IdEmpleadoEntrega, Fecha, IdCompra;
     IdOrdenInt = document.getElementById('IdOrdenInt').value;
     IdEmpleadoEntrega = document.getElementById('IdEmpleadoEntrega').value;
     Fecha = document.getElementById('Fecha').value;
-    IdDevolucion = document.getElementById('IdDevolucion');
+    IdCompra = document.getElementById('IdCompra');
     exp = /\w+@\w+\.+[a-z]/;
 
-    if (IdDevolucion == '' || IdOrdenInt == 0 || IdEmpleadoEntrega == 0 || Fecha == '') {
+    if (IdCompra == '' || IdOrdenInt == 0 || IdEmpleadoEntrega == 0 || Fecha == '') {
         alert("Todos los campos son obligatorios");
         return false;
     }
@@ -305,10 +253,10 @@ function registrarValeCons() {
     for (let i = 0; i < arregloId.length; i++) {
         console.log(arregloId[i]);
     }
-    let IdDevolucion, IdOrdenInt, IdEmpleadoEntrega, Fecha;
+    let IdCompra, IdOrdenInt, IdEmpleadoEntrega, Fecha;
     $(document).ready(function() {
-        IdDevolucion = $.trim($("#IdDevolucion").val());
-        console.log(IdDevolucion);
+        IdCompra = $.trim($("#IdCompra").val());
+        console.log(IdCompra);
         IdOrdenInt = $.trim($("#IdOrdenInt").val());
         console.log(IdOrdenInt);
         IdEmpleadoEntrega = $.trim($("#IdEmpleadoEntrega").val());
@@ -320,7 +268,7 @@ function registrarValeCons() {
             datatype: "json",
             data: {
                 opcion: opcion,
-                IdDevolucion: IdDevolucion,
+                IdCompra: IdCompra,
                 IdOrdenInt: IdOrdenInt,
                 IdEmpleadoEntrega: IdEmpleadoEntrega,
                 Fecha: Fecha,
@@ -330,7 +278,7 @@ function registrarValeCons() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Todo correcto!',
-                    text: 'Devolución de Productos de Mantenimiento Registrada',
+                    text: 'Compra de Productos de Mantenimiento Registrada',
                     showConfirmButton: false,
                     footer: '<a href = "consDevProdM.php">Ir a consultar</a>'
                 })
