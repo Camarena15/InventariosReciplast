@@ -29,7 +29,6 @@ $empleado=$_POST['empleado'];
 	}
 
 	echo  $cad;
-	echo "alert('Modificar');"
 	
 
 ?>

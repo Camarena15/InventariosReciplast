@@ -1,7 +1,7 @@
-<?php require_once "../../vistas/parte_superior.php"?>
+<?php require_once "../../../vistas/parte_superior.php"?>
 <!-- INICIO del contenido principal -->
 <?php 
-include '../../rsc/bd/conexion.php';
+include '../../../bd/conexion.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 ?>
@@ -89,6 +89,6 @@ endforeach;
     
     
     ?>
-<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- FIN del contenido principal -->
-<?php require_once "../../vistas/parte_inf.php"?>
+<?php require_once "../../../vistas/parte_inf.php"?>

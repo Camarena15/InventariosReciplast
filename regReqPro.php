@@ -164,7 +164,7 @@ $conexion = $objeto->Conectar();
 
 <br></br>
 <div class="container text-center">
-    <h5>Productos registrados para mantenimiento</h5>
+    <h5>Productos registrados para la requisición</h5>
 </div>
 <div class="container">
     <table class="table table-stripped" id="tablaProductos">

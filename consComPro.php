@@ -5,11 +5,11 @@ include 'bd/conexion.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 ?>
-<div class="container"><h1>CONSULTA Requisición de Productos</h1></div>
+<div class="container"><h1>CONSULTA Compras de Productos</h1></div>
     <br>  
     <?php
-          $consulta = "SELECT C.IdRequisicion, E.Nombre, C.Fecha, C.TotalAprox, C.Estado FROM requisicionesproductos AS C INNER JOIN empleados AS E ON 
-          C.IdEmpleadoSolicita = E.IdEmpleado";
+          $consulta = "SELECT E.Nombre, C.* FROM comprasproductos AS C INNER JOIN proveedores AS E ON 
+          C.IdProveedor = E.IdProveedor";
           $resultado = $conexion->prepare($consulta);
           $resultado->execute();  
           $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -21,17 +21,26 @@ $conexion = $objeto->Conectar();
                 <table id="tablaP" class="table table-hover  table-dark" style="width:100%" >
                     <thead class="text-center">
                         <tr>
+                            <th>IdCompra</th>
                             <th>IdRequisicion</th>
-                            <th>Empleado Solicita</th>
+                            <th>IdProveedor</th>
+                            <th>Proveedor</th>
+                            <th>Factura</th>
+                            <th>Condiciones</th>
                             <th>Fecha</th>
-                            <th>Total Aproximado</th>
-                            <th>Estado</th>
+                            <th>FechaVto</th>
+                            <th>Subtotal</th>
+                            <th>Iva</th>
+                            <th>Total</th>
+                            <th>Saldo</th>
                         </tr>  
     <?php
     foreach ($data as $opciones):
     {
         echo "<tr>";
-        echo "<td>".$opciones['IdRequisicion']."</td><td>".$opciones['Nombre']."</td><td>".$opciones['Fecha']."</td><td>".$opciones['TotalAprox']."</td><td>".$opciones['Estado']."</td>";
+        echo "<td>".$opciones['IdCompra']."</td><td>".$opciones['IdRequisicion']."</td><td>".$opciones['IdProveedor']."</td>
+        <td>".$opciones['Nombre']."</td><td>".$opciones['Factura']."</td><td>".$opciones['Condiciones']."</td><td>".$opciones['Fecha']."</td>
+        <td>".$opciones['FechaVto']."</td><td>".$opciones['Subtotal']."</td><td>".$opciones['Iva']."</td><td>".$opciones['Total']."</td><td>".$opciones['Saldo']."</td>";
         echo "</tr>";
     }
 endforeach;
@@ -50,10 +59,10 @@ endforeach;
 <br>
 <br>
 <br>
-<div class="container"><h1>CONSULTA Detalles de Requisición de Productos</h1></div>
+<div class="container"><h1>CONSULTA Detalles de Compras de Productos</h1></div>
     <br>  
     <?php
-          $consulta = "SELECT D.IdRequisicion, P.Descripcion, D.Cantidad, D.CantidadSurtida, D.CantidadDevuelta, D.CostoAprox FROM detallerequisicionproductos as D INNER JOIN productos as P ON
+          $consulta = "SELECT P.Descripcion, D.* FROM detallecompraprod as D INNER JOIN productos as P ON
           D.IdProducto = P.IdProducto";
           $resultado = $conexion->prepare($consulta);
           $resultado->execute();  
@@ -66,18 +75,16 @@ endforeach;
                 <table id="tablaP" class="table table-hover  table-dark" style="width:100%" >
                     <thead class="text-center">
                         <tr>
-                            <th>IdRequisicion</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Cantidad Surtida</th>
-                            <th>Cantidad Devuelta</th>
-                            <th>CostoAprox</th>
+                            <th>IdCompra <br>-</th>
+                            <th>Producto <br>-</th>
+                            <th>Cantidad <br>-</th>
+                            <th>Costo <br> Unitario</th>
                         </tr>  
     <?php
     foreach ($data as $opciones):
     {
         echo "<tr>";
-        echo "<td>".$opciones['IdRequisicion']."</td><td>".$opciones['Descripcion']."</td><td>".$opciones['Cantidad']."</td><td>".$opciones['CantidadSurtida']."</td><td>".$opciones['CantidadDevuelta']."</td><td>".$opciones['CostoAprox']."</td>";
+        echo "<td>".$opciones['IdCompra']."</td><td>".$opciones['Descripcion']."</td><td>".$opciones['Cantidad']."</td><td>".$opciones['Costo']."</td>";
         echo "</tr>";
     }
 endforeach;

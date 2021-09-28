@@ -1,4 +1,4 @@
-<?php require_once "../vistas/parte_superior.php"?>
+<?php require_once "../../vistas/parte_superior.php"?>
 <!-- INICIO del contenido principal -->
 
 <div class="container"><h1>Catálogo de Productos</h1></div>
@@ -58,7 +58,7 @@
 
                         <?php 
 
-                            include_once '../rsc/bd/conexion.php';
+                            include_once '../../bd/conexion.php';
                             $objeto = new Conexion();
                             $conexion = $objeto->Conectar();
                             $consulta = "SELECT * FROM SubCategorias  WHERE 1";
@@ -128,5 +128,5 @@
 </div>  
 
 <!-- FIN del contenido principal -->
-<?php require_once "../vistas/parte_inf.php"?>
+<?php require_once "../../vistas/parte_inf.php"?>
 <script type="text/javascript" src="js/productos.js"></script>  

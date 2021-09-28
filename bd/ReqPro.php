@@ -38,9 +38,8 @@ switch($opcion){
         break;
     case 2:
         $IdRequisicion = (isset($_POST['IdRequisicion'])) ? $_POST['IdRequisicion'] : '';
-        $IdEmpleadoSolicita = (isset($_POST['IdEmpleadoSolicita'])) ? $_POST['IdEmpleadoSolicita'] : '';
-        $Fecha = (isset($_POST['Fecha'])) ? $_POST['Fecha'] : '';
-        $consulta2 = "UPDATE requisicionesproductos SET IdEmpleadoSolicita=$IdEmpleadoSolicita, Fecha='$Fecha' WHERE IdRequisicion=$IdRequisicion";		
+        $Estado = (isset($_POST['Estado'])) ? $_POST['Estado'] : '';
+        $consulta2 = "UPDATE requisicionesproductos SET Estado='$Estado' WHERE IdRequisicion=$IdRequisicion";		
         $resultado1 = $conexion->prepare($consulta2);
         $resultado1->execute(); 
 }

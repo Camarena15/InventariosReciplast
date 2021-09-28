@@ -1,7 +1,7 @@
-<?php require_once "../../vistas/parte_superior.php"?>
+<?php require_once "../../../vistas/parte_superior.php"?>
 <!-- INICIO del contenido principal -->
 <?php 
-include '../../rsc/bd/conexion.php';
+include '../../../bd/conexion.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 ?>
@@ -292,12 +292,12 @@ function registrarValeCons() {
 
 
 
-<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <br>
 <br>
 <div row>
     <div class="d-flex justify-content-center">
         <!-- FIN del contenido principal -->
-        <?php require_once "../../vistas/parte_inf.php"?>
+        <?php require_once "../../../vistas/parte_inf.php"?>
     </div>
 </div>

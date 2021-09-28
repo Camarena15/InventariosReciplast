@@ -55,12 +55,12 @@
                     </a>
                     <ul class="collapse lisst-unstyled" id="catsubmenu">
                         <li class="dropdown-header" href="#">Catálogos Disponibles:<hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/Catalogos/areas.php">Áreas</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/categorias.php">Categorías</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/empleados.php">Empleados</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/productos.php">Productos</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/proveedores.php">Proveedores</a></li>
-                        <li><a class="dropdown-item" href="/Catalogos/puestos.php">Puestos</a></li>
+                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/areas.php">Áreas</a></li>
+                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/categorias.php">Categorías</a></li>
+                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/empleados.php">Empleados</a></li>
+                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/productos.php">Productos</a></li>
+                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/proveedores.php">Proveedores</a></li>
+                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/puestos.php">Puestos</a></li>
                     </ul>
                 </li>
                 <li class="active">
@@ -88,10 +88,10 @@
                         <li class="active">
                             <a class="nav-link dropdown-toggle" href="#pagospro" id="papro" role="button"
                                 data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
-                                Pagos de Compras de Productos</a></li>
+                                Pagos de Compras de <br> Productos</a></li>
                                 <ul class="collapse lisst-unstyled" id="pagospro">
-                                    <li><a class="dropdown-item" href="regPagoCompra">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="consPagoCompra">Consultar</a></li>
+                                    <li><a class="dropdown-item" href="regPagCom.php">Registrar</a></li>
+                                    <li><a class="dropdown-item" href="consPagCom.php">Consultar</a></li>
                                 </ul>
                         <li class="active">
                             <a class="nav-link dropdown-toggle" href="#reqpro" id="repro" role="button"
@@ -99,8 +99,7 @@
                                 Requisición de Productos</a></li>
                                 <ul class="collapse lisst-unstyled" id="reqpro">
                                     <li><a class="dropdown-item" href="regReqPro.php">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="modificaReqPro.php">Modificar</a></li>
-                                    <li><a class="dropdown-item" href="cambiarestadoReqPro.php">Cambiar Estado</a></li>
+                                    <li><a class="dropdown-item" href="caesReqPro.php">Cambiar Estado</a></li>
                                     <li><a class="dropdown-item" href="consReqPro.php">Consultar</a></li>
                                 </ul>
                         <li class="active">

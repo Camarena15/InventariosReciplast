@@ -1,4 +1,4 @@
-<?php require_once "../vistas/parte_superior.php"?>
+<?php require_once "../../vistas/parte_superior.php"?>
 <!-- INICIO del contenido principal -->
 
 <div class="container"><h1>Catálogo de Categorías</h1></div>
@@ -55,5 +55,5 @@
 </div>  
 
 <!-- FIN del contenido principal -->
-<?php require_once "../vistas/parte_inf.php"?>
+<?php require_once "../../vistas/parte_inf.php"?>
 <script type="text/javascript" src="js/categorias.js"></script>  

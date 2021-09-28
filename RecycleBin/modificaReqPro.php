@@ -1,7 +1,7 @@
-<?php require_once "vistas/parte_superior.php"?>
+<?php require_once "../vistas/parte_superior.php"?>
 <!-- INICIO del contenido principal -->
 <?php 
-include 'bd/conexion.php';
+include '../bd/conexion.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 ?>
@@ -30,7 +30,7 @@ $conexion = $objeto->Conectar();
                 function getIdR() {
                     $.ajax({
                         type: "POST",
-                        url: "bd/getIdRequisicion.php",
+                        url: "../bd/getIdRequisicion.php",
                         data: "empleado=" + $('#IdRequisicion').val(),
                         success: function(r) {
                             $('#IdR').html(r);
@@ -104,7 +104,7 @@ $conexion = $objeto->Conectar();
                 function recargar() {
                     $.ajax({
                         type: "POST",
-                        url: "bd/getIdEmpleado.php",
+                        url: "../bd/getIdEmpleado.php",
                         data: "empleado=" + $('#NombreEmpleado').val(),
                         success: function(r) {
                             $('#IdEmpleado').html(r);
@@ -143,7 +143,7 @@ function modificarRequisicion() {
         console.log(fecha);
         opcion = 2;
         $.ajax({
-            url: "bd/ReqPro.php",
+            url: "../bd/ReqPro.php",
             type: "POST",
             datatype: "json",
             data: {
@@ -167,6 +167,6 @@ function modificarRequisicion() {
 
 }
 </script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- FIN del contenido principal -->
-<?php require_once "vistas/parte_inf.php"?>
+<?php require_once "../vistas/parte_inf.php"?>
