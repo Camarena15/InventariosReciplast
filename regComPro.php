@@ -25,60 +25,6 @@ $conexion = $objeto->Conectar();
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-4">
-                <!-- SELECT DE NOMBRES -->
-                <?php
-          $consulta = "SELECT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON 
-          R.IdEmpleadoSolicita = E.IdEmpleado WHERE R.Estado='Ejecucion'";
-          $resultado = $conexion->prepare($consulta);
-          $resultado->execute();  
-          $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-        ?>
-                <label for="inputCp" class="form-label">Seleccionar Requisición: (sólo en ejecución)</label>
-                <select type="text" class="form-control" id="Requisicion">
-                    <option value="0">Seleccione una requisición</option>
-                    <?php foreach ($data as $opciones): ?>
-
-                    <option value="<?php echo $opciones['IdRequisicion'] ?>"><?php echo $opciones['IdRequisicion'] ?> ->
-                        <?php echo $opciones['Nombre']?> (<?php echo $opciones['Fecha']?>)</option>
-
-                    <?php endforeach ?>
-                </select>
-            </div>
-        </div>
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $('#Requisicion').val(0);
-            getDatosReq();
-
-            $('#Requisicion').change(function() {
-                getDatosReq();
-            });
-        })
-        </script>
-        <script type="text/javascript">
-        function getDatosReq() {
-            $.ajax({
-                type: "POST",
-                url: "bd/getDatosReq.php",
-                data: "requisicion=" + $('#Requisicion').val(),
-                success: function(r) {
-                    $('#DatosRequisicion').html(r);
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "bd/getDetReq.php",
-                data: "requisicion=" + $('#Requisicion').val(),
-                success: function(r) {
-                    $('#tbodydatos').html(r);
-                }
-            });
-        }
-        </script>
-
-        <div id="DatosRequisicion"></div>
-        <div class="row">
             <div class="form-group col-4">
                 <?php
                     $consulta = "SELECT * FROM proveedores Order By IdProveedor ASC";
@@ -146,6 +92,90 @@ $conexion = $objeto->Conectar();
                 </select>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <!-- SELECT PARA EL PRODUCTO -->
+                <?php
+          $consulta = "SELECT IdProducto, Descripcion FROM productos Order By Descripcion ASC";
+          $resultado = $conexion->prepare($consulta);
+          $resultado->execute();  
+          $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        ?>
+                <label for="inputAddress2" class="form-label">Descripción del producto: </label>
+                <select type="number" class="form-control" id="DescripcionProducto" name="dp">
+                    <option value="0">Seleccione un producto</option>
+                    <?php foreach ($data as $opciones): ?>
+
+                    <option value="<?php echo $opciones['IdProducto'] ?>"><?php echo $opciones['Descripcion'] ?>
+                    </option>
+
+                    <?php endforeach ?>
+                </select>
+                </select>
+            </div>
+            <div class="form-group col-md-2" id="IdProducto">
+                <!-- SCRIPT PARA EL ID PRODUCTO -->
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#DescripcionProducto').val(0);
+                    reca();
+
+                    $('#DescripcionProducto').change(function() {
+                        reca();
+                    });
+                })
+                </script>
+                <script type="text/javascript">
+                function reca() {
+                    $.ajax({
+                        type: "POST",
+                        url: "bd/getIdProducto.php",
+                        data: "prod=" + $('#DescripcionProducto').val(),
+                        success: function(r) {
+                            $('#IdProducto').html(r);
+                        }
+                    });
+                }
+                </script>
+                <label for="inputTel" class="form-label">Id Producto: </label>
+                <input type="text" class="form-control" id="IdProducto" placeholder="1" readonly
+                    onmousedown="return false;">
+            </div>
+            <div class="form-group col-md-2" id="Cost">
+                <!-- SCRIPT PARA EL COSTO -->
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#DescripcionProducto').val(0);
+                    rec();
+
+                    $('#DescripcionProducto').change(function() {
+                        rec();
+                    });
+                })
+                </script>
+                <script type="text/javascript">
+                function rec() {
+                    $.ajax({
+                        type: "POST",
+                        url: "bd/getCosto.php",
+                        data: "costo=" + $('#DescripcionProducto').val(),
+                        success: function(r) {
+                            $('#Cost').html(r);
+                        }
+                    });
+                }
+                </script>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="" class="form-label">Cantidad: </label>
+                <input type="number" class="form-control" id="Cantidad" min="0" step=".01">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-danger" onclick="validar()">Agregar</button>
+            </div>
+        </div>
 </form>
 
 
@@ -160,11 +190,12 @@ $conexion = $objeto->Conectar();
     <table class="table table-stripped" id="tablaProductos">
         <thead>
             <tr>
-                <th scope="col">Seleccionar<br>-</th>
-                <th scope="col">IdProducto<br>-</th>
-                <th scope="col">Cantidad Solicitada <br> Pendiente</th>
-                <th scope="col">Cantidad Comprada<br>-</th>
-                <th scope="col">Precio<br>-</th>
+                <th scope="col">Movimiento</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">IdProducto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio Unitario</th>
+                <th scope="col">Importe</th>
             </tr>
         </thead>
         <tbody id="tbodydatos">
@@ -207,6 +238,22 @@ $conexion = $objeto->Conectar();
 
 <!-- SCRIPT PARA AGREGAR A LA TABLA Y VALIDAR -->
 <script>
+    function validar() {
+    var idproducto, desc, cant, precio;
+    idproducto = document.getElementById('IdProd').value;
+    desc = document.getElementById('DescripcionProducto').textContent;
+    cant = document.getElementById('Cantidad').value;
+    precio = document.getElementById('Precio').value;
+    exp = /\w+@\w+\.+[a-z]/;
+
+    if (idproducto == '' || desc == '' || cant == '' || precio == '') {
+        alert("Todos los campos son obligatorios");
+        return false;
+    }
+
+    registrarTabla();
+}
+
 function desactiva(n, c) {
     var caja = document.getElementById("cacom" + n);
     if (c == true)
@@ -217,33 +264,82 @@ function desactiva(n, c) {
     }
     calcularCosto();
 }
+var cont = 0;
+function registrarTabla() {
+    var combo = document.getElementById("DescripcionProducto");
+    var selected = combo.options[combo.selectedIndex].text;
+    var cantidad = $("#Cantidad").val();
+    var idProducto = $("#IdProd").val();
+    var precio = $("#Precio").val();
+
+    var id = "";
+    var cantidad1 = 0;
+    var precio1 = 0;
+
+    var encontrado = false;
+
+    $("#tablaProductos tbody tr").each(function(i, e) {
+        var tr = $(e);
+        var td = $(e).find("td").eq(1);
+
+        id = $(td).find("input").eq(1).val();
+        cantidad1 = $(td).find("input").eq(2).val();
+        precio1 = $(td).find("input").eq(3).val();
+
+        var fila = "";
+
+        if (id == idProducto) {
+            // si se encontró un ID: encontrado!
+            encontrado = true;
+
+            var tcan = parseFloat(cantidad) + parseFloat(cantidad1);
+            var tpre = parseFloat(precio);
+
+            tr.remove();
+            cont++;
+            fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont +
+                '</td><td><input type="hidden" value="' + selected + '"><input type="hidden" value="' +
+                idProducto + '"><input type="hidden" value="' + tcan + '"><input type="hidden" value="' + tpre +
+                '">' + selected + '</td><td>' + idProducto + '</td><td>' + Number.parseFloat(tcan).toFixed(2) + '</td><td>' + Number.parseFloat(tpre).toFixed(2) +
+                '</td><td>' + Number.parseFloat(tcan*tpre).toFixed(2) + '</td></tr>';
+            $('#tbodydatos').append(fila);
+            calcularCosto();
+            return false;
+        }
+    });
+    // si es el primer elemento o no se encontró ID, se añade una neuva fila
+    // código de arriba movido aquí cambiando un poco la condición
+    // realmente el `cont == 0` ya no hace falta, porque si la tabla está vacía encontrado será false
+    if (cont == 0 || !encontrado) {
+        cont++;
+        fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont + '</td><td><input type="hidden" value="' +
+            selected + '"><input type="hidden" value="' + idProducto + '"><input type="hidden" value="' + cantidad +
+            '"><input type="hidden" value="' + precio + '">' + selected + '</td><td>' + idProducto + '</td><td>' +
+            Number.parseFloat(cantidad).toFixed(2) + '</td><td>' + Number.parseFloat(precio).toFixed(2) + '</td><td>' + Number.parseFloat(cantidad*precio).toFixed(2) + '</td></tr>';
+        $('#tbodydatos').append(fila);
+        calcularCosto();
+        return;
+    }
+}
 
 function calcularCosto() {
     var subtotal, iva, miva, total;
     var arregloId = new Array();
     let celdasId = document.querySelectorAll('#tbodydatos td');
     var c = 0;
-    for (let i = 0; i < celdasId.length / 5; ++i) {
-        arregloId[c] = celdasId[c].firstChild.checked;
-        arregloId[c + 1] = celdasId[c + 1].firstChild.data;
-        arregloId[c + 2] = celdasId[c + 2].firstChild.data;
-        arregloId[c + 3] = celdasId[c + 3].firstChild.value;
-        arregloId[c + 4] = celdasId[c + 4].firstChild.data;
-        c += 5;
+    for (let i = 0; i < celdasId.length / 6; ++i) {
+        arregloId[i] = Number(celdasId[c+5].firstChild.data);
+        c += 6;
     }
     c = 0;
     subtotal = 0;
-    for (let i = 0; i < arregloId.length / 5; i++) {
-        if (arregloId[c] == true) {
-            subtotal += arregloId[c + 3] * arregloId[c + 4];
-        } else {
-
-        }
-        c += 5;
+    for (let i = 0; i < arregloId.length; i++) {
+        subtotal += arregloId[i];
     }
     miva = document.getElementById("miva").value;
     iva = subtotal * (miva / 100);
-    total = subtotal + iva;
+    total = Number(subtotal) + Number(iva);
+    console.log(total);
     document.getElementById("Subtotal").value = Number.parseFloat(subtotal).toFixed(2);
     document.getElementById("Iva").value = Number.parseFloat(iva).toFixed(2);
     document.getElementById("Total").value = Number.parseFloat(total).toFixed(2);
@@ -253,8 +349,7 @@ function calcularCosto() {
 <!-- VALIDAR TODO -->
 <script>
 function validarTodo() {
-    var requi, provee, fechar, fechav, fact, condi, subtotal, iva, total, saldo;
-    requi = document.getElementById('Requisicion').value;
+    var provee, fechar, fechav, fact, condi, subtotal, iva, total, saldo;
     provee = document.getElementById('IdProveedor').value;
     fechar = document.getElementById('Fecha').value;
     fechav = document.getElementById('FechaVto').value;
@@ -267,7 +362,7 @@ function validarTodo() {
 
     exp = /\w+@\w+\.+[a-z]/;
 
-    if (requi == 0 || provee == 0 || fechar == '' || fechav=='' || fact == '' || condi == 0 || subtotal == '' || iva == '' || total == '') {
+    if (provee == 0 || fechar == '' || fechav=='' || fact == '' || condi == 0 || subtotal == '' || iva == '' || total == '') {
         alert("Todos los campos son obligatorios");
         return false;
     }
@@ -279,18 +374,18 @@ function registrarComPro() {
     var arregloId = new Array();
     let celdasId = document.querySelectorAll('#tbodydatos td');
     var c = 0;
-    for (let i = 0; i < celdasId.length / 5; ++i) {
-        arregloId[c] = celdasId[c].firstChild.checked;
+    for (let i = 0; i < celdasId.length / 6; ++i) {
+        arregloId[c] = celdasId[c].firstChild.data;
         arregloId[c + 1] = celdasId[c + 1].firstChild.data;
         arregloId[c + 2] = celdasId[c + 2].firstChild.data;
-        arregloId[c + 3] = celdasId[c + 3].firstChild.value;
+        arregloId[c + 3] = celdasId[c + 3].firstChild.data;
         arregloId[c + 4] = celdasId[c + 4].firstChild.data;
-        c += 5;
+        arregloId[c + 5] = celdasId[c + 5].firstChild.data;
+        c += 6;
     }
-    let IdCompra, IdRequisicion, IdProveedor, Factura, Condiciones, Fecha, FechaVto, Subtotal, Iva, Total, Saldo;
+    let IdCompra, IdProveedor, Factura, Condiciones, Fecha, FechaVto, Subtotal, Iva, Total, Saldo;
     $(document).ready(function() {
         IdCompra = $.trim($("#IdCompra").val());
-        IdRequisicion = $.trim($("#Requisicion").val());
         IdProveedor = $.trim($("#IdProveedor").val());
         Factura = $.trim($("#Factura").val());
         Condiciones = $("#Condiciones option:selected").text();
@@ -308,7 +403,6 @@ function registrarComPro() {
             data: {
                 opcion: opcion,
                 IdCompra: IdCompra,
-                IdRequisicion: IdRequisicion,
                 IdProveedor: IdProveedor,
                 Factura: Factura,
                 Condiciones: Condiciones,

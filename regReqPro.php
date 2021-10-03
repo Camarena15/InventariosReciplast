@@ -151,7 +151,7 @@ $conexion = $objeto->Conectar();
             </div>
             <div class="form-group col-md-2">
                 <label for="" class="form-label">Cantidad: </label>
-                <input type="number" class="form-control" id="Cantidad">
+                <input type="number" class="form-control" id="Cantidad" min="0" step=".01">
             </div>
         </div>
         <div class="row">
@@ -174,7 +174,8 @@ $conexion = $objeto->Conectar();
                 <th scope="col">Descripcion</th>
                 <th scope="col">IdProducto</th>
                 <th scope="col">Cantidad</th>
-                <th scope="col">Precio</th>
+                <th scope="col">Precio Unitario</th>
+                <th scope="col">Importe</th>
             </tr>
         </thead>
         <tbody id="tbodydatos">
@@ -188,7 +189,7 @@ $conexion = $objeto->Conectar();
         <div class="col-md-4"></div>
         <div class="col-md-3">
             <label for="" class="form-label">Total Aproximado: </label>
-            <input type="text" class="form-control" id="TotalAprox" disabled>
+            <input type="number" class="form-control" id="TotalAprox" step=".01">
         </div>
     </div>
 </div>
@@ -214,16 +215,11 @@ var cont = 0;
 function calcularCosto(){
     var totalAprox = 0;
     var arregloId = new Array();
-    let celdasId = document.querySelectorAll('td + td + td');
-    for (let i = 0; i < celdasId.length; ++i) {
-        arregloId[i] = celdasId[i].firstChild.data;
+    let celdasId = $('#tbodydatos tr td');
+    for (let i = 0; i < celdasId.length; i+=6) {
+        totalAprox += Number(celdasId[i+5].firstChild.data);
     }
-    for (let i = 2; i < arregloId.length; i+=3) {
-        totalAprox += arregloId[i]*arregloId[i-1];
-        //console.log(arregloId[i] + " " + arregloId[i-1] + " " + totalAprox);
-    }
-    
-    document.getElementById("TotalAprox").value = totalAprox;
+    document.getElementById("TotalAprox").value = Number.parseFloat(totalAprox).toFixed(2);
 }
 function registrarTabla() {
     var combo = document.getElementById("DescripcionProducto");
@@ -252,7 +248,7 @@ function registrarTabla() {
             // si se encontró un ID: encontrado!
             encontrado = true;
 
-            var tcan = parseInt(cantidad) + parseInt(cantidad1);
+            var tcan = parseFloat(cantidad) + parseFloat(cantidad1);
             var tpre = parseFloat(precio);
 
             tr.remove();
@@ -260,8 +256,8 @@ function registrarTabla() {
             fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont +
                 '</td><td><input type="hidden" value="' + selected + '"><input type="hidden" value="' +
                 idProducto + '"><input type="hidden" value="' + tcan + '"><input type="hidden" value="' + tpre +
-                '">' + selected + '</td><td>' + idProducto + '</td><td>' + tcan + '</td><td>' + tpre +
-                '</td></tr>';
+                '">' + selected + '</td><td>' + idProducto + '</td><td>' + Number.parseFloat(tcan).toFixed(2) + '</td><td>' + Number.parseFloat(tpre).toFixed(2) +
+                '</td><td>' + Number.parseFloat(tcan*tpre).toFixed(2) + '</td></tr>';
             $('#tbodydatos').append(fila);
             calcularCosto();
             return false;
@@ -275,7 +271,7 @@ function registrarTabla() {
         fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont + '</td><td><input type="hidden" value="' +
             selected + '"><input type="hidden" value="' + idProducto + '"><input type="hidden" value="' + cantidad +
             '"><input type="hidden" value="' + precio + '">' + selected + '</td><td>' + idProducto + '</td><td>' +
-            cantidad + '</td><td>' + precio + '</td></tr>';
+            Number.parseFloat(cantidad).toFixed(2) + '</td><td>' + Number.parseFloat(precio).toFixed(2) + '</td><td>' + Number.parseFloat(cantidad*precio).toFixed(2) + '</td></tr>';
         $('#tbodydatos').append(fila);
         calcularCosto();
         return;

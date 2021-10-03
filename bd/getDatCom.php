@@ -2,7 +2,7 @@
 $conexion=mysqli_connect('localhost','root','','mantenimiento');
 $compra=$_POST['compra'];
 
-	$sql="SELECT R.IdCompra, R.IdRequisicion, E.Nombre, R.Condiciones, R.Factura, R.Fecha, R.FechaVto, R.Saldo, R.IdProveedor
+	$sql="SELECT R.IdCompra, E.IdProveedor, E.Nombre, R.Condiciones, R.Factura, R.Fecha, R.FechaVto, R.Saldo, R.IdProveedor
 		from comprasproductos AS R INNER JOIN proveedores as E ON R.IdProveedor = E.IdProveedor
 		where IdCompra='$compra'";
 
@@ -15,7 +15,6 @@ $result=mysqli_query($conexion,$sql);
             <table id="tablaP" class="table table-hover " style="width:100%" ><thead class="text-center">'
     ."                <tr>"
     ."                  <th scope='col'>IdCompra<br>-</th>"
-    ."                  <th scope='col'>IdRequisicion <br>-</th>"
     ."                    <th scope='col'>Nombre<br> Proveedor</th>"
     ."                    <th scope='col' style='color:red;'>Condiciones<br>-</th>"
     ."                    <th scope='col'>Factura<br>-</th>"

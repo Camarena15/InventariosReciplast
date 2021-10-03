@@ -6,7 +6,7 @@ $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 ?>
 <div class="container">
-    <h1>Registrar Vales Consumibles</h1>
+    <h1>Registrar Devolución de Productos <br> de Vales Consumibles</h1>
 </div>
 <br>
 <form id="frm">
@@ -14,27 +14,29 @@ $conexion = $objeto->Conectar();
         <div class="row">
             <div class="form-group col-md-2">
                 <?php
-             $consulta = "SELECT * FROM valesconsumibles WHERE 1";
+             $consulta = "SELECT * FROM devprodvale WHERE 1";
              $resultado = $conexion->prepare($consulta);
              $resultado->execute();        
              $data=$resultado->rowCount();
           ?>
-                <label for="InputIdRequisicion" class="form-label">Id Vale: </label>
-                <input type="number" class="form-control" readonly onmousedown="return false;" id="IdValeCons"
+                <label for="InputIdDevolucion" class="form-label">Id-Devolución: </label>
+                <input type="number" class="form-control" readonly onmousedown="return false;" id="IdDevolucion"
                     value="<?php echo ($data + 1) ?>">
             </div>
         </div>
+        <hr>
         <div class="row">
             <div class="form-group col-md-4">
                 <!-- SELECT DE NOMBRES -->
                 <?php
-          $consulta = "SELECT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON 
-          R.IdEmpleadoSolicita = E.IdEmpleado WHERE R.Estado='Surtida' OR R.Estado='Ejecucion'";
-          $resultado = $conexion->prepare($consulta);
-          $resultado->execute();  
-          $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-        ?>
-                <label for="inputCp" class="form-label">Seleccionar Requisición: (sólo requisiciones en ejecución)</label>
+                    $consulta = "SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON 
+                    R.IdEmpleadoSolicita = E.IdEmpleado INNER JOIN  `detallerequisicionproductos` AS D ON D.IdRequisicion = R.IdRequisicion 
+                    WHERE D.CantidadSurtida > 0 AND D.CantidadSurtida <> D.CantidadDevuelta";
+                    $resultado = $conexion->prepare($consulta);
+                    $resultado->execute();  
+                    $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                <label for="inputCp" class="form-label">Seleccionar Requisición: (sólo requisiciones surtidas)</label>
                 <select type="text" class="form-control" id="Requisicion">
                     <option value="0">Seleccione una requisición</option>
                     <?php foreach ($data as $opciones): ?>
@@ -44,6 +46,10 @@ $conexion = $objeto->Conectar();
 
                     <?php endforeach ?>
                 </select>
+            </div>
+            <div class="form-group col-3">
+                <label for="" class="form-label"> <br> Fecha: </label>
+                <input type="date" class="form-control" id="Fecha">
             </div>
         </div>
         <script type="text/javascript">
@@ -68,7 +74,7 @@ $conexion = $objeto->Conectar();
             });
             $.ajax({
                 type: "POST",
-                url: "bd/getDetReq2.php",
+                url: "bd/getDetReq3.php",
                 data: "requisicion=" + $('#Requisicion').val(),
                 success: function(r) {
                     $('#tbodydatos').html(r);
@@ -78,114 +84,103 @@ $conexion = $objeto->Conectar();
         </script>
 
         <div id="DatosRequisicion"></div>
+        <hr>
 </form>
 
 
 <br></br>
+<div class="container text-left">
+    <h6 style="color: red;">(Seleccione únicamente los productos que <br> se devolverán)</h6>
+</div>
 <div class="container text-center">
-    <h5>Productos en Vale Consumible Registrados</h5>
+    <h5>Productos Devueltos Registrados</h5>
 </div>
 <div class="container">
     <table class="table table-stripped" id="tablaProductos">
         <thead>
             <tr>
-                <th scope="col">Seleccionar<br>-</th>
-                <th scope="col">IdProducto<br>-</th>
-                <th scope="col">Cantidad Requerida <BR>-</BR></th>
-                <th scope="col">Cantidad Suministrada<br>-</th>
-                <th scope="col">Precio<br>-</th>
+                <th scope="col">Seleccionar</th>
+                <th scope="col">IdProducto</th>
+                <th scope="col">Cantidad Surtida</th>
+                <th scope="col">Cantidad a Devolver</th>
             </tr>
         </thead>
         <tbody id="tbodydatos">
         </tbody>
     </table>
-    <div class="row">
-        <div class="col-2">
-            <button type="button" class="btn btn-success" onclick="validarTodo()">Nuevo</button>
-        </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-success" onclick="validarTodo()">Nuevo</button>
     </div>
 </div>
 
-<!-- SCRIPT PARA AGREGAR A LA TABLA Y VALIDAR -->
+<!-- VALIDAR TODO -->
 <script>
 function desactiva(n, c) {
     var caja = document.getElementById("cacom" + n);
     if (c == true)
         caja.disabled = false;
-    else{
+    else {
         caja.disabled = true;
         caja.value = 0;
     }
 }
-</script>
 
-<!-- VALIDAR TODO -->
-<script>
 function validarTodo() {
-    var IdRequisicion, IdEmpleadoRecibe, FechaEmision, FechaSurte, Motivo;
-    IdRequisicion = document.getElementById("Requisicion").value;
-    IdEmpleadoRecibe = document.getElementById("NombreEmpleado").value;
-    FechaEmision = document.getElementById("FechaEmision").value;
-    FechaSurte = document.getElementById("FechaSurte").value;
-    Motivo = document.getElementById("Motivo").value;
+    var IdRequisicion, Fecha, IdDevolucion;
+    IdRequisicion = document.getElementById('Requisicion').value;
+    Fecha = document.getElementById('Fecha').value;
+    IdDevolucion = document.getElementById('IdDevolucion');
     exp = /\w+@\w+\.+[a-z]/;
 
-    if (IdRequisicion == 0 || IdEmpleadoRecibe == 0 || FechaEmision == '' || FechaSurte == '' || Motivo == '') {
+    if (IdDevolucion == '' || IdRequisicion == 0 || Fecha == '') {
         alert("Todos los campos son obligatorios");
         return false;
     }
 
-    regVale();
+    regDevProdV();
 }
 
-function regVale() {
+function regDevProdV() {
     var arregloId = new Array();
     let celdasId = document.querySelectorAll('#tbodydatos td');
     var c = 0;
-    for (let i = 0; i < celdasId.length / 5; ++i) {
+    for (let i = 0; i < celdasId.length / 4; ++i) {
         arregloId[c] = celdasId[c].firstChild.checked;
         arregloId[c + 1] = celdasId[c + 1].firstChild.data;
         arregloId[c + 2] = celdasId[c + 2].firstChild.data;
         arregloId[c + 3] = celdasId[c + 3].firstChild.value;
-        arregloId[c + 4] = celdasId[c + 4].firstChild.data;
-        c += 5;
+        c += 4;
     }
-    let IdValeCons, IdRequisicion, IdEmpleadoRecibe, Motivo, FechaEmision, FechaSurte, Subtotal, Iva, Total, Saldo;
+    let IdDevolucion, IdRequisicion, Fecha;
     $(document).ready(function() {
-        IdValeCons = $.trim($("#IdValeCons").val());
+        IdDevolucion = $.trim($("#IdDevolucion").val());
         IdRequisicion = $.trim($("#Requisicion").val());
-        IdEmpleadoRecibe = $.trim($("#NombreEmpleado").val());
-        Motivo = $.trim($("#Motivo").val());
-        FechaEmision = $.trim($("#FechaEmision").val());
-        FechaSurte = $.trim($("#FechaSurte").val());
+        Fecha = $.trim($("#Fecha").val());
+        console.log(IdDevolucion  + "---" + IdRequisicion + "---" + Fecha);
         opcion = 1;
         $.ajax({
-            url: "bd/ValesCons.php",
+            url: "bd/DevProd.php",
             type: "POST",
             datatype: "json",
             data: {
                 opcion: opcion,
-                IdValeCons: IdValeCons,
+                IdDevolucion: IdDevolucion,
                 IdRequisicion: IdRequisicion,
-                IdEmpleadoRecibe: IdEmpleadoRecibe,
-                FechaEmision: FechaEmision,
-                FechaSurte: FechaSurte,
-                Motivo: Motivo,
+                Fecha: Fecha,
                 'arregloId': JSON.stringify(arregloId)
             },
             success: function() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Todo correcto!',
-                    text: 'Vale Consumible Registrado',
+                    text: 'Devolución de Productos de Vale Consumible Registrada',
                     showConfirmButton: false,
-                    footer: '<a href = "consValeCons.php">Ir a consultar</a>'
+                    footer: '<a href = "consDevProd.php">Ir a consultar</a>'
                 })
 
             }
         });
     });
-
 }
 </script>
 

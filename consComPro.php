@@ -22,7 +22,6 @@ $conexion = $objeto->Conectar();
                     <thead class="text-center">
                         <tr>
                             <th>IdCompra</th>
-                            <th>IdRequisicion</th>
                             <th>IdProveedor</th>
                             <th>Proveedor</th>
                             <th>Factura</th>
@@ -38,7 +37,7 @@ $conexion = $objeto->Conectar();
     foreach ($data as $opciones):
     {
         echo "<tr>";
-        echo "<td>".$opciones['IdCompra']."</td><td>".$opciones['IdRequisicion']."</td><td>".$opciones['IdProveedor']."</td>
+        echo "<td>".$opciones['IdCompra']."</td><td>".$opciones['IdProveedor']."</td>
         <td>".$opciones['Nombre']."</td><td>".$opciones['Factura']."</td><td>".$opciones['Condiciones']."</td><td>".$opciones['Fecha']."</td>
         <td>".$opciones['FechaVto']."</td><td>".$opciones['Subtotal']."</td><td>".$opciones['Iva']."</td><td>".$opciones['Total']."</td><td>".$opciones['Saldo']."</td>";
         echo "</tr>";

@@ -18,7 +18,6 @@ $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
 echo"<thead>";
 echo"                <tr>";
 echo"                  <th scope='col'>IdCompra</th>";
-echo"                  <th scope='col'>IdRequisicion</th>";
 echo"                    <th scope='col'>Proveedor</th>";
 echo"                    <th scope='col'>Factura</th>";
 echo"                    <th scope='col'>Condiciones</th>";
@@ -35,7 +34,7 @@ echo"            </tbody>";
     foreach ($data as $opciones):
     {
         echo "<tr>";
-        echo "<td>".$opciones['IdCompra']."</td><td>".$opciones['IdRequisicion']."</td><td>".$opciones['Nombre']."</td><td>".
+        echo "<td>".$opciones['IdCompra']."</td><td>".$opciones['Nombre']."</td><td>".
         $opciones['Factura']."</td><td>".$opciones['Condiciones']."</td><td>".$opciones['Fecha']."</td><td>".$opciones['FechaVto'].
         "</td><td>".$opciones['Subtotal']."</td><td>".$opciones['Iva']."</td><td>".$opciones['Total']."</td><td>".$opciones['Saldo']."</td>";
         echo "</tr>";

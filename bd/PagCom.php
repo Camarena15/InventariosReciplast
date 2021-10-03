@@ -20,12 +20,12 @@ switch($opcion){
         $resultado1 = $conexion->prepare($consulta2);
         $resultado1->execute(); 
 
-        $consulta2 = "UPDATE `comprasproductos` SET Saldo=Saldo-$Importe WHERE IdCompra=$IdCompra";		
+        $consulta2 = "UPDATE `comprasproductos` SET Saldo=ROUND(`Saldo`- $Importe, 2)  WHERE IdCompra=$IdCompra";		
         $resultado1 = $conexion->prepare($consulta2);
         $resultado1->execute();
 
         if ($Condiciones == "Crédito") {
-            $consulta2 = "UPDATE `proveedores` SET Saldo=Saldo-$Importe WHERE IdProveedor=$Proveedor";		
+            $consulta2 = "UPDATE `proveedores` SET Saldo=ROUND(`Saldo`- $Importe, 2)  WHERE IdProveedor=$Proveedor";		
             $resultado1 = $conexion->prepare($consulta2);
             $resultado1->execute();
         }
