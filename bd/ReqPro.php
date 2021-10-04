@@ -24,10 +24,10 @@ switch($opcion){
         $resultado1 = $conexion->prepare($consulta2);
         $resultado1->execute(); 
         $c=0;
-        for($i = 0; $i<=$max; $i+=3){
-            $IdProducto[$c] = $data[$i];
-            $Cantidad[$c] = $data[$i+1];
-            $Costo[$c] = $data[$i+2];
+        for($i = 0; $i<=$max; $i+=6){
+            $IdProducto[$c] = $data[$i+2];
+            $Cantidad[$c] = $data[$i+3];
+            $Costo[$c] = $data[$i+4];
             echo 'console.log('.$IdProducto[$c] . ' + " " +' . $Cantidad[$c] . '+ " " +' . $Costo[$c] . ')';
             $consulta = "INSERT INTO detallerequisicionproductos (IdRequisicion, IdProducto, Cantidad, CantidadSurtida, CantidadDevuelta, CostoAprox) 
             VALUES($IdRequisicion, $IdProducto[$c], $Cantidad[$c], 0, 0, $Costo[$c]) ";	

@@ -306,10 +306,16 @@ function validarTodo() {
 
 function registrarReqPro() {
     var arregloId = new Array();
-    let celdasId = document.querySelectorAll('td + td + td');
-
-    for (let i = 0; i < celdasId.length; ++i) {
-        arregloId[i] = celdasId[i].firstChild.data;
+    let celdasId = document.querySelectorAll('#tbodydatos td');
+    var c = 0;
+    for (let i = 0; i < celdasId.length / 6; ++i) {
+        arregloId[c] = celdasId[c].firstChild.data;
+        arregloId[c + 1] = celdasId[c + 1].firstChild.data;
+        arregloId[c + 2] = celdasId[c + 2].firstChild.data;
+        arregloId[c + 3] = celdasId[c + 3].firstChild.data;
+        arregloId[c + 4] = celdasId[c + 4].firstChild.data;
+        arregloId[c + 5] = celdasId[c + 5].firstChild.data;
+        c += 6;
     }
     let IdRequisicion, IdEmpleadoSolicita, Fecha, TotalAprox;
     $(document).ready(function() {

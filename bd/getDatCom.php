@@ -15,6 +15,7 @@ $result=mysqli_query($conexion,$sql);
             <table id="tablaP" class="table table-hover " style="width:100%" ><thead class="text-center">'
     ."                <tr>"
     ."                  <th scope='col'>IdCompra<br>-</th>"
+    ."                  <th scope='col'>IdProveedor<br>-</th>"
     ."                    <th scope='col'>Nombre<br> Proveedor</th>"
     ."                    <th scope='col' style='color:red;'>Condiciones<br>-</th>"
     ."                    <th scope='col'>Factura<br>-</th>"

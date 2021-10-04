@@ -34,7 +34,8 @@ $conexion = $objeto->Conectar();
           $resultado->execute();  
           $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         ?>
-                <label for="inputCp" class="form-label">Seleccionar Requisición: (sólo requisiciones en ejecución)</label>
+                <label for="inputCp" class="form-label">Seleccionar Requisición: (sólo requisiciones en
+                    ejecución)</label>
                 <select type="text" class="form-control" id="Requisicion">
                     <option value="0">Seleccione una requisición</option>
                     <?php foreach ($data as $opciones): ?>
@@ -78,6 +79,65 @@ $conexion = $objeto->Conectar();
         </script>
 
         <div id="DatosRequisicion"></div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <!-- SELECT DE NOMBRES -->
+                <?php
+            $consulta = "SELECT IdEmpleado, Nombre FROM empleados Order By Nombre ASC";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();  
+            $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+            ?>
+                <label for="inputCp" class="form-label">Empleado que recibe: </label>
+                <select type="text" class="form-control" id="NombreEmpleado">
+                    <option value="0">Seleccione un empleado</option>
+                    <?php foreach ($data as $opciones): ?>
+
+                    <option value="<?php echo $opciones['IdEmpleado'] ?>"><?php echo $opciones['Nombre'] ?></option>
+
+                    <?php endforeach ?>
+                </select>
+            </div>
+            <div class="form-group col-md-2" id="IdEmpleado">
+                <!-- SCRIPT PARA EL ID EMPLEADO-->
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#NombreEmpleado').val(0);
+                    recargar();
+
+                    $('#NombreEmpleado').change(function() {
+                        recargar();
+                    });
+                })
+                </script>
+                <script type="text/javascript">
+                function recargar() {
+                    $.ajax({
+                        type: "POST",
+                        url: "bd/getIdEmpleado.php",
+                        data: "empleado=" + $('#NombreEmpleado').val(),
+                        success: function(r) {
+                            $('#IdEmpleado').html(r);
+                        }
+                    });
+                }
+                </script>
+            </div>
+            <div class="form-group col-3">
+                <label for="" class="form-label">Fecha de Emisión: </label>
+                <input type="date" class="form-control" id="FechaEmision">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="inputTel" class="form-label">Motivo: </label>
+                <textarea type="text" class="form-control" id="Motivo" cols="20" rows="5" maxlength="200"></textarea>
+            </div>      
+            <div class="form-group col-3">
+                <label for="" class="form-label">Fecha de Surtido: </label>
+                <input type="date" class="form-control" id="FechaSurte">
+            </div>
+        </div>
 </form>
 
 
@@ -112,7 +172,7 @@ function desactiva(n, c) {
     var caja = document.getElementById("cacom" + n);
     if (c == true)
         caja.disabled = false;
-    else{
+    else {
         caja.disabled = true;
         caja.value = 0;
     }
