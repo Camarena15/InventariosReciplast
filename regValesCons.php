@@ -11,7 +11,7 @@ $conexion = $objeto->Conectar();
 <br>
 <form id="frm">
     <div class="container">
-        <div class="row">
+    <div class="row">
             <div class="form-group col-md-2">
                 <?php
              $consulta = "SELECT * FROM valesconsumibles WHERE 1";
@@ -24,6 +24,51 @@ $conexion = $objeto->Conectar();
                     value="<?php echo ($data + 1) ?>">
             </div>
         </div>
+        <!--******************************************************************-->
+        <p>(Únicamente se mostrarán las requisiciones en fase de ejecución)</p>
+        <div class="row">
+
+            <div class="form-group col-md-3">
+                <label for="" class="form-label">Fecha Inicial: </label>
+                <input type="date" class="form-control" id="FI">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="" class="form-label">Fecha Final: </label>
+                <input type="date" class="form-control" id="FF">
+            </div>
+            <div class="form-group col-md-4">
+                <?php
+                  $consulta = "SELECT DISTINCTROW E.Nombre, E.IdEmpleado FROM requisicionesproductos AS OM INNER JOIN empleados AS E ON OM.IdEmpleadoSolicita = E.IdEmpleado WHERE OM.Estado='Ejecucion'";
+                  $resultado = $conexion->prepare($consulta);
+                  $resultado->execute();        
+                  $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <label for="" class="form-label">Nombre de Empleado: </label>
+                <select type="text" class="form-control" id="Empleado">
+                    <option value="0">Seleccione un empleado</option>
+                    <?php foreach ($data as $opciones): ?>
+                        <option value="<?php echo $opciones['IdEmpleado'] ?>"><?php echo $opciones['Nombre'] ?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" onclick="validar1()">Buscar</button>
+            </div>
+        </div>
+
+        <br>
+        <div class="container">
+            <h3>Requisiciones encontradas:</h1>
+        </div>
+        <hr>
+        <div class="container">
+            <table class="table table-stripped table-dark" id="tabla1">
+            </table>
+        </div>
+        <!--******************************************************************-->
         <div class="row">
             <div class="form-group col-md-4">
                 <!-- SELECT DE NOMBRES -->
@@ -34,16 +79,9 @@ $conexion = $objeto->Conectar();
           $resultado->execute();  
           $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         ?>
-                <label for="inputCp" class="form-label">Seleccionar Requisición: (sólo requisiciones en
-                    ejecución)</label>
+                <label for="inputCp" class="form-label">Seleccionar Requisición:</label>
                 <select type="text" class="form-control" id="Requisicion">
-                    <option value="0">Seleccione una requisición</option>
-                    <?php foreach ($data as $opciones): ?>
-
-                    <option value="<?php echo $opciones['IdRequisicion'] ?>"><?php echo $opciones['IdRequisicion'] ?> ->
-                        <?php echo $opciones['Nombre']?> (<?php echo $opciones['Fecha']?>)</option>
-
-                    <?php endforeach ?>
+                    
                 </select>
             </div>
         </div>
@@ -247,6 +285,51 @@ function regVale() {
     });
 
 }
+
+function validar1() {
+    var fi, ff;
+    fi = document.getElementById('FI').value;
+    ff = document.getElementById('FF').value;
+    exp = /\w+@\w+\.+[a-z]/;
+
+    if (fi == 0 || ff == 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Seleccione correctamente el periodo',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        return false;
+
+    } else {
+        registrarselect();
+    }
+
+}
+function registrarselect() {
+    let ide, fi, ff;
+    $(document).ready(function() {
+        ide = $.trim($("#Empleado").val());
+        fi = $.trim($("#FI").val());
+        ff = $.trim($("#FF").val());
+        $.ajax({
+            url: "bd/selectreq-2.php",
+            type: "POST",
+            datatype: "json",
+            data: {
+                ide: ide,
+                fi: fi,
+                ff: ff
+            },
+            success: function(r) {
+                $('#Requisicion').html(r);
+            }
+        });
+    });
+
+}
+
 </script>
 
 

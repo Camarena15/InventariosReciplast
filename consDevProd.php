@@ -1,92 +1,100 @@
 <?php require_once "vistas/parte_superior.php"?>
-<!-- INICIO del contenido principal -->
-<?php 
-include 'bd/conexion.php';
-$objeto = new Conexion();
-$conexion = $objeto->Conectar();
-?>
-<div class="container"><h1>CONSULTA Devolución de Productos <br> de Vales Consumibles</h1></div>
-    <br>  
-    <?php
-          $consulta = "SELECT C.IdDevolucion, C.IdRequisicion, C.Fecha FROM devprodvale AS C";
-          $resultado = $conexion->prepare($consulta);
-          $resultado->execute();  
-          $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-        ?>
-    <div class="container caja">
-        <div class="row">
-            <div class="col-lg-12">
-            <div class="table-responsive">        
-                <table id="tablaP" class="table table-hover  table-dark" style="width:100%" >
+<div class="container">
+    <h1>Consulta de Devolución de Productos de Vales Consumibles</h1>
+</div>
+<br>
+<div class="container caja">
+<div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table id="tablaP" class="table table-striped table-bordered table-condensed" style="width:100%">
                     <thead class="text-center">
                         <tr>
                             <th>IdDevolucion</th>
                             <th>IdRequisicion</th>
                             <th>Fecha</th>
-                        </tr>  
-    <?php
-    foreach ($data as $opciones):
-    {
-        echo "<tr>";
-        echo "<td>".$opciones['IdDevolucion']."</td><td>".$opciones['IdRequisicion']."</td><td>".$opciones['Fecha']."</td>";
-        echo "</tr>";
-    }
-endforeach;
-    echo "</table>";
-    echo"</thead>";
-    echo "<tbody> ";                         
-    echo "</tbody>";        
-    echo "</table>";               
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";  
-    echo "</div>";  
-    
-    
-    ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <br>
 <br>
 <br>
-<div class="container"><h1>CONSULTA Detalles de Devolución <br> de Productos de Vales Consumibles</h1></div>
-    <br>  
-    <?php
-          $consulta = "SELECT D.IdDevolucion, P.Descripcion, D.Cantidad FROM detdevprodvale as D INNER JOIN productos as P ON
-          D.IdProducto = P.IdProducto";
-          $resultado = $conexion->prepare($consulta);
-          $resultado->execute();  
-          $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-        ?>
-    <div class="container caja">
-        <div class="row">
-            <div class="col-lg-12">
-            <div class="table-responsive">        
-                <table id="tablaP" class="table table-hover  table-dark" style="width:100%" >
-                    <thead class="text-center">
-                        <tr>
-                            <th>IdDevolucion</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                        </tr>  
-    <?php
-    foreach ($data as $opciones):
-    {
-        echo "<tr>";
-        echo "<td>".$opciones['IdDevolucion']."</td><td>".$opciones['Descripcion']."</td><td>".$opciones['Cantidad']."</td>";
-        echo "</tr>";
-    }
-endforeach;
-    echo "</table>";
-    echo"</thead>";
-    echo "<tbody> ";                         
-    echo "</tbody>";        
-    echo "</table>";               
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";  
-    echo "</div>";  
-    
-    
-    ?>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <select class="form-control" id="detalles">
+        </select>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('#detalles').val(0);
+            getDetalles();
+
+            $('#detalles').change(function() {
+                getDetalles();
+            });
+        })
+        </script>
+        <script type="text/javascript">
+        function getDetalles() {
+            var opcion = 2;
+            var idmov = $('#detalles').val();
+            $.ajax({
+                type: "POST",
+                url: "bd/getDetalles.php",
+                data: {
+                    idmov: idmov,
+                    opcion: opcion
+                },
+                success: function(r) {
+                    $('#detallestabla').html(r);
+                }
+            });
+        }
+        </script>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <h1>Consulta Detalles de Devolución de Productos de Vales Consumibles</h1>
+</div>
+<br>
+<div id="detallestabla"></div>
+
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- FIN del contenido principal -->
 <?php require_once "vistas/parte_inf.php"?>
+<script type="text/javascript" src="devprod.js"></script>
+<script>
+function load() {
+    var info = tabla.page.info();
+    var opcion = 2;
+    $.ajax({
+        url: "bd/selectcomid.php",
+        type: "POST",
+        datatype: "json",
+        data: {
+            ri: (info.start + 1),
+            rf: info.end,
+            opcion: opcion
+        },
+        success: function(r) {
+            $('#detalles').html(r);
+        }
+    });
+}
+window.onload = load;
+
+/*$('#tablaP').on('search.dt', function() {
+    load();
+});*/
+$('#tablaP').on('page.dt', function() {
+    load();
+});
+</script>

@@ -108,7 +108,7 @@
                                 Vales Consumibles</a></li>
                                 <ul class="collapse lisst-unstyled" id="valescons">
                                     <li><a class="dropdown-item" href="regValesCons.php">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="consValesCons.php">Consultar</a></li>
+                                    <li><a class="dropdown-item" href="consValeCons.php">Consultar</a></li>
                                 </ul>
                     </ul>
                 </li>

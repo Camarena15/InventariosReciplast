@@ -96,7 +96,9 @@ $conexion = $objeto->Conectar();
             <div class="form-group col-md-3">
                 <!-- SELECT PARA EL PRODUCTO -->
                 <?php
-          $consulta = "SELECT IdProducto, Descripcion FROM productos Order By Descripcion ASC";
+          $consulta = "SELECT DISTINCT P.IdProducto, P.Descripcion FROM productos as P INNER JOIN detallerequisicionproductos as D ON 
+          D.IdProducto = P.IdProducto INNER JOIN requisicionesproductos AS R ON R.IdRequisicion = D.IdRequisicion 
+          WHERE R.Estado = 'Ejecucion' AND D.Cantidad > D.CantidadSurtida Order By Descripcion ASC";
           $resultado = $conexion->prepare($consulta);
           $resultado->execute();  
           $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
