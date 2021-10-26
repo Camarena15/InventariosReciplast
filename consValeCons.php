@@ -94,11 +94,10 @@ function load() {
         }
     });
 }
-window.onload = load;
-
-/*$('#tablaP').on('search.dt', function() {
+window.onload = setTimeout(function() {
     load();
-});*/
+}, 500);
+
 $('#tablaP').on('page.dt', function() {
     load();
 });

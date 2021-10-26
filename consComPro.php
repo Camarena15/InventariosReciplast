@@ -84,6 +84,7 @@
 function load() {
     var info = tabla.page.info();
     var opcion = 1;
+    console.log(info.start+1 + "-" + info.end);
     $.ajax({
         url: "bd/selectcomid.php",
         type: "POST",
@@ -91,6 +92,7 @@ function load() {
         data: {
             ri: (info.start + 1),
             rf: info.end,
+            se: tabla.search(),
             opcion: opcion
         },
         success: function(r) {
@@ -98,7 +100,10 @@ function load() {
         }
     });
 }
-window.onload = load;
+
+window.onload = setTimeout(function() {
+    load();
+}, 500);
 
 /*$('#tablaP').on('search.dt', function() {
     load();

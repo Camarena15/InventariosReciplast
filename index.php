@@ -118,20 +118,16 @@
                         Informes
                     </a>
                     <ul class="collapse lisst-unstyled" id="infsubmenu">
-                        <li><a class="dropdown-item" href="#">Relación de Existencias<br> de Productos por<br> Categoría</a></li>
-                        <li><a class="dropdown-item" href="#">Lista de Productos a<br> Surtir</a></li>
-                        <li><a class="dropdown-item" href="#">Relación de <br>Proveedores</a></li>
-                        <li><a class="dropdown-item" href="#">Relación de <br>Empleados</a></li>
-                        <li><a class="dropdown-item" href="#">Lista de Requisiciones<br> de Productos<br> por Estado</a></li>
-                        <li><a class="dropdown-item" href="#">Lista de Requisiciones<br> de Servicios<br> por Estado</a></li>
-                        <li><a class="dropdown-item" href="#">Compras de Productos<br> en un Periodo</a></li>
-                        <li><a class="dropdown-item" href="#">Relación de Compras<br> de Productos a Vencer</a></li>
-                        <li><a class="dropdown-item" href="#">Compras de Servicios<br> en un Periodo</a></li>
-                        <li><a class="dropdown-item" href="#">Relación de Compras<br> de Servicios a Vencer</a></li>
-                        <li><a class="dropdown-item" href="#">Pagos de Compras de<br> Productos en un <br>Periodo</a></li>
-                        <li><a class="dropdown-item" href="#">Pagos de Compras de<br> Servicios en un <br>Periodo</a></li>
-                        <li><a class="dropdown-item" href="#">Relación de Vales de<br> Consumibles en un <br>Periodo por Empleado</a></li>
-                        <li><a class="dropdown-item" href="#">Relación de Devolución<br> de Refacciones de <br>Mantto en un Periodo</a></li>
+                        <li><a class="dropdown-item" href="R_exisprod.php">Relación de Existencias<br> de Productos por<br> Categoría</a></li>
+                        <li><a class="dropdown-item" href="R_liprosur.php">Lista de Productos a<br> Surtir</a></li>
+                        <li><a class="dropdown-item" href="R_relprov.php">Relación de <br>Proveedores</a></li>
+                        <li><a class="dropdown-item" href="R_relemp.php">Relación de <br>Empleados</a></li>
+                        <li><a class="dropdown-item" href="R_reqest.php">Lista de Requisiciones<br> de Productos<br> por Estado</a></li>
+                        <li><a class="dropdown-item" href="R_coprope.php">Compras de Productos<br> en un Periodo</a></li>
+                        <li><a class="dropdown-item" href="R_coprove.php">Relación de Compras<br> de Productos a Vencer</a></li>
+                        <li><a class="dropdown-item" href="R_paprope.php">Pagos de Compras de<br> Productos en un <br>Periodo</a></li>
+                        <li><a class="dropdown-item" href="R_revalcon.php">Relación de Vales de<br> Consumibles en un <br>Periodo por Empleado</a></li>
+                        <li><a class="dropdown-item" href="R_redepro.php">Relación de Devolución<br> de Productos de <br>Vales en un Periodo</a></li>
                     </ul>
                 </li>
             </ul>
