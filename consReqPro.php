@@ -13,8 +13,8 @@
                             <th>IdRequisicion</th>
                             <th>Empleado Solicita</th>
                             <th>Fecha</th>
-                            <th>Total Aproximado</th>
                             <th>Estado</th>
+                            <th>Total Aproximado</th>
                         </tr>
                     </thead>
                     <tbody>

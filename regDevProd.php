@@ -101,7 +101,7 @@ $conexion = $objeto->Conectar();
             <tr>
                 <th scope="col">Seleccionar</th>
                 <th scope="col">IdProducto</th>
-                <th scope="col">Cantidad Surtida</th>
+                <th scope="col">Cantidad Actual Surtida</th>
                 <th scope="col">Cantidad a Devolver</th>
             </tr>
         </thead>

@@ -193,7 +193,7 @@ $pdf->SetFont('Times','',10);
 				}
 				$pdf->Cell(array_sum($w),0,'','T',1);
 				$pdf->Cell(10,6,'TOTAL:','LR',0,'C',$fill);
-				$pdf->Cell(179,6,'$' . $saldototal,'LR',1,'C',$fill);
+				$pdf->Cell(179,6,'$' . $saldototal,'LR',1,'R',$fill);
 				// Línea de cierre
 				$pdf->Cell(array_sum($w),0,'','T');
 				
