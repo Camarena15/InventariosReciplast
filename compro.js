@@ -12,7 +12,7 @@ $(document).ready(function() {
         "columns":[
             {"data": "IdCompra"},
             {"data": "IdProveedor"},
-            {"data": "Nombre"},
+            {"data": "NombreP"},
             {"data": "Factura"},
             {"data": "Condiciones"},
             {"data": "Fecha"},

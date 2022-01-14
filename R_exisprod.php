@@ -24,7 +24,7 @@ $conexion = $objeto->Conectar();
                 <select type="number" class="form-control" id="IdSubCategoria" name="IdSubCategoria">
                     <option value="0">Seleccione una subcategoría</option>
                     <?php foreach ($data as $opciones): ?>
-                        <option value ="<?php echo $opciones['IdSubCategoria'] ?>"><?php echo $opciones['Descripcion'] ?></option>
+                        <option value ="<?php echo $opciones['IdSubCategoria'] ?>"><?php echo $opciones['DescripcionSC'] ?></option>
                     <?php endforeach ?>
                 </select>
             </div>

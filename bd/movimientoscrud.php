@@ -10,7 +10,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1:    
-        $consulta = "SELECT C.*, P.Nombre FROM comprasproductos AS C INNER JOIN proveedores as P ON P.IdProveedor = C.IdProveedor WHERE 1";
+        $consulta = "SELECT C.*, P.NombreP FROM comprasproductos AS C INNER JOIN proveedores as P ON P.IdProveedor = C.IdProveedor WHERE 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

@@ -1,166 +1,85 @@
+<?php
+    session_start();
+    $priv;
+    if (!isset($_SESSION["usuario"])) {       
+    }else {
+        include("conexion.php");
+        $usuName = $_SESSION["usuario"];
+        $pass = $_SESSION["password"];
+        $consulta = "SELECT Sistema, Privilegio FROM usuarios WHERE `Nombre`= '$usuName' AND `Contrasena`= '$pass'";
+        $resultados = mysqli_query($conexion,$consulta);
+        $fila=mysqli_fetch_array($resultados, MYSQLI_ASSOC);
+        $sistema = $fila["Sistema"];
+        $priv=$fila["Privilegio"];
+        if($sistema == "I"){
+            header("Location:principal.php");
+        }
+        
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Inventario - Reciplast de Occidente S.P.R. de R.L. de C.V.</title>
     <link rel="shortcut icon" type="image/x-icon" href="rsc/css/img/logo.ico">
+    <title>Iniciar Sesión - Reciplast de Occidente S.P.R. de R.L. de C.V.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="http://reciplast.com.mx/css/carousel.css">
-    <link rel="stylesheet" href="../rsc/css/content.css"> 
-
+    <link rel="stylesheet" href="http://reciplast.com.mx/Inventarios_Web/rsc/css/content.css">
 </head>
-
-<body>
+<body id="bodylogin">
     <div id="container">
-        <header>
+    <header>
             <nav class="navbar-expand-md navbar-dark fixed-top bg-dark" id="headnav">
-                <a class="navbar-brand" href="../index.php">Reciplast de Occidente, S.P.R. de R.L. de S.A.</a>
+                <a class="navbar-brand" href="">Reciplast de Occidente, S.P.R. de R.L. de S.A.</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <ul>
-                    <li class="active">
-                        <a class="nav-link dropdown-toggle" href="#ususubmenu" id="userinfo" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">Administrador
-                        </a>
-                        <ul class="dropdown-menu bg-dark" id="ususubmenu">
-                            <li><a id="profilebtn" class="dropdown-item" href="/RecycleBin/profile.php">Mi Perfil</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                </ul>
             </nav>
-        </header>
-        <div class="clearfix"></div>
-        <aside id="my-sidebar">
-            <ul>
-                <li>
-                    <img src="rsc/css/img/Icon2.png" id="brand-icon">
-                </li>
-                <li class="nav-item"><a class="nav-link" href="../index.php">
-                        <h5>Inicio</h5>
-                    </a></li>
-                <li class="active">
-                    <a class="nav-link dropdown-toggle" href="#catsubmenu" id="catalogos" role="button"
-                        data-bs-toggle="collapse" aria-expanded="false">
-                        Catálogos
-                    </a>
-                    <ul class="collapse lisst-unstyled" id="catsubmenu">
-                        <li class="dropdown-header" href="#">Catálogos Disponibles:<hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/areas.php">Áreas</a></li>
-                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/categorias.php">Categorías</a></li>
-                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/empleados.php">Empleados</a></li>
-                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/productos.php">Productos</a></li>
-                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/proveedores.php">Proveedores</a></li>
-                        <li><a class="dropdown-item" href="/RecycleBin/Catalogos/puestos.php">Puestos</a></li>
-                    </ul>
-                </li>
-                <li class="active">
-                    <a class="nav-link dropdown-toggle" href="#movsubmenu" id="movimientos" role="button"
-                        data-bs-toggle="collapse" aria-expanded="false">
-                        Movimientos
-                    </a>
-                    <ul class="collapse lisst-unstyled" id="movsubmenu">
-                        <li class="active">
-                            <a class="nav-link dropdown-toggle" href="#comprapro" id="compro" role="button"
-                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
-                                Compras de Productos</a></li>
-                                <ul class="collapse lisst-unstyled" id="comprapro">
-                                    <li><a class="dropdown-item" href="regComPro.php">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="consComPro">Consultar</a></li>
-                                </ul>
-                        <li class="active">
-                            <a class="nav-link dropdown-toggle" href="#devpro" id="depro" role="button"
-                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
-                                Devolución de Productos<br> de Vales</a></li>
-                                <ul class="collapse lisst-unstyled" id="devpro">
-                                    <li><a class="dropdown-item" href="regDevProd.php">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="consDevProd.php">Consultar</a></li>
-                                </ul>
-                        <li class="active">
-                            <a class="nav-link dropdown-toggle" href="#pagospro" id="papro" role="button"
-                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
-                                Pagos de Compras de <br> Productos</a></li>
-                                <ul class="collapse lisst-unstyled" id="pagospro">
-                                    <li><a class="dropdown-item" href="regPagCom.php">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="consPagCom.php">Consultar</a></li>
-                                </ul>
-                        <li class="active">
-                            <a class="nav-link dropdown-toggle" href="#reqpro" id="repro" role="button"
-                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
-                                Requisición de Productos</a></li>
-                                <ul class="collapse lisst-unstyled" id="reqpro">
-                                    <li><a class="dropdown-item" href="regReqPro.php">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="caesReqPro.php">Cambiar Estado</a></li>
-                                    <li><a class="dropdown-item" href="consReqPro.php">Consultar</a></li>
-                                </ul>
-                        <li class="active">
-                            <a class="nav-link dropdown-toggle" href="#valescons" id="valcon" role="button"
-                                data-bs-toggle="collapse" aria-expanded="false" style="font-size: 0.8em;">
-                                Vales Consumibles</a></li>
-                                <ul class="collapse lisst-unstyled" id="valescons">
-                                    <li><a class="dropdown-item" href="regValesCons.php">Registrar</a></li>
-                                    <li><a class="dropdown-item" href="consValeCons.php">Consultar</a></li>
-                                </ul>
-                    </ul>
-                </li>
-                <li class="active">
-                    <a class="nav-link dropdown-toggle" href="#infsubmenu" id="informes" role="button"
-                        data-bs-toggle="collapse" aria-expanded="false">
-                        Informes
-                    </a>
-                    <ul class="collapse lisst-unstyled" id="infsubmenu">
-                        <li><a class="dropdown-item" href="R_exisprod.php">Relación de Existencias<br> de Productos por<br> Categoría</a></li>
-                        <li><a class="dropdown-item" href="R_liprosur.php">Lista de Productos a<br> Surtir</a></li>
-                        <li><a class="dropdown-item" href="R_relprov.php">Relación de <br>Proveedores</a></li>
-                        <li><a class="dropdown-item" href="R_relemp.php">Relación de <br>Empleados</a></li>
-                        <li><a class="dropdown-item" href="R_reqest.php">Lista de Requisiciones<br> de Productos<br> por Estado</a></li>
-                        <li><a class="dropdown-item" href="R_coprope.php">Compras de Productos<br> en un Periodo</a></li>
-                        <li><a class="dropdown-item" href="R_coprove.php">Relación de Compras<br> de Productos a Vencer</a></li>
-                        <li><a class="dropdown-item" href="R_paprope.php">Pagos de Compras de<br> Productos en un <br>Periodo</a></li>
-                        <li><a class="dropdown-item" href="R_revalcon.php">Relación de Vales de<br> Consumibles en un <br>Periodo por Empleado</a></li>
-                        <li><a class="dropdown-item" href="R_redepro.php">Relación de Devolución<br> de Productos de <br>Vales en un Periodo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </aside>
-
-        <section id="content">
-            <img src="rsc/css/img/Icon.jpg" alt="Logo" class="img-fluid" style="width: 100px; float: right;">
-            <br><br><br><br><br>
-            <h2 style="color: white; float: right;">Reciplast de Occidente S.P.R. de R.L. de C.V.</h2>
-            <br><br>
-            <h3 style="color: white; float: right;">Comprometidos con el medio ambiente</h3>
-        </section>
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Reciplast de Occidente de S.P.R. de R.L. de C.V.</span><hr>
-                    <span>Emmanuel Camarena Becerra</span>
-                </div>
-            </div>
-        </footer>
+    </header>
+    <div class="clearfix"></div>
+    <section id="content">
+    <img src="rsc/css/img/Icon.jpg" id="imglogin">
+    <div id="framelogin">
+    <H3>ACCEDER A SISTEMA DE INVENTARIOS</H3>
+    <form action="comprueba_login.php" method="post">
+        <table><tr>
+            <td class="izqu">
+                Usuario: 
+            </td>
+            <td class="der">
+                <input type="text" name="login" class="form-control" maxlength="20">
+            </td>
+        </tr>
+        <tr>
+            <td class="izqu">
+                Contraseña: 
+            </td>
+            <td class="der">
+                <input type="password" name="password" class="form-control"  maxlength="20">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="btn btn-dark" type="submit" value="Iniciar Sesión" name="enviar">
+            </td>
+            <td id="wrong-user" style="border: 1px solid #F36040; background-color: #F59580;" hidden>Error de inicio de sesión<br>Usuario no válido</td>
+        </tr>
+        </table>
+        
+    </form>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha384-S58meLBGKxIiQmJ/pJ8ilvFUcGcqgla+mWH9EEKGm6i6rKxSTA2kpXJQJ8n7XK4w"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-    <script src="rsc/js/styles.js"></script>
-
+    </section>
+    </div>
 </body>
-
 </html>

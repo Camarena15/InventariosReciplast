@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Mexico_City');
 include "rsc/fpdf/fpdf.php";
 include 'bd/conexion.php';
 $objeto = new Conexion();
@@ -65,12 +66,12 @@ $pdf->SetFont('Times','',10);
 		case 1: //RELACIÓN DE EXISTENCIAS DE PRODUCTOS POR CATEGORÍA
 			#region Busqueda
 			$IdSubCategoria = (isset($_POST['IdSubCategoria'])) ? $_POST['IdSubCategoria'] : '';
-			$sql="SELECT Descripcion FROM SubCategorias WHERE IdSubCategoria=$IdSubCategoria";
+			$sql="SELECT DescripcionSC FROM SubCategorias WHERE IdSubCategoria=$IdSubCategoria";
 			$resultado = $conexion->prepare($sql);
 			$resultado->execute();  
 			$data=$resultado->fetchAll(PDO::FETCH_ASSOC);
 			foreach ($data as $opciones):{
-				$pdf->Cell(0,0,'Categoria=' . $opciones['Descripcion'],0,1,'L');
+				$pdf->Cell(0,0,'Categoria=' . $opciones['DescripcionSC'],0,1,'L');
 				$pdf->Cell(0,0,utf8_decode("Fecha de Impresión: " . date("d/m/Y")),0,1,'R');
 				$pdf->Cell(0,0,'                 ______________',0,0,'L');
 				$pdf->Cell(0,10,'',0,1);
@@ -82,8 +83,8 @@ $pdf->SetFont('Times','',10);
 			$data=$resultado->fetchAll(PDO::FETCH_ASSOC);
 			#endregion
 			#region Tabla
-			$header = array('IdProducto', 'IdSubCategoria', 'Descripcion', 'Maximo', 'Minimo', 'Punto Reorden', 'Costo Prom.', 'Ultimo Costo', 'Unidad Medida', 'Marca', 'Modelo', 'No. Parte','Existencia');
-			$w = array(14,14,14,14,14,14,14,14,14,14,14,14,14);
+			$header = array('IdProducto', 'IdSubCategoria', 'Descripcion', 'Max', 'Min', 'Punto Reorden', 'Costo Prom.', 'Ultimo Costo', 'Unidad Medida', 'Marca', 'Modelo', 'No. Parte','Existencia');
+			$w = array(14,14,28,8,8,14,14,14,14,14,14,14,14);
 			$pdf->FancyTable($header,$w);
 			// Datos
 				$fill = false;
@@ -91,7 +92,7 @@ $pdf->SetFont('Times','',10);
 				{
 					$pdf->Cell($w[0],6,$opciones['IdProducto'],'LR',0,'C',$fill);
 					$pdf->Cell($w[1],6,$opciones['IdSubCategoria'],'LR',0,'C',$fill);
-					$pdf->Cell($w[2],6,utf8_decode($opciones['Descripcion']),'LR',0,'C',$fill);
+					$pdf->Cell($w[2],6,substr(utf8_decode($opciones['Descripcion']), 0, 20) . "..",'LR',0,'C',$fill);
 					$pdf->Cell($w[3],6,$opciones['Maximo'],'LR',0,'C',$fill);
 					$pdf->Cell($w[4],6,$opciones['Minimo'],'LR',0,'C',$fill);
 					$pdf->Cell($w[5],6,$opciones['PuntoReorden'],'LR',0,'C',$fill);
@@ -99,7 +100,7 @@ $pdf->SetFont('Times','',10);
 					$pdf->Cell($w[7],6,$opciones['UltCosto'],'LR',0,'C',$fill);
 					$pdf->Cell($w[8],6,$opciones['UnidadMedida'],'LR',0,'C',$fill);
 					$pdf->Cell($w[9],6,$opciones['Marca'],'LR',0,'C',$fill);
-					$pdf->Cell($w[10],6,$opciones['Modelo'],'LR',0,'C',$fill);
+					$pdf->Cell($w[10],6,substr($opciones['Modelo'], 0, 6) . "..",'LR',0,'C',$fill);
 					$pdf->Cell($w[11],6,$opciones['NoParte'],'LR',0,'C',$fill);
 					$pdf->Cell($w[12],6,$opciones['Existencia'],'LR',0,'C',$fill);
 					$pdf->Ln();
@@ -112,12 +113,12 @@ $pdf->SetFont('Times','',10);
 		case 2: //Lista de productos a surtir
 			#region Busqueda
 			$IdSubCategoria = (isset($_POST['IdSubCategoria'])) ? $_POST['IdSubCategoria'] : '';
-			$sql="SELECT Descripcion FROM SubCategorias WHERE IdSubCategoria=$IdSubCategoria";
+			$sql="SELECT DescripcionSC FROM SubCategorias WHERE IdSubCategoria=$IdSubCategoria";
 			$resultado = $conexion->prepare($sql);
 			$resultado->execute();  
 			$data=$resultado->fetchAll(PDO::FETCH_ASSOC);
 			foreach ($data as $opciones):{
-				$pdf->Cell(0,0,'Categoria=' . $opciones['Descripcion'],0,1,'L');
+				$pdf->Cell(0,0,'Categoria=' . $opciones['DescripcionSC'],0,1,'L');
 				$pdf->Cell(0,0,utf8_decode("Fecha de Impresión: " . date("d/m/Y")),0,1,'R');
 				$pdf->Cell(0,0,'                 ______________',0,0,'L');
 				$pdf->Cell(0,10,'',0,1);
@@ -138,7 +139,7 @@ $pdf->SetFont('Times','',10);
 				{
 					$pdf->Cell($w[0],6,$opciones['IdProducto'],'LR',0,'C',$fill);
 					$pdf->Cell($w[1],6,$opciones['IdSubCategoria'],'LR',0,'C',$fill);
-					$pdf->Cell($w[2],6,utf8_decode($opciones['Descripcion']),'LR',0,'C',$fill);
+					$pdf->Cell($w[2],6,substr(utf8_decode($opciones['Descripcion']), 0, 10) . "..",'LR',0,'C',$fill);
 					$pdf->Cell($w[3],6,$opciones['Maximo'],'LR',0,'C',$fill);
 					$pdf->Cell($w[4],6,$opciones['Minimo'],'LR',0,'C',$fill);
 					$pdf->Cell($w[5],6,$opciones['PuntoReorden'],'LR',0,'C',$fill);
@@ -177,16 +178,16 @@ $pdf->SetFont('Times','',10);
 				{
 					$saldototal += $opciones['Saldo'];
 					$pdf->Cell($w[0],6,$opciones['IdProveedor'],'LR',0,'C',$fill);
-					$pdf->Cell($w[1],6,utf8_decode($opciones['Nombre']),'LR',0,'C',$fill);
-					$pdf->Cell($w[2],6,utf8_decode($opciones['Domicilio']),'LR',0,'C',$fill);
-					$pdf->Cell($w[3],6,utf8_decode($opciones['Colonia']),'LR',0,'C',$fill);
-					$pdf->Cell($w[4],6,utf8_decode($opciones['Ciudad']),'LR',0,'C',$fill);
+					$pdf->Cell($w[1],6,substr(utf8_decode($opciones['NombreP']), 0, 15) . "..",'LR',0,'C',$fill);
+					$pdf->Cell($w[2],6,substr(utf8_decode($opciones['Domicilio']), 0, 16) . "..",'LR',0,'C',$fill);
+					$pdf->Cell($w[3],6,substr(utf8_decode($opciones['Colonia']), 0, 15) . "..",'LR',0,'C',$fill);
+					$pdf->Cell($w[4],6,substr(utf8_decode($opciones['Ciudad']), 0, 10) . "..",'LR',0,'C',$fill);
 					$pdf->Cell($w[5],6,$opciones['CP'],'LR',0,'C',$fill);
 					$pdf->Cell($w[6],6,utf8_decode($opciones['Estado']),'LR',0,'C',$fill);
 					$pdf->Cell($w[7],6,$opciones['Tel'],'LR',0,'C',$fill);
 					$pdf->Cell($w[8],6,$opciones['Celular'],'LR',0,'C',$fill);
-					$pdf->Cell($w[9],6,utf8_decode($opciones['Representante']),'LR',0,'C',$fill);
-					$pdf->Cell($w[10],6,utf8_decode($opciones['DescripcionTipoProv']),'LR',0,'C',$fill);
+					$pdf->Cell($w[9],6,substr(utf8_decode($opciones['Representante']), 0, 15) . "..",'LR',0,'C',$fill);
+					$pdf->Cell($w[10],6,substr(utf8_decode($opciones['DescripcionTipoProv']), 0, 10) . "..",'LR',0,'C',$fill);
 					$pdf->Cell($w[11],6,$opciones['Saldo'],'LR',0,'C',$fill);
 					$pdf->Ln();
 					$fill = !$fill;
@@ -204,15 +205,17 @@ $pdf->SetFont('Times','',10);
 			$pdf->Cell(0,0,utf8_decode("Fecha de Impresión: " . date("d/m/Y")),0,1,'R');
 			$pdf->SetFont('Times','',7);
 			$pdf->Ln(5);
-			$sql="SELECT E.*, A.Descripcion as Area, P.Descripcion as Puesto FROM empleados as E INNER JOIN area as A ON E.IdArea = A.IdArea INNER JOIN puestos as P 
-			ON P.IdPuesto = E.IdPuesto WHERE Estado='Activo'";
+			$sql="SELECT E.*, A.DescripcionA as Area, P.DescripcionP as Puesto FROM empleados as E INNER JOIN area as A ON E.IdArea = A.IdArea INNER JOIN puestos as P 
+			ON P.IdPuesto = E.IdPuesto WHERE Estado='Activo' Order By A.DescripcionA, P.DescripcionP, E.Nombre";
 			$resultado = $conexion->prepare($sql);
 			$resultado->execute();  
 			$data=$resultado->fetchAll(PDO::FETCH_ASSOC);
 			#endregion
 			#region Tabla
-			$header = array('IdEmpleado', 'Area', 'Puesto', 'Nombre', 'Fecha Nac.', 'Domicilio', 'Colonia', 'Ciudad', 'CP', 'Edo', 'Tel', 'Celular','Estado');
-			$w = array(10,10,10,25,14,17,17,15,8,14,14,14,14);
+			//$header = array('IdEmpleado', 'Area', 'Puesto', 'Nombre', 'Fecha Nac.', /*'Domicilio', 'Colonia',*/ 'Ciudad', 'CP', /*'Edo', 'Tel',*/ 'Celular','Estado');
+			$header = array('IdEmpleado', 'Area', 'Puesto', 'Nombre', 'Fecha Nac.','Ciudad', 'CP','Edo','Celular','Estado');
+			//$w = array(10,20,22,40,14,/*17,17,*/15,8,/*14,14,*/14,14);
+			$w = array(10,20,22,45,14,17,17,14,15,8);
 			$pdf->FancyTable($header,$w);
 			// Datos
 				$fill = false;
@@ -220,17 +223,17 @@ $pdf->SetFont('Times','',10);
 				{
 					$pdf->Cell($w[0],6,$opciones['IdEmpleado'],'LR',0,'C',$fill);
 					$pdf->Cell($w[1],6,utf8_decode($opciones['Area']),'LR',0,'C',$fill);
-					$pdf->Cell($w[2],6,utf8_decode($opciones['Puesto']),'LR',0,'C',$fill);
-					$pdf->Cell($w[3],6,utf8_decode($opciones['Nombre']),'LR',0,'C',$fill);
+					$pdf->Cell($w[2],6,substr(utf8_decode($opciones['Puesto']),0,18),'LR',0,'C',$fill);
+					$pdf->Cell($w[3],6,substr(utf8_decode($opciones['Nombre']),0,30),'LR',0,'L',$fill);
 					$pdf->Cell($w[4],6,$opciones['FechaNac'],'LR',0,'C',$fill);
-					$pdf->Cell($w[5],6,utf8_decode($opciones['Domicilio']),'LR',0,'C',$fill);
-					$pdf->Cell($w[6],6,utf8_decode($opciones['Colonia']),'LR',0,'C',$fill);
-					$pdf->Cell($w[7],6,utf8_decode($opciones['Ciudad']),'LR',0,'C',$fill);
-					$pdf->Cell($w[8],6,$opciones['CP'],'LR',0,'C',$fill);
-					$pdf->Cell($w[9],6,utf8_decode($opciones['Edo']),'LR',0,'C',$fill);
-					$pdf->Cell($w[10],6,$opciones['Tel'],'LR',0,'C',$fill);
-					$pdf->Cell($w[11],6,$opciones['Celular'],'LR',0,'C',$fill);
-					$pdf->Cell($w[12],6,$opciones['Estado'],'LR',0,'C',$fill);
+					//$pdf->Cell($w[5],6,utf8_decode($opciones['Domicilio']),'LR',0,'C',$fill);
+					//$pdf->Cell($w[6],6,utf8_decode($opciones['Colonia']),'LR',0,'C',$fill);
+					$pdf->Cell($w[5],6,utf8_decode($opciones['Ciudad']),'LR',0,'C',$fill);
+					$pdf->Cell($w[6],6,$opciones['CP'],'LR',0,'C',$fill);
+					$pdf->Cell($w[7],6,utf8_decode($opciones['Edo']),'LR',0,'C',$fill);
+					//$pdf->Cell($w[10],6,$opciones['Tel'],'LR',0,'C',$fill);
+					$pdf->Cell($w[8],6,$opciones['Celular'],'LR',0,'C',$fill);
+					$pdf->Cell($w[9],6,$opciones['Estado'],'LR',0,'C',$fill);
 					$pdf->Ln();
 					$fill = !$fill;
 				}
@@ -246,7 +249,7 @@ $pdf->SetFont('Times','',10);
 				$pdf->Cell(0,0,'             ___________',0,0,'L');
 				$pdf->Cell(0,10,'',0,1);
 			$pdf->SetFont('Times','',7);
-			$sql="SELECT R.*, E.Nombre, P.Descripcion as Puesto, D.IdProducto, PR.Descripcion, D.CostoAprox FROM requisicionesproductos as R INNER JOIN empleados as E ON R.IdEmpleadoSolicita = E.IdEmpleado 
+			$sql="SELECT R.*, E.Nombre, P.DescripcionP as Puesto, D.IdProducto, PR.Descripcion, D.CostoAprox FROM requisicionesproductos as R INNER JOIN empleados as E ON R.IdEmpleadoSolicita = E.IdEmpleado 
 			INNER JOIN puestos as P ON E.IdPuesto = P.IdPuesto INNER JOIN detallerequisicionproductos as D ON D.IdRequisicion = R.IdRequisicion 
 			INNER JOIN productos as PR ON PR.IdProducto = D.IdProducto WHERE R.Estado='$Estado'";
 			$resultado = $conexion->prepare($sql);
@@ -255,7 +258,7 @@ $pdf->SetFont('Times','',10);
 			#endregion
 			#region Tabla
 			$header = array('IdRequisicion', 'IdEmpleado', 'Puesto', 'Nombre', 'Fecha', 'TotalAprox', 'IdProducto', 'Descripcion', 'CostoAprox', 'Estado');
-			$w = array(18,18,18,25,18,18,18,18,18,18);
+			$w = array(16,14,18,40,14,16,14,24,18,18);
 			$pdf->FancyTable($header,$w);
 			// Datos
 				$fill = false;
@@ -263,12 +266,12 @@ $pdf->SetFont('Times','',10);
 				{
 					$pdf->Cell($w[0],6,$opciones['IdRequisicion'],'LR',0,'C',$fill);
 					$pdf->Cell($w[1],6,$opciones['IdEmpleadoSolicita'],'LR',0,'C',$fill);
-					$pdf->Cell($w[2],6,utf8_decode($opciones['Puesto']),'LR',0,'C',$fill);
-					$pdf->Cell($w[3],6,utf8_decode($opciones['Nombre']),'LR',0,'C',$fill);
+					$pdf->Cell($w[2],6,substr(utf8_decode($opciones['Puesto']),0,15),'LR',0,'C',$fill);
+					$pdf->Cell($w[3],6,substr(utf8_decode($opciones['Nombre']),0,27),'LR',0,'L',$fill);
 					$pdf->Cell($w[4],6,$opciones['Fecha'],'LR',0,'C',$fill);
 					$pdf->Cell($w[5],6,$opciones['TotalAprox'],'LR',0,'C',$fill);
 					$pdf->Cell($w[6],6,$opciones['IdProducto'],'LR',0,'C',$fill);
-					$pdf->Cell($w[7],6,utf8_decode($opciones['Descripcion']),'LR',0,'C',$fill);
+					$pdf->Cell($w[7],6,substr(utf8_decode($opciones['Descripcion']),0,20),'LR',0,'C',$fill);
 					$pdf->Cell($w[8],6,$opciones['CostoAprox'],'LR',0,'C',$fill);
 					$pdf->Cell($w[8],6,$opciones['Estado'],'LR',0,'C',$fill);
 					$pdf->Ln();
@@ -282,7 +285,7 @@ $pdf->SetFont('Times','',10);
 			#region Busqueda
 			$FI = (isset($_POST['FI'])) ? $_POST['FI'] : '';
 			$FF = (isset($_POST['FF'])) ? $_POST['FF'] : '';
-			$sql="SELECT C.*, P.Nombre FROM comprasproductos AS C INNER JOIN proveedores as P ON C.IdProveedor = P.IdProveedor 
+			$sql="SELECT C.*, P.NombreP FROM comprasproductos AS C INNER JOIN proveedores as P ON C.IdProveedor = P.IdProveedor 
 			WHERE C.Fecha BETWEEN '$FI' AND '$FF'";
 			$resultado = $conexion->prepare($sql);
 			$resultado->execute();  
@@ -300,7 +303,7 @@ $pdf->SetFont('Times','',10);
 			#region Tabla
 			$pdf->Ln(10);
 			$header = array('IdCompra', 'IdProveedor', 'Nombre', 'Factura', 'Condiciones', 'Fecha', 'FechaVto', 'Subtotal', 'Iva', 'Total', 'Saldo');
-			$w = array(16,16,25,16,16,16,16,16,16,16,16);
+			$w = array(13,16,48,16,14,13,13,13,13,13,13);
 			$pdf->FancyTable($header,$w);
 			// Datos
 				$fill = false;
@@ -312,7 +315,7 @@ $pdf->SetFont('Times','',10);
 					$compratotal += $opciones['Total'];
 					$pdf->Cell($w[0],6,$opciones['IdCompra'],'LR',0,'C',$fill);
 					$pdf->Cell($w[1],6,$opciones['IdProveedor'],'LR',0,'C',$fill);
-					$pdf->Cell($w[2],6,utf8_decode($opciones['Nombre']),'LR',0,'C',$fill);
+					$pdf->Cell($w[2],6,substr(utf8_decode($opciones['NombreP']),0,31),'LR',0,'C',$fill);
 					$pdf->Cell($w[3],6,$opciones['Factura'],'LR',0,'C',$fill);
 					$pdf->Cell($w[4],6,utf8_decode($opciones['Condiciones']),'LR',0,'C',$fill);
 					$pdf->Cell($w[5],6,$opciones['Fecha'],'LR',0,'C',$fill);
@@ -325,10 +328,10 @@ $pdf->SetFont('Times','',10);
 					$fill = !$fill;
 				}
 				$pdf->Cell(array_sum($w),0,'','T',1);
-				$pdf->Cell(16,6,'TOTAL:','LR',0,'C',$fill);
-				$pdf->Cell(137,6,'','LR',0,'R',$fill);
-				$pdf->Cell(16,6,'$' . $compratotal,'LR',0,'R',$fill);
-				$pdf->Cell(16,6,'$' . $saldototal,'LR',1,'R',$fill);
+				$pdf->Cell(13,6,'TOTAL:','LR',0,'C',$fill);
+				$pdf->Cell(146,6,'','LR',0,'R',$fill);
+				$pdf->Cell(13,6,'$' . $compratotal,'LR',0,'R',$fill);
+				$pdf->Cell(13,6,'$' . $saldototal,'LR',1,'R',$fill);
 				// Línea de cierre
 				$pdf->Cell(array_sum($w),0,'','T');
 				
@@ -338,7 +341,7 @@ $pdf->SetFont('Times','',10);
 			#region Busqueda
 			$FI = date("Y-m-d");
 			$FF = date("Y-m-d",strtotime($FI."+ 7 days"));
-			$sql="SELECT C.*, P.Nombre FROM comprasproductos AS C INNER JOIN proveedores as P ON C.IdProveedor = P.IdProveedor 
+			$sql="SELECT C.*, P.NombreP FROM comprasproductos AS C INNER JOIN proveedores as P ON C.IdProveedor = P.IdProveedor 
 			WHERE C.Saldo > 0 AND C.FechaVto BETWEEN '$FI' AND '$FF'";
 			$resultado = $conexion->prepare($sql);
 			$resultado->execute();  
@@ -353,7 +356,7 @@ $pdf->SetFont('Times','',10);
 			#region Tabla
 			$pdf->Ln(10);
 			$header = array('IdCompra', 'IdProveedor', 'Nombre', 'Factura', 'Condiciones', 'Fecha', 'FechaVto', 'Subtotal', 'Iva', 'Total', 'Saldo');
-			$w = array(16,16,25,16,16,16,16,16,16,16,16);
+			$w = array(13,16,31,16,16,16,16,16,13,16,16);
 			$pdf->FancyTable($header,$w);
 			// Datos 
 				$fill = false;
@@ -365,7 +368,7 @@ $pdf->SetFont('Times','',10);
 					$compratotal += $opciones['Total'];
 					$pdf->Cell($w[0],6,$opciones['IdCompra'],'LR',0,'C',$fill);
 					$pdf->Cell($w[1],6,$opciones['IdProveedor'],'LR',0,'C',$fill);
-					$pdf->Cell($w[2],6,utf8_decode($opciones['Nombre']),'LR',0,'C',$fill);
+					$pdf->Cell($w[2],6,substr(utf8_decode($opciones['NombreP']),0,20),'LR',0,'C',$fill);
 					$pdf->Cell($w[3],6,$opciones['Factura'],'LR',0,'C',$fill);
 					$pdf->Cell($w[4],6,utf8_decode($opciones['Condiciones']),'LR',0,'C',$fill);
 					$pdf->Cell($w[5],6,$opciones['Fecha'],'LR',0,'C',$fill);
@@ -391,7 +394,7 @@ $pdf->SetFont('Times','',10);
 			#region Busqueda
 			$FI = (isset($_POST['FI'])) ? $_POST['FI'] : '';
 			$FF = (isset($_POST['FF'])) ? $_POST['FF'] : '';
-			$sql="SELECT PA.IdPago, PA.Fecha as FechaPago, PA.Referencia, PA.Importe, C.*, P.Nombre FROM pagoscompras as PA INNER JOIN 
+			$sql="SELECT PA.IdPago, PA.Fecha as FechaPago, PA.Referencia, PA.Importe, C.*, P.NombreP FROM pagoscompras as PA INNER JOIN 
 			comprasproductos as C ON PA.IdCompra = C.IdCompra INNER JOIN proveedores as P ON C.IdProveedor = P.IdProveedor 
 			WHERE PA.Fecha BETWEEN '$FI' AND '$FF'";
 			$resultado = $conexion->prepare($sql);
@@ -408,7 +411,7 @@ $pdf->SetFont('Times','',10);
 			$pdf->SetFont('Times','',7);
 			#endregion
 			#region Tabla
-			$header = array('IdPago', 'Fecha de Pago', 'IdCompra', 'IdProveedor', 'Nombre', 'Factura', 'Condiciones', 'Fecha', 'FechaVto', 'Subtotal', 'Iva', 'Total', 'Saldo','Referencia','Importe Pagado');
+			$header = array('IdPago', 'Fecha de Pago', 'IdCompra', 'IdProveedor', 'Nombre', 'Factura', 'Condiciones', 'Fecha', 'FechaVto', 'Subtotal', 'Iva', 'Total', 'Saldo','Referencia','Importe');
 			$w = array(10,12,12,12,20,12,12,12,12,12,12,12,12,12,12);
 			$pdf->FancyTable($header,$w);
 			// Datos
@@ -421,7 +424,7 @@ $pdf->SetFont('Times','',10);
 					$pdf->Cell($w[1],6,date('d/m/Y',strtotime($opciones['FechaPago'])),'LR',0,'C',$fill);
 					$pdf->Cell($w[2],6,$opciones['IdCompra'],'LR',0,'C',$fill);
 					$pdf->Cell($w[3],6,$opciones['IdProveedor'],'LR',0,'C',$fill);
-					$pdf->Cell($w[4],6,utf8_decode($opciones['Nombre']),'LR',0,'C',$fill);
+					$pdf->Cell($w[4],6,substr(utf8_decode($opciones['NombreP']),0,12),'LR',0,'C',$fill);
 					$pdf->Cell($w[5],6,$opciones['Factura'],'LR',0,'C',$fill);
 					$pdf->Cell($w[6],6,utf8_decode($opciones['Condiciones']),'LR',0,'C',$fill);
 					$pdf->Cell($w[7],6,date('d/m/Y',strtotime($opciones['Fecha'])),'LR',0,'C',$fill);
@@ -457,7 +460,7 @@ $pdf->SetFont('Times','',10);
 			foreach ($data as $opciones):{
 				$nombre = $opciones['Nombre'];
 			}endforeach;
-			$sql="SELECT V.*, D.*, E.IdEmpleado, E.Nombre, P.Descripcion as Puesto, PR.Descripcion FROM valesconsumibles AS V INNER JOIN detvalesconsumibles AS D ON V.IdValeCons = D.IdValeCons INNER JOIN empleados as E 
+			$sql="SELECT V.*, D.*, E.IdEmpleado, E.Nombre, P.DescripcionP as Puesto, PR.Descripcion FROM valesconsumibles AS V INNER JOIN detvalesconsumibles AS D ON V.IdValeCons = D.IdValeCons INNER JOIN empleados as E 
 			ON E.IdEmpleado = V.IdEmpleadoRecibe INNER JOIN area as A ON E.IdArea = A.IdArea INNER JOIN puestos as P ON P.IdPuesto = E.IdPuesto 
 			INNER JOIN productos as PR ON PR.IdProducto = D.IdProducto WHERE V.IdEmpleadoRecibe=$ids AND FechaEmision BETWEEN '$FI' AND '$FF'";
 			$resultado = $conexion->prepare($sql);
@@ -471,14 +474,14 @@ $pdf->SetFont('Times','',10);
 			$pdf->Cell(0,0,utf8_decode("Fecha de Impresión: " . date("d/m/Y")),0,1,'R');
 			$pdf->Cell(0,0,'       __________    __________',0,1,'L');
 			$pdf->Ln(7);
-			$pdf->Cell(0,0,"Empleado que Recibe: " . $nombre,0,1,'L');
+			$pdf->Cell(0,0,"Empleado que Recibe: " . utf8_decode($nombre),0,1,'L');
 			$pdf->Cell(0,0,'                                   ______________________________',0,1,'L');
 			$pdf->Cell(0,10,'',0,1);
 			$pdf->SetFont('Times','',7);
 			#endregion
 			#region Tabla
 			$header = array('IdVale','IdRequisicion','IdEmpleado', 'Puesto', 'Nombre', 'FechaEmision', 'FechaSurte','Motivo', 'IdProducto', 'Descripcion', 'Cantidad');
-			$w = array(10,16,14,16,22,16,16,25,16,16,16);
+			$w = array(10,16,14,16,22,16,16,25,16,20,12);
 			$pdf->FancyTable($header,$w);
 			// Datos
 				$fill = false;
@@ -488,12 +491,12 @@ $pdf->SetFont('Times','',10);
 					$pdf->Cell($w[1],6,$opciones['IdRequisicion'],'LR',0,'C',$fill);
 					$pdf->Cell($w[2],6,$opciones['IdEmpleadoRecibe'],'LR',0,'C',$fill);
 					$pdf->Cell($w[3],6,$opciones['Puesto'],'LR',0,'C',$fill);
-					$pdf->Cell($w[4],6,utf8_decode($opciones['Nombre']),'LR',0,'C',$fill);
+					$pdf->Cell($w[4],6,substr(utf8_decode($opciones['Nombre']),0,13),'LR',0,'C',$fill);
 					$pdf->Cell($w[5],6,date('d/m/Y', strtotime($opciones['FechaEmision'])),'LR',0,'C',$fill);
 					$pdf->Cell($w[6],6,date('d/m/Y', strtotime($opciones['FechaSurte'])),'LR',0,'C',$fill);
-					$pdf->Cell($w[7],6,$opciones['Motivo'],'LR',0,'C',$fill);
+					$pdf->Cell($w[7],6,substr(utf8_decode($opciones['Motivo']),0,25),'LR',0,'C',$fill);
 					$pdf->Cell($w[8],6,$opciones['IdProducto'],'LR',0,'C',$fill);
-					$pdf->Cell($w[9],6,$opciones['Descripcion'],'LR',0,'C',$fill);
+					$pdf->Cell($w[9],6,substr(utf8_decode($opciones['Descripcion']),0,17),'LR',0,'C',$fill);
 					$pdf->Cell($w[10],6,$opciones['Cantidad'],'LR',0,'C',$fill);
 					$pdf->Ln();
 					$fill = !$fill;
@@ -535,11 +538,11 @@ $pdf->SetFont('Times','',10);
 				$pdf->Cell($w[0],6,$opciones['IdDevolucion'],'LR',0,'C',$fill);
 				$pdf->Cell($w[1],6,$opciones['IdRequisicion'],'LR',0,'C',$fill);
 				$pdf->Cell($w[2],6,$opciones['IdEmpleado'],'LR',0,'C',$fill);
-				$pdf->Cell($w[3],6,utf8_decode($opciones['Nombre']),'LR',0,'C',$fill);
+				$pdf->Cell($w[3],6,substr(utf8_decode($opciones['Nombre']),0,23),'LR',0,'C',$fill);
 				$pdf->Cell($w[4],6,date('d/m/Y',strtotime($opciones['Fecha'])),'LR',0,'C',$fill);
 				$pdf->Cell($w[5],6,date('d/m/Y',strtotime($opciones['FechaDevolucion'])),'LR',0,'C',$fill);
 				$pdf->Cell($w[6],6,$opciones['IdProducto'],'LR',0,'C',$fill);
-				$pdf->Cell($w[7],6,$opciones['Descripcion'],'LR',0,'C',$fill);
+				$pdf->Cell($w[7],6,substr(utf8_decode($opciones['Descripcion']),0,23),'LR',0,'C',$fill);
 				$pdf->Cell($w[8],6,$opciones['Cantidad'],'LR',0,'C',$fill);
 				$pdf->Ln();
 				$fill = !$fill;

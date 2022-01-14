@@ -1,8 +1,8 @@
 <?php 
-$conexion=mysqli_connect('localhost','root','','mantenimiento');
+$conexion=mysqli_connect('db5003537921.hosting-data.io:3306','dbu1577258','w52NXfdnj.isC2B','dbs2878085');
 $compra=$_POST['compra'];
 
-	$sql="SELECT R.IdCompra, E.IdProveedor, E.Nombre, R.Condiciones, R.Factura, R.Fecha, R.FechaVto, R.Saldo, R.IdProveedor
+	$sql="SELECT R.IdCompra, E.IdProveedor, E.NombreP, R.Condiciones, R.Factura, R.Fecha, R.FechaVto, R.Saldo, R.IdProveedor
 		from comprasproductos AS R INNER JOIN proveedores as E ON R.IdProveedor = E.IdProveedor
 		where IdCompra='$compra'";
 

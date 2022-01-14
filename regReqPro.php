@@ -284,10 +284,15 @@ function registrarTabla() {
 function validarTodo() {
     var idproducto, descu, canti, pre, IdRequisicion, descEquipo, descProgra, idprogra, nombre, idempleado, descmantto,
         fecha1, fecha2;
-    idproducto = document.getElementById('IdProd').value;
+    try{
+        idproducto = document.getElementById('IdProd').value;
+        pre = document.getElementById('Precio').value;
+    }catch(e){
+        idproducto = "";
+        pre = "";
+    }
     descu = document.getElementById('DescripcionProducto').value;
     canti = document.getElementById('Cantidad').value;
-    pre = document.getElementById('Precio').value;
     nombre = document.getElementById('NombreEmpleado').value;
     idempleado = document.getElementById('IdEmpleado').value;
     Fecha = document.getElementById('Fecha').value;

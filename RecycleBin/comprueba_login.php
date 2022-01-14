@@ -2,11 +2,11 @@
 
         try {
 
-            $base = new PDO ("mysql:host=localhost; dbname=pruebas;", "root", "");
+            $base = new PDO ("mysql:host=localhost; dbname=dbs2878085;", "dbu1577258", "w52NXfdnj.isC2B");
             
             $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
-            $sql = "SELECT * FROM usuarios WHERE `usuarios`= :login AND `password`= :password";
+            $sql = "SELECT * FROM usuarios WHERE `Nombre`= :login AND `Contrasena`= :password";
             
             $resultado = $base->prepare($sql);
 
@@ -27,7 +27,7 @@
                 session_start();
                 $_SESSION["usuario"]=$_POST["login"];
                 $_SESSION["password"]=$_POST["password"];
-                header("location:inicio.php");
+                header("location:principal.php");
 
             } else {
 

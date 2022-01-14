@@ -1,5 +1,5 @@
 <?php
-$conexion=mysqli_connect('localhost','root','','mantenimiento');
+$conexion=mysqli_connect('db5003537921.hosting-data.io:3306','dbu1577258','w52NXfdnj.isC2B','dbs2878085');
 $ide = (isset($_POST['ide'])) ? $_POST['ide'] : '';
 $estado = (isset($_POST['estado'])) ? $_POST['estado'] : '';
 

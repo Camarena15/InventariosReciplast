@@ -36,7 +36,7 @@ $conexion = $objeto->Conectar();
                 <select type="number" class="form-control" id="IdProveedor" name="dp">
                     <option value="0">Seleccione un proveedor</option>
                     <?php foreach ($data as $opciones): ?>
-                    <option value="<?php echo $opciones['IdProveedor'] ?>"><?php echo $opciones['Nombre'] ?>
+                    <option value="<?php echo $opciones['IdProveedor'] ?>"><?php echo $opciones['NombreP'] ?>
                     </option>
                     <?php endforeach ?>
                 </select>

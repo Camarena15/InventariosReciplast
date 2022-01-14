@@ -1,7 +1,7 @@
 html, 
 body {
     height: 100%;
-    background-image: url(../img/fondo_mantto.jpeg);
+    background-image: url('img/fondo_inv.jpeg');
     background-size: 141%;
     font-family: "Roboto", sans-serif;
 }

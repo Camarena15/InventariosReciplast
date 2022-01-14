@@ -9,9 +9,9 @@ $fi = (isset($_POST['fi'])) ? $_POST['fi'] : '';
 $ff = (isset($_POST['ff'])) ? $_POST['ff'] : '';
 
 if ($ide != 0)
-	    $sql="SELECT P.Nombre, C.* FROM comprasproductos AS C INNER JOIN proveedores AS P ON C.IdProveedor = P.IdProveedor WHERE P.IdProveedor ='$ide' AND Fecha BETWEEN '$fi' AND '$ff' AND C.Saldo > 0";
+	    $sql="SELECT P.NombreP, C.* FROM comprasproductos AS C INNER JOIN proveedores AS P ON C.IdProveedor = P.IdProveedor WHERE P.IdProveedor ='$ide' AND Fecha BETWEEN '$fi' AND '$ff' AND C.Saldo > 0";
     else
-        $sql="SELECT P.Nombre, C.* FROM comprasproductos AS C INNER JOIN proveedores AS P ON C.IdProveedor = P.IdProveedor WHERE Fecha BETWEEN '$fi' AND '$ff' AND C.Saldo > 0";
+        $sql="SELECT P.NombreP, C.* FROM comprasproductos AS C INNER JOIN proveedores AS P ON C.IdProveedor = P.IdProveedor WHERE Fecha BETWEEN '$fi' AND '$ff' AND C.Saldo > 0";
 $resultado = $conexion->prepare($sql);
 $resultado->execute();  
 $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +34,7 @@ echo"            </tbody>";
     foreach ($data as $opciones):
     {
         echo "<tr>";
-        echo "<td>".$opciones['IdCompra']."</td><td>".$opciones['Nombre']."</td><td>".
+        echo "<td>".$opciones['IdCompra']."</td><td>".$opciones['NombreP']."</td><td>".
         $opciones['Factura']."</td><td>".$opciones['Condiciones']."</td><td>".$opciones['Fecha']."</td><td>".$opciones['FechaVto'].
         "</td><td>".$opciones['Subtotal']."</td><td>".$opciones['Iva']."</td><td>".$opciones['Total']."</td><td>".$opciones['Saldo']."</td>";
         echo "</tr>";
