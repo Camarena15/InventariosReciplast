@@ -33,13 +33,14 @@
 #framelogin {
     border: inset; 
     background-color: white; 
-    width: 555px;
-    padding: 25px;
+    width: 275px;
+    padding: 1em;
+    margin: 0 auto;
 }
 
 #imglogin {
     float:right; 
-    width: 200px; 
+    width: 10em; 
     padding: 5px;
 }
 
@@ -91,15 +92,16 @@ aside{
 }
 
 #content{
-    float: left;
-    width: calc(75% - 40px);
+    float: center;
+    width: calc(100% - 80px);
     min-height: 720px;
     text-align: justify;
-    padding: 20px;
-    margin-left: 5%;
+    padding-top: 40px;
+    padding-right: 40px;
+    margin: 40px;
     background-image: url('img/portada1.png');
     background-repeat: no-repeat; 
-    background-size: contain;
+    background-size: cover;
 }
 
 .dropdown-header {
@@ -114,4 +116,8 @@ aside{
 
 h5 {
     font-weight: bold;
+}
+
+.MainText {
+    text-shadow: 2px -1px 2px black;
 }

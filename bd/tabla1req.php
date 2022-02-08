@@ -9,9 +9,9 @@ $fi = (isset($_POST['fi'])) ? $_POST['fi'] : '';
 $ff = (isset($_POST['ff'])) ? $_POST['ff'] : '';
 
 if ($ide != 0)
-	    $sql="SELECT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado WHERE IdEmpleadoSolicita ='$ide' AND Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Planeacion'";
+	    $sql="SELECT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado WHERE IdEmpleadoSolicita ='$ide' AND Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Planeación'";
     else
-        $sql="SELECT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado WHERE Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Planeacion'";
+        $sql="SELECT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado WHERE Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Planeación'";
 $resultado = $conexion->prepare($sql);
 $resultado->execute();  
 $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

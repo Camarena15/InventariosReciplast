@@ -12,7 +12,7 @@
 
             $login=htmlentities(addslashes($_POST["login"])); /*Convierte cualquier simbolo en htm*/
             
-            $password=htmlentities(addslashes($_POST["password"]));
+            $password=htmlentities(addslashes(MD5($_POST["password"])));
             
             $resultado->bindValue(":login", $login);
 
@@ -26,7 +26,7 @@
             if($numero_registro != 0){
                 session_start();
                 $_SESSION["usuario"]=$_POST["login"];
-                $_SESSION["password"]=$_POST["password"];
+                $_SESSION["password"]=MD5($_POST["password"]);
                 header("location:principal.php");
 
             } else {

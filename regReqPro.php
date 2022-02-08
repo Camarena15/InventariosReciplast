@@ -29,7 +29,7 @@ $conexion = $objeto->Conectar();
             <div class="form-group col-md-4">
                 <!-- SELECT DE NOMBRES -->
                 <?php
-          $consulta = "SELECT IdEmpleado, Nombre FROM empleados Order By Nombre ASC";
+          $consulta = "SELECT IdEmpleado, Nombre FROM empleados WHERE Estado = 'Activo' Order By Nombre ASC";
           $resultado = $conexion->prepare($consulta);
           $resultado->execute();  
           $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -361,15 +361,12 @@ function registrarReqPro() {
 }
 </script>
 
-
-
-
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <br>
 <br>
 <div row>
     <div class="d-flex justify-content-center">
         <!-- FIN del contenido principal -->
-        <?php require_once "vistas/parte_inf.php"?>
     </div>
 </div>
+<?php require_once "vistas/parte_inf.php"?>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

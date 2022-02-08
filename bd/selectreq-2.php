@@ -1,16 +1,18 @@
 <?php
-$conexion=mysqli_connect('db5003537921.hosting-data.io:3306','dbu1577258','w52NXfdnj.isC2B','dbs2878085');
+require("datos_conexion.php");
+//conectar por PROCEDIMIENTOS
+$conexion = mysqli_connect($db_host,$db_usuario,$db_pass,$db_nombre);
 $ide = (isset($_POST['ide'])) ? $_POST['ide'] : '';
 $fi = (isset($_POST['fi'])) ? $_POST['fi'] : '';
 $ff = (isset($_POST['ff'])) ? $_POST['ff'] : '';
     if ($ide != 0)
-	    $sql="SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado 
+	    $sql="SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado 
 		INNER JOIN detallerequisicionproductos AS D ON D.IdRequisicion = R.IdRequisicion 
-		WHERE D.Cantidad > D.CantidadSurtida AND IdEmpleadoSolicita ='$ide' AND Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Ejecucion'";
+		WHERE D.Cantidad > D.CantidadSurtida AND IdEmpleadoSolicita ='$ide' AND Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Ejecución'";
     else
-		$sql="SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado 
+		$sql="SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado 
 		INNER JOIN detallerequisicionproductos AS D ON D.IdRequisicion = R.IdRequisicion 
-		WHERE D.Cantidad > D.CantidadSurtida AND Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Ejecucion'";
+		WHERE D.Cantidad > D.CantidadSurtida AND Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Ejecución'";
 	$result=mysqli_query($conexion,$sql);
 
 	$cadena = "<option value='0'>Seleccione una Requisición: </option>";

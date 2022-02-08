@@ -164,3 +164,15 @@
 <!-- FIN del contenido principal -->
 <?php require_once "vistas/parte_inf.php"?>
 <script type="text/javascript" src="rsc/js/js-cat/empleados.js"></script>  
+<script type="text/javascript">
+    function allowEdition(){
+        setTimeout(function() {
+            $(".btnEditar").prop("disabled", false);
+        }, 500);
+    }
+    <?php if ($priv==2) echo "allowEdition();
+    $('#tablaP').on('page.dt', function() {
+    	allowEdition();
+    });";?>
+
+</script>

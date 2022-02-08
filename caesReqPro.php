@@ -24,12 +24,12 @@ $conexion = $objeto->Conectar();
             </div>
             <div class="form-group col-md-4">
                 <?php
-                  $consulta = "SELECT DISTINCTROW E.Nombre, E.IdEmpleado FROM requisicionesproductos AS OM INNER JOIN empleados AS E ON OM.IdEmpleadoSolicita = E.IdEmpleado WHERE OM.Estado='Planeacion';";
+                  $consulta = "SELECT DISTINCTROW E.Nombre, E.IdEmpleado FROM requisicionesproductos AS OM INNER JOIN empleados AS E ON OM.IdEmpleadoSolicita = E.IdEmpleado WHERE OM.Estado='Planeación';";
                   $resultado = $conexion->prepare($consulta);
                   $resultado->execute();        
                   $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                 ?>
-                <label for="" class="form-label">Nombre de Empleado: </label>
+                <label for="" class="form-label">Nombre de Empleado: (opcional) </label>
                 <select type="text" class="form-control" id="IdEmpleado">
                     <option value="0">Seleccione un empleado</option>
                     <?php foreach ($data as $opciones): ?>
@@ -209,7 +209,7 @@ function registrar2() {
     let IdRequisicion, Estado;
     $(document).ready(function() {
         IdRequisicion = $.trim($("#Requisiciones").val());
-        Estado = "Ejecucion";
+        Estado = "Ejecución";
         opcion = 2;
         $.ajax({
             url: "bd/ReqPro.php",

@@ -20,7 +20,7 @@ switch($opcion){
         $IdEmpleadoSolicita = (isset($_POST['IdEmpleadoSolicita'])) ? $_POST['IdEmpleadoSolicita'] : '';
         $Fecha = (isset($_POST['Fecha'])) ? $_POST['Fecha'] : '';
         $TotalAprox = (isset($_POST['TotalAprox'])) ? $_POST['TotalAprox'] : '';
-        $consulta2 = "INSERT INTO requisicionesproductos(IdEmpleadoSolicita, Fecha, Estado, TotalAprox) VALUES ($IdEmpleadoSolicita,'$Fecha', 'Planeacion', $TotalAprox)";		
+        $consulta2 = "INSERT INTO requisicionesproductos(IdEmpleadoSolicita, Fecha, Estado, TotalAprox) VALUES ($IdEmpleadoSolicita,'$Fecha', 'Planeación', $TotalAprox)";		
         $resultado1 = $conexion->prepare($consulta2);
         $resultado1->execute(); 
         $c=0;

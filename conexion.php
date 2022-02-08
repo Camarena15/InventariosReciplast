@@ -1,5 +1,5 @@
 <?php 
-        require("datos_conexion.php");
+        require("bd/datos_conexion.php");
         //conectar por PROCEDIMIENTOS
         $conexion = mysqli_connect($db_host,$db_usuario,$db_pass,$db_nombre);
 

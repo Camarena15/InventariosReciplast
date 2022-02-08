@@ -248,12 +248,13 @@ function registrarPago() {
 
 
 
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <br>
 <br>
 <div row>
     <div class="d-flex justify-content-center">
         <!-- FIN del contenido principal -->
-        <?php require_once "vistas/parte_inf.php"?>
     </div>
 </div>
+<?php require_once "vistas/parte_inf.php"?>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

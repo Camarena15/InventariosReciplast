@@ -29,7 +29,7 @@ $conexion = $objeto->Conectar();
             <div class="form-group col-md-4">
                 <!-- SELECT DE NOMBRES -->
                 <?php
-                    $consulta = "SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON 
+                    $consulta = "SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON 
                     R.IdEmpleadoSolicita = E.IdEmpleado INNER JOIN  `detallerequisicionproductos` AS D ON D.IdRequisicion = R.IdRequisicion 
                     WHERE D.CantidadSurtida > 0 AND D.CantidadSurtida <> D.CantidadDevuelta";
                     $resultado = $conexion->prepare($consulta);
@@ -187,12 +187,12 @@ function regDevProdV() {
 
 
 
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <br>
 <br>
 <div row>
     <div class="d-flex justify-content-center">
         <!-- FIN del contenido principal -->
-        <?php require_once "vistas/parte_inf.php"?>
     </div>
 </div>
+<?php require_once "vistas/parte_inf.php"?>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

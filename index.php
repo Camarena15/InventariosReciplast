@@ -27,14 +27,15 @@
     <title>Iniciar Sesión - Reciplast de Occidente S.P.R. de R.L. de C.V.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://reciplast.com.mx/css/carousel.css">
-    <link rel="stylesheet" href="http://reciplast.com.mx/Inventarios_Web/rsc/css/content.css">
+    <link rel="stylesheet" href="../css/carousel.css">
+    <link rel="stylesheet" href="../Inventarios_Web/rsc/css/content.css">
+    <link rel="stylesheet" href="../Inventarios_Web/rsc/css/responsive.css">
 </head>
 <body id="bodylogin">
     <div id="container">
     <header>
             <nav class="navbar-expand-md navbar-dark fixed-top bg-dark" id="headnav">
-                <a class="navbar-brand" href="">Reciplast de Occidente, S.P.R. de R.L. de S.A.</a>
+                <a class="navbar-brand" href="" >Reciplast de Occidente, S.P.R. de R.L. de S.A.</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -43,9 +44,9 @@
     </header>
     <div class="clearfix"></div>
     <section id="content">
-    <img src="rsc/css/img/Icon.jpg" id="imglogin">
-    <div id="framelogin">
-    <H3>ACCEDER A SISTEMA DE INVENTARIOS</H3>
+    <img src="rsc/css/img/Icon.png" id="imglogin" class="in-flex">
+    <div id="framelogin" class = "in-flex">
+    <H4 style="text-align: center;">ACCEDER A SISTEMA<br> DE INVENTARIOS</H4>
     <form action="comprueba_login.php" method="post">
         <table><tr>
             <td class="izqu">

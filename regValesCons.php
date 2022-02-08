@@ -38,12 +38,12 @@ $conexion = $objeto->Conectar();
             </div>
             <div class="form-group col-md-4">
                 <?php
-                  $consulta = "SELECT DISTINCTROW E.Nombre, E.IdEmpleado FROM requisicionesproductos AS OM INNER JOIN empleados AS E ON OM.IdEmpleadoSolicita = E.IdEmpleado WHERE OM.Estado='Ejecucion'";
+                  $consulta = "SELECT DISTINCTROW E.Nombre, E.IdEmpleado FROM requisicionesproductos AS OM INNER JOIN empleados AS E ON OM.IdEmpleadoSolicita = E.IdEmpleado WHERE OM.Estado='Ejecución'";
                   $resultado = $conexion->prepare($consulta);
                   $resultado->execute();        
                   $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
                 ?>
-                <label for="" class="form-label">Nombre de Empleado: </label>
+                <label for="" class="form-label">Nombre de Empleado: (opcional) </label>
                 <select type="text" class="form-control" id="Empleado">
                     <option value="0">Seleccione un empleado</option>
                     <?php foreach ($data as $opciones): ?>
@@ -73,8 +73,8 @@ $conexion = $objeto->Conectar();
             <div class="form-group col-md-4">
                 <!-- SELECT DE NOMBRES -->
                 <?php
-          $consulta = "SELECT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN Empleados AS E ON 
-          R.IdEmpleadoSolicita = E.IdEmpleado WHERE R.Estado='Surtida' OR R.Estado='Ejecucion'";
+          $consulta = "SELECT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON 
+          R.IdEmpleadoSolicita = E.IdEmpleado WHERE R.Estado='Surtida' OR R.Estado='Ejecución'";
           $resultado = $conexion->prepare($consulta);
           $resultado->execute();  
           $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -335,12 +335,13 @@ function registrarselect() {
 
 
 
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <br>
 <br>
 <div row>
     <div class="d-flex justify-content-center">
         <!-- FIN del contenido principal -->
-        <?php require_once "vistas/parte_inf.php"?>
     </div>
 </div>
+<?php require_once "vistas/parte_inf.php"?>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

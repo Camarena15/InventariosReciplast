@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once 'conexion.php';
+require("datos_conexion.php");
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
@@ -29,18 +30,28 @@ switch($opcion){
         $consulta = "INSERT INTO `comprasproductos`(`IdProveedor`, `Factura`, `Condiciones`, `Fecha`, `FechaVto`, `Subtotal`, `Iva`, `Total`, `Saldo`) 
         VALUES ($IdProveedor, '$Factura', '$Condiciones', '$Fecha', '$FechaVto', $Subtotal, $Iva, $Total, $Saldo)";		
         $resultado1 = $conexion->prepare($consulta);
-        $resultado1->execute(); 
+        $resultado1->execute();
         $c=0;
+        $con = mysqli_connect($db_host,$db_usuario,$db_pass,$db_nombre);
         for($i = 0; $i<=$max; $i+=6){
             $IdProducto[$c] = $data[$i+2];
             $Cantidad[$c] = $data[$i+3];
             $Costo[$c] = $data[$i+4];
             if($Cantidad[$c] > 0){
+                $Existencia = 0;
+                $CostoProm = 0;
+                $consulta = "SELECT Existencia, CostoProm FROM productos WHERE IdProducto=$IdProducto[$c]";
+                $result=mysqli_query($con,$consulta);
+                while ($ver=mysqli_fetch_row($result)) {
+                    $Existencia = $ver[0];
+                    $CostoProm = $ver[1];
+                }
+                $CostoPromedio = round(((($Existencia * $CostoProm) + ($Cantidad[$c] * $Costo[$c])) / ($Existencia + $Cantidad[$c])), 2);
                 $consulta = "INSERT INTO detallecompraprod(`IdCompra`, `IdProducto`, `Cantidad`, `Costo`) VALUES 
                 ($IdCompra, $IdProducto[$c], $Cantidad[$c], $Costo[$c]) ";	
                 $resultado = $conexion->prepare($consulta);
-                $resultado->execute(); 	
-                $consulta = "UPDATE `productos` SET `Existencia`=`Existencia`+ $Cantidad[$c] WHERE `IdProducto`=$IdProducto[$c]";
+                $resultado->execute();
+                $consulta = "UPDATE `productos` SET `Existencia`=`Existencia`+" . floatval($Cantidad[$c]) . ", `CostoProm`=" . floatval($CostoPromedio) . ", `UltCosto`=" . floatval($Costo[$c]) . " WHERE `IdProducto`=$IdProducto[$c]";
                 $resultado1 = $conexion->prepare($consulta);
                 $resultado1->execute();
             }

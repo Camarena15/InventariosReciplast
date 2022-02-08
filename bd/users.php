@@ -13,7 +13,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1:
-        $consulta = "INSERT INTO usuarios(Nombre, Contrasena, Privilegio, Sistema) VALUES ('$Nombre', '$Contrasena', $Privilegio, 'I')";			
+        $consulta = "INSERT INTO usuarios(Nombre, Contrasena, Privilegio, Sistema) VALUES ('$Nombre', MD5('$Contrasena'), $Privilegio, 'I')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         
@@ -26,7 +26,7 @@ switch($opcion){
         if ($Contrasena == ""){
             $consulta = "UPDATE usuarios SET Nombre='$Nombre', Privilegio = $Privilegio WHERE idUsuario = $idUsuario ";	
         } else {
-            $consulta = "UPDATE usuarios SET Nombre='$Nombre', Contrasena='$Contrasena', Privilegio = $Privilegio WHERE idUsuario = $idUsuario ";
+            $consulta = "UPDATE usuarios SET Nombre='$Nombre', Contrasena=MD5('$Contrasena'), Privilegio = $Privilegio WHERE idUsuario = $idUsuario ";
         }        
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();      

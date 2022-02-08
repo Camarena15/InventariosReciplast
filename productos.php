@@ -95,16 +95,16 @@
                         <div class="row">
                         <div class="form-group col-md-3">
                             <label for="" class="col-form-label">Existencia: </label>
-                            <input type="text" class="form-control" id="Existencia">
+                            <input type="number" class="form-control" id="Existencia" min="0" step="0.01">
                         </div>
                        
                         <div class="form-group col-md-4">
                             <label for="" class="col-form-label">Costo Promedio: </label>
-                            <input type="number" class="form-control" id="CostoProm">
+                            <input type="number" class="form-control" id="CostoProm" min="0" step="0.01">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="" class="col-form-label">Ult Costo: </label>
-                            <input type="number" class="form-control" id="UltCosto">
+                            <input type="number" class="form-control" id="UltCosto" min="0" step="0.01">
                         </div>
                         </div>
                         <div class="row">
@@ -146,3 +146,16 @@
 <!-- FIN del contenido principal -->
 <?php require_once "vistas/parte_inf.php"?>
 <script type="text/javascript" src="rsc/js/js-cat/productos.js"></script>  
+<script type="text/javascript">
+    function allowEdition(){
+        setTimeout(function() {
+            $(".btnEditar").prop("disabled", false);
+        }, 500);
+    }
+    <?php if ($priv==2) echo "allowEdition();
+    $('#tablaP').on('page.dt', function() {
+    	allowEdition();
+    });";?>
+
+
+</script>

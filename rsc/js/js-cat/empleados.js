@@ -23,7 +23,7 @@ $(document).ready(function() {
             {"data": "Tel"},
             {"data": "Celular"},
             {"data": "Estado"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>Editar</i></button>"}
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' disabled='true'><i class='material-icons'>Editar</i></button>"}
         ],
     
         "language": {
