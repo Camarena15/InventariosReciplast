@@ -12,7 +12,6 @@ $(document).ready(function() {
         "columns":[
             {"data": "IdValeCons"},
             {"data": "IdRequisicion"},
-            {"data": "IdEmpleadoRecibe"},
             {"data": "Nombre"},
             {"data": "FechaEmision"},
             {"data": "FechaSurte"},

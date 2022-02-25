@@ -11,7 +11,6 @@ $(document).ready(function() {
         },
         "columns":[
             {"data": "IdCompra"},
-            {"data": "IdProveedor"},
             {"data": "NombreP"},
             {"data": "Factura"},
             {"data": "Condiciones"},

@@ -199,7 +199,7 @@ $conexion = $objeto->Conectar();
     </table>
     <div class="row">
         <div class="col-2">
-            <button type="button" class="btn btn-success" onclick="validarTodo()">Nuevo</button>
+            <button type="button" class="btn btn-success" onclick="validarTodo()">Registrar</button>
         </div>
     </div>
 </div>

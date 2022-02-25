@@ -11,7 +11,7 @@ $(document).ready(function() {
         },
         "columns":[
             {"data": "IdProducto"},
-            {"data": "IdSubCategoria"},
+            {"data": "DescripcionSC"},
             {"data": "Descripcion"},
             {"data": "Maximo"},
             {"data": "Minimo"},
@@ -68,7 +68,10 @@ $(document).ready(function() {
                 tabla.ajax.reload(null, false);
                }
             });			        
-        $('#modalCRUD').modal('hide');											     			
+        $('#modalCRUD').modal('hide');	
+        setTimeout(function() {
+            allowEdition();
+        }, 500);										     			
     });
             
      

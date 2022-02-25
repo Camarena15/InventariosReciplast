@@ -128,6 +128,11 @@
     <?php if ($priv==2) echo "allowEdition();
     $('#tablaP').on('page.dt', function() {
     	allowEdition();
+    });
+    $('#tablaP').on('search.dt', function() {
+        setTimeout(function() {
+            allowEdition();
+        }, 500);
     });";?>
 
 </script>

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var IdEmpleado, IdArea, IdPuesto, Nombre, FechaNac, Domicilio, Colonia, Ciudad, CP, Edo, Tel, Celular, Estado;
+    var IdEmpleado, IdArea, IdPuesto, Nombre, FechaNac, FechaIngreso, Domicilio, Colonia, Ciudad, CP, Edo, Tel, Celular, Estado;
     opcion = 4;
         
     tabla = $('#tablaP').DataTable({  
@@ -11,10 +11,11 @@ $(document).ready(function() {
         },
         "columns":[
             {"data": "IdEmpleado"},
-            {"data": "IdArea"},
-            {"data": "IdPuesto"},
+            {"data": "DescripcionA"},
+            {"data": "DescripcionP"},
             {"data": "Nombre"},
             {"data": "FechaNac"},
+            {"data": "FechaIngreso"},
             {"data": "Domicilio"},
             {"data": "Colonia"},
             {"data": "Ciudad"},
@@ -51,6 +52,7 @@ $(document).ready(function() {
         IdPuesto =$.trim($("#IdPuesto").val());
         Nombre = $.trim($('#Nombre').val());   
         FechaNac = $.trim($("#FechaNac").val());
+        FechaIngreso = $.trim($("#FechaIngreso").val());
         Domicilio = $.trim($("#Domicilio").val());
         Colonia = $.trim($("#Colonia").val()); 
         Ciudad = $.trim($("#Ciudad").val());
@@ -63,12 +65,15 @@ $(document).ready(function() {
               url: "bd/bd-cat/empleadoscrud.php",
               type: "POST",
               datatype:"json",    
-              data:  {IdEmpleado:IdEmpleado, IdArea:IdArea, IdPuesto:IdPuesto, Nombre:Nombre, FechaNac:FechaNac, Domicilio:Domicilio, Colonia:Colonia, Ciudad:Ciudad, CP:CP, Edo:Edo, Tel:Tel, Celular:Celular, Estado:Estado, opcion:opcion},    
+              data:  {IdEmpleado:IdEmpleado, IdArea:IdArea, IdPuesto:IdPuesto, Nombre:Nombre, FechaNac:FechaNac, FechaIngreso:FechaIngreso, Domicilio:Domicilio, Colonia:Colonia, Ciudad:Ciudad, CP:CP, Edo:Edo, Tel:Tel, Celular:Celular, Estado:Estado, opcion:opcion},    
               success: function(data) {
                 tabla.ajax.reload(null, false);
                }
-            });			        
-        $('#modalCRUD').modal('hide');											     			
+            });
+        $('#modalCRUD').modal('hide');	
+        setTimeout(function() {
+            allowEdition();
+        }, 500);
     });
             
      
@@ -93,18 +98,20 @@ $(document).ready(function() {
         IdPuesto = parseInt(fila.find('td:eq(2)').text());
         Nombre = fila.find('td:eq(3)').text();
         FechaNac = fila.find('td:eq(4)').text();
-        Domicilio = fila.find('td:eq(5)').text();
-        Colonia = fila.find('td:eq(6)').text();
-        Ciudad = fila.find('td:eq(7)').text();
-        CP = fila.find('td:eq(8)').text();
-        Edo = fila.find('td:eq(9)').text();
-        Tel = fila.find('td:eq(10)').text();
-        Celular = fila.find('td:eq(11)').text();
-        Estado = fila.find('td:eq(12)').text();
+        FechaIngreso = fila.find('td:eq(5)').text();
+        Domicilio = fila.find('td:eq(6)').text();
+        Colonia = fila.find('td:eq(7)').text();
+        Ciudad = fila.find('td:eq(8)').text();
+        CP = fila.find('td:eq(9)').text();
+        Edo = fila.find('td:eq(10)').text();
+        Tel = fila.find('td:eq(11)').text();
+        Celular = fila.find('td:eq(12)').text();
+        Estado = fila.find('td:eq(13)').text();
         $("#IdArea").val(IdArea);
         $("#IdPuesto").val(IdPuesto);
         $("#Nombre").val(Nombre);
         $("#FechaNac").val(FechaNac);
+        $("#FechaIngreso").val(FechaIngreso);
         $("#Domicilio").val(Domicilio);
         $("#Colonia").val(Colonia);
         $("#Ciudad").val(Ciudad);
@@ -136,6 +143,5 @@ $(document).ready(function() {
                }
             });	
         }
-     });
-         
+     }); 
     });    

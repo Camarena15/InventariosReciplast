@@ -3,6 +3,7 @@
         try {
 
             $base = new PDO ("mysql:host=db5003537921.hosting-data.io:3306; dbname=dbs2878085;", "dbu1577258", "w52NXfdnj.isC2B");
+            //$base = new PDO ("mysql:host=localhost; dbname=dbs2878085;", "dbu1577258", "w52NXfdnj.isC2B");
             
             $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             

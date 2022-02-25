@@ -29,7 +29,7 @@
 <br>
 <br>
 <div class="row">
-    <div class="col-md-1"></div>
+    <div class="col-md-2"></div>
     <div class="col-md-3">
         <select class="form-control" id="detalles">
         </select>
@@ -96,9 +96,12 @@ window.onload = setTimeout(function() {
     load();
 }, 500);
 
-/*$('#tablaP').on('search.dt', function() {
-    load();
-});*/
+$('#tablaP').on('search.dt', function() {
+    setTimeout(function() {
+        load();
+    }, 500);
+});
+
 $('#tablaP').on('page.dt', function() {
     load();
 });

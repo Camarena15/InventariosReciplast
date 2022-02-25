@@ -118,13 +118,13 @@ $pdf->SetFont('Times','',10);
 			$resultado->execute();  
 			$data=$resultado->fetchAll(PDO::FETCH_ASSOC);
 			foreach ($data as $opciones):{
-				$pdf->Cell(0,0,'Categoria=' . $opciones['DescripcionSC'],0,1,'L');
+				$pdf->Cell(0,0,'Categoria=' . utf8_decode($opciones['DescripcionSC']),0,1,'L');
 				$pdf->Cell(0,0,utf8_decode("Fecha de Impresión: " . date("d/m/Y")),0,1,'R');
 				$pdf->Cell(0,0,'                 ______________',0,0,'L');
 				$pdf->Cell(0,10,'',0,1);
 			}endforeach;
 			$pdf->SetFont('Times','',7);
-			$sql="SELECT * FROM productos WHERE IdSubCategoria=$IdSubCategoria AND Existencia < (Minimo+100)";
+			$sql="SELECT * FROM productos WHERE IdSubCategoria=$IdSubCategoria AND Existencia Between 0 AND Minimo";
 			$resultado = $conexion->prepare($sql);
 			$resultado->execute();  
 			$data=$resultado->fetchAll(PDO::FETCH_ASSOC);

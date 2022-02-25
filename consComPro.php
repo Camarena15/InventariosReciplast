@@ -11,7 +11,6 @@
                     <thead class="text-center">
                         <tr>
                             <th>IdCompra</th>
-                            <th>IdProveedor</th>
                             <th>Proveedor</th>
                             <th>Factura</th>
                             <th>Condiciones</th>
@@ -105,9 +104,12 @@ window.onload = setTimeout(function() {
     load();
 }, 500);
 
-/*$('#tablaP').on('search.dt', function() {
-    load();
-});*/
+$('#tablaP').on('search.dt', function() {
+    setTimeout(function() {
+        load();
+    }, 500);
+});
+
 $('#tablaP').on('page.dt', function() {
     load();
 });

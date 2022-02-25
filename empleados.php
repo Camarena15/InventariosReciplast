@@ -23,6 +23,7 @@
                             <th>Puesto</th>
                             <th>Nombre</th>
                             <th>Fecha de Nacimiento</th>
+                            <th>Fecha de Ingreso</th>
                             <th>Domicilio</th>
                             <th>Colonia</th>
                             <th>Ciudad</th>
@@ -102,6 +103,10 @@
                                 <label for="" class="col-form-label">Fecha de Nacimiento: </label>
                                 <input type="date" class="form-control" id="FechaNac">
                             </div>
+                            <div class="form-group col-md-5">
+                                <label for="" class="col-form-label">Fecha de Ingreso: </label>
+                                <input type="date" class="form-control" id="FechaIngreso">
+                            </div>
                         </div>
                         
                         <div class="form-group">
@@ -173,6 +178,11 @@
     <?php if ($priv==2) echo "allowEdition();
     $('#tablaP').on('page.dt', function() {
     	allowEdition();
+    });
+    $('#tablaP').on('search.dt', function() {
+        setTimeout(function() {
+            allowEdition();
+        }, 500);
     });";?>
 
 </script>

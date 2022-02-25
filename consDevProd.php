@@ -12,6 +12,7 @@
                         <tr>
                             <th>IdDevolucion</th>
                             <th>IdRequisicion</th>
+                            <th>Empleado que<br> solicitó productos</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>
@@ -93,9 +94,12 @@ window.onload = setTimeout(function() {
     load();
 }, 500);
 
-/*$('#tablaP').on('search.dt', function() {
-    load();
-});*/
+$('#tablaP').on('search.dt', function() {
+    setTimeout(function() {
+        load();
+    }, 500);
+});
+
 $('#tablaP').on('page.dt', function() {
     load();
 });

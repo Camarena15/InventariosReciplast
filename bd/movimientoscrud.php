@@ -16,13 +16,15 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2:
-        $consulta = "SELECT C.* FROM devprodvale AS C WHERE 1";
+        $consulta = "SELECT E.Nombre, C.* FROM devprodvale AS C INNER JOIN requisicionesproductos as R 
+        ON R.IdRequisicion = C.IdRequisicion INNER JOIN empleados as E ON R.IdEmpleadoSolicita = E.IdEmpleado WHERE 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 3:
-        $consulta = "SELECT C.* FROM requisicionesproductos AS C WHERE 1";
+        $consulta = "SELECT E.Nombre, C.* FROM requisicionesproductos AS C INNER JOIN empleados as E ON
+         E.IdEmpleado = C.IdEmpleadoSolicita WHERE 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -35,7 +37,8 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 5:
-        $consulta = "SELECT C.* FROM pagoscompras AS C WHERE 1";
+        $consulta = "SELECT P.NombreP, C.* FROM pagoscompras AS C INNER JOIN comprasproductos as CR 
+        ON CR.IdCompra = C.IdCompra INNER JOIN proveedores as P ON P.IdProveedor = CR.IdProveedor WHERE 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

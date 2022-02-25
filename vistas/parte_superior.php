@@ -248,6 +248,7 @@
                 <div id="collapsettings" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="regNuevoUsr.php">Administrar Usuarios</a>
+                        <a class="collapse-item" href="admInfo.php">Respaldar Información</a>
                     </div>
                 </div>
             </li>';?>

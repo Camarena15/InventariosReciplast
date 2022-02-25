@@ -67,8 +67,11 @@ $(document).ready(function() {
               success: function(data) {
                 tabla.ajax.reload(null, false);
                }
-            });			        
-        $('#modalCRUD').modal('hide');											     			
+            });		        
+        $('#modalCRUD').modal('hide');	
+        setTimeout(function() {
+            allowEdition();
+        }, 500);										     			
     });
             
      

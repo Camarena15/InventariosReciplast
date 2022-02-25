@@ -12,6 +12,7 @@ $(document).ready(function() {
         "columns":[
             {"data": "IdPago"},
             {"data": "IdCompra"},
+            {"data": "NombreP"},
             {"data": "Referencia"},
             {"data": "Fecha"},
             {"data": "Importe"}
