@@ -37,7 +37,7 @@ $conexion = $objeto->Conectar();
             </div>
             <div class="form-group col-md-4">
                 <?php
-                  $consulta = "SELECT DISTINCTROW E.Nombre, E.IdProveedor FROM comprasproductos AS OM INNER JOIN proveedores AS E ON OM.IdProveedor = E.IdProveedor WHERE 1";
+                  $consulta = "SELECT DISTINCTROW E.NombreP, E.IdProveedor FROM comprasproductos AS OM INNER JOIN proveedores AS E ON OM.IdProveedor = E.IdProveedor WHERE 1";
                   $resultado = $conexion->prepare($consulta);
                   $resultado->execute();        
                   $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -46,7 +46,7 @@ $conexion = $objeto->Conectar();
                 <select type="text" class="form-control" id="IdProveedor">
                     <option value="0">Seleccione un proveedor</option>
                     <?php foreach ($data as $opciones): ?>
-                    <option value="<?php echo $opciones['IdProveedor'] ?>"><?php echo $opciones['Nombre'] ?></option>
+                    <option value="<?php echo $opciones['IdProveedor'] ?>"><?php echo $opciones['NombreP'] ?></option>
                     <?php endforeach ?>
                 </select>
             </div>
@@ -103,7 +103,7 @@ $conexion = $objeto->Conectar();
         
         <div class="row">
             <div class="col-2">
-                <button type="button" class="btn btn-success" onclick="validarTodo()">Nuevo</button>
+                <button type="button" class="btn btn-success" onclick="validarTodo()">Registrar</button>
             </div>
         </div>
         <br>
@@ -248,12 +248,13 @@ function registrarPago() {
 
 
 
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <br>
 <br>
 <div row>
     <div class="d-flex justify-content-center">
         <!-- FIN del contenido principal -->
-        <?php require_once "vistas/parte_inf.php"?>
     </div>
 </div>
+<?php require_once "vistas/parte_inf.php"?>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

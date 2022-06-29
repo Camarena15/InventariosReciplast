@@ -49,7 +49,8 @@ switch($opcion){
         $resultado->execute();                           
         break;
     case 4:    
-        $consulta = "SELECT * FROM productos  WHERE 1";
+        $consulta = "SELECT SC.DescripcionSC, P.* FROM productos as P INNER JOIN subcategorias as SC ON 
+        P.IdSubCategoria = SC.IdSubCategoria  WHERE 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

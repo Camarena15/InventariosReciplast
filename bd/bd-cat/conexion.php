@@ -1,7 +1,8 @@
 <?php 
 class Conexion{	  
     public static function Conectar() {        
-        define('servidor', 'db5003537921.hosting-data.io:3306');
+        //define('servidor', 'db5003537921.hosting-data.io:3306');
+        define('servidor', 'localhost');
         define('nombre_bd', 'dbs2878085');
         define('usuario', 'dbu1577258');
         define('password', 'w52NXfdnj.isC2B');					        

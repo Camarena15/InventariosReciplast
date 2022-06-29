@@ -3,44 +3,41 @@ include_once 'conexion.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-$Id = (isset($_POST['Id'])) ? $_POST['Id'] : '';
-$IdCategoria = (isset($_POST['IdCategoria'])) ? $_POST['IdCategoria'] : '';
-$IdSubCategoria = (isset($_POST['IdSubCategoria'])) ? $_POST['IdSubCategoria'] : '';
-$DescripcionSC = (isset($_POST['DescripcionSC'])) ? $_POST['DescripcionSC'] : '';
-
+$Descripcion = (isset($_POST['Descripcion'])) ? $_POST['Descripcion'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
+$IdCategoria = (isset($_POST['IdCategoria'])) ? $_POST['IdCategoria'] : '';
+$IdSubCategoria = (isset($_POST['IdSubCategoria'])) ? $_POST['IdSubCategoria'] : '';
 
 
 switch($opcion){
     case 1:
-        $consulta = "INSERT INTO subcategorias(IdCategoria, IdSubCategoria, DescripcionSC) 
-        VALUES ($IdCategoria, $IdSubCategoria, '$DescripcionSC')";			
+        $consulta = "INSERT INTO subcategorias (IdCategoria, DescripcionSC) VALUES('$IdCategoria', '$Descripcion') ";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         
-        $consulta = "SELECT * FROM subcategorias ORDER BY Id DESC LIMIT 1";
+        $consulta = "SELECT S.IdSubCategoria, C.DescripcionC, S.DescripcionSC FROM subcategorias AS S INNER JOIN categorias AS C ON S.IdCategoria = C.IdCategoria";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);       
         break;    
     case 2:        
-        $consulta = "UPDATE subcategorias SET IdCategoria=  $IdCategoria, IdSubCategoria=$IdSubCategoria, DescripcionSC = '$DescripcionSC' WHERE Id = $Id ";		
+        $consulta = "UPDATE subcategorias SET IdCategoria = '$IdCategoria',  DescripcionSC='$Descripcion' WHERE IdSubCategoria='$IdSubCategoria' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT * FROM subcategorias WHERE Id= $Id ";       
+        $consulta = "SELECT * FROM subcategorias WHERE IdSubCategoria='$IdSubCategoria'";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 3:        
-        $consulta = "DELETE FROM subcategorias WHERE Id= $Id ";		
+        $consulta = "DELETE FROM subcategorias WHERE IdSubCategoria='$IdSubCategoria' ";		
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();                           
         break;
     case 4:    
-        $consulta = "SELECT * FROM subcategorias  WHERE 1";
+        $consulta = "SELECT S.IdSubCategoria, C.DescripcionC, S.DescripcionSC FROM subcategorias AS S INNER JOIN categorias AS C ON S.IdCategoria = C.IdCategoria";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);

@@ -10,8 +10,9 @@
                 <table id="tablaP" class="table table-striped table-bordered table-condensed" style="width:100%">
                     <thead class="text-center">
                         <tr>
-                            <th>IdPago</th>
-                            <th>IdCompra</th>
+                            <th style="width:1em;">IdPago</th>
+                            <th style="width:1em;">IdCompra</th>
+                            <th>Proveedor</th>
                             <th>Referencia</th>
                             <th>Fecha</th>
                             <th>Importe</th>

@@ -57,7 +57,7 @@ $(document).ready(function() {
         $("#formulario").trigger("reset");
         $(".modal-header").css( "background-color", "#28a745");
         $(".modal-header").css( "color", "white" );
-        $(".modal-title").text("Alta de Producto");
+        $(".modal-title").text("Alta de Áreas");
         $('#modalCRUD').modal('show');	    
     });
     
@@ -71,7 +71,7 @@ $(document).ready(function() {
         $("#DescripcionA").val(DescripcionA);
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white" );
-        $(".modal-title").text("Editar Producto");		
+        $(".modal-title").text("Editar Área");		
         $('#modalCRUD').modal('show');		   
     });
     

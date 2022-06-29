@@ -43,7 +43,17 @@ $(document).ready(function() {
         Contrasena = $.trim($('#Contrasena').val());
         Contrasena2 = $.trim($('#Contrasena2').val());   
         Privilegio = $.trim($("#Privilegio").val());
-        if (Contrasena != Contrasena2){
+        if (opcion != 2 && verifyUserName(Nombre)){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'El nombre de usuario ya existe',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            return false;
+        }
+        else if (Contrasena != Contrasena2){
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
@@ -139,6 +149,19 @@ $(document).ready(function() {
             }
             c+=4;
         }
+    }
+
+    function verifyUserName(Nombre){
+        var arregloId = new Array();
+        let celdasId = document.querySelectorAll('#tablaP tbody tr td');
+        var c = 0;
+        for (let i = 0; i < celdasId.length / 4; ++i) {
+            arregloId[i] = celdasId[c + 1].firstChild.data;
+            c += 4;
+            if (arregloId[i]==Nombre)
+                return true;
+        }
+        return false;
     }
 
     });    

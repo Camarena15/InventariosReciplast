@@ -12,7 +12,6 @@
                         <tr>
                             <th>IdValeCons</th>
                             <th>IdRequisicion</th>
-                            <th>IdEmpleadoRecibe</th>
                             <th>Nombre Empleado Recibe</th>
                             <th>Fecha de Emisión</th>
                             <th>Fecha Surte</th>
@@ -100,5 +99,11 @@ window.onload = setTimeout(function() {
 
 $('#tablaP').on('page.dt', function() {
     load();
+});
+
+$('#tablaP').on('search.dt', function() {
+    setTimeout(function() {
+        load();
+    }, 500);
 });
 </script>

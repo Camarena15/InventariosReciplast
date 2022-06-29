@@ -23,7 +23,7 @@ $(document).ready(function() {
             {"data": "Representante"},
             {"data": "DescripcionTipoProv"},
             {"data": "Saldo"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>Editar</i></button>"}
+            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' disabled='true'><i class='material-icons'>Editar</i></button>"}
         ],
     
         "language": {
@@ -67,8 +67,11 @@ $(document).ready(function() {
               success: function(data) {
                 tabla.ajax.reload(null, false);
                }
-            });			        
-        $('#modalCRUD').modal('hide');											     			
+            });		        
+        $('#modalCRUD').modal('hide');	
+        setTimeout(function() {
+            allowEdition();
+        }, 500);										     			
     });
             
      
@@ -80,7 +83,7 @@ $(document).ready(function() {
         $("#formulario").trigger("reset");
         $(".modal-header").css( "background-color", "#28a745");
         $(".modal-header").css( "color", "white" );
-        $(".modal-title").text("Alta de Producto");
+        $(".modal-title").text("Alta de Proveedores");
         $('#modalCRUD').modal('show');	    
     });
     
@@ -113,7 +116,7 @@ $(document).ready(function() {
         $("#DescripcionTipoProv").val(DescripcionTipoProv);
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white" );
-        $(".modal-title").text("Editar Producto");		
+        $(".modal-title").text("Editar Proveedor");		
         $('#modalCRUD').modal('show');		   
     });
     

@@ -11,7 +11,7 @@ $(document).ready(function() {
         },
         "columns":[
             {"data": "IdRequisicion"},
-            {"data": "IdEmpleadoSolicita"},
+            {"data": "Nombre"},
             {"data": "Fecha"},
             {"data": "Estado"},
             {"data": "TotalAprox"}

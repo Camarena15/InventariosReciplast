@@ -12,6 +12,7 @@ $(document).ready(function() {
         "columns":[
             {"data": "IdDevolucion"},
             {"data": "IdRequisicion"},
+            {"data": "Nombre"},
             {"data": "Fecha"}
         ],
     

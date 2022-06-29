@@ -5,7 +5,7 @@
 <div class="container">
         <div class="row">
             <div class="col-lg-12">            
-            <button id="btnNuevo" type="button" class="btn btn-info" data-toggle="modal"><i class="material-icons">Nuevo</i></button>    
+            <button id="btnNuevo" type="button" class="btn btn-info" data-toggle="modal"><i class="material-icons">Registrar</i></button>    
             </div>    
         </div>    
     </div>    
@@ -115,4 +115,5 @@
             }
         }, 500);   
     }
+    
 </script>

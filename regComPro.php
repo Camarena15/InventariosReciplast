@@ -96,9 +96,7 @@ $conexion = $objeto->Conectar();
             <div class="form-group col-md-3">
                 <!-- SELECT PARA EL PRODUCTO -->
                 <?php
-          $consulta = "SELECT DISTINCT P.IdProducto, P.Descripcion FROM productos as P INNER JOIN detallerequisicionproductos as D ON 
-          D.IdProducto = P.IdProducto INNER JOIN requisicionesproductos AS R ON R.IdRequisicion = D.IdRequisicion 
-          WHERE R.Estado = 'Ejecucion' AND D.Cantidad > D.CantidadSurtida Order By Descripcion ASC";
+          $consulta = "SELECT DISTINCT P.IdProducto, P.Descripcion FROM productos as P WHERE 1 Order By Descripcion ASC";
           $resultado = $conexion->prepare($consulta);
           $resultado->execute();  
           $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -168,6 +166,31 @@ $conexion = $objeto->Conectar();
                 }
                 </script>
             </div>
+            <div class="form-group col-md-2" id="CostoPUC">
+                <!-- SCRIPT PARA EL COSTO -->
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#DescripcionProducto').val(0);
+                    rec1();
+
+                    $('#DescripcionProducto').change(function() {
+                        rec1();
+                    });
+                })
+                </script>
+                <script type="text/javascript">
+                function rec1() {
+                    $.ajax({
+                        type: "POST",
+                        url: "bd/getCostoPUC.php",
+                        data: "costo=" + $('#DescripcionProducto').val(),
+                        success: function(r) {
+                            $('#CostoPUC').html(r);
+                        }
+                    });
+                }
+                </script>
+            </div>
             <div class="form-group col-md-2">
                 <label for="" class="form-label">Cantidad: </label>
                 <input type="number" class="form-control" id="Cantidad" min="0" step=".01">
@@ -192,12 +215,12 @@ $conexion = $objeto->Conectar();
     <table class="table table-stripped" id="tablaProductos">
         <thead>
             <tr>
-                <th scope="col">Movimiento</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">IdProducto</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Precio Unitario</th>
-                <th scope="col">Importe</th>
+                <th scope="col">Movimiento <br>-</th>
+                <th scope="col">Descripción <br>-</th>
+                <th scope="col">IdProducto <br>-</th>
+                <th scope="col">Cantidad <br>-</th>
+                <th scope="col">Costo Unitario <br> Actual</th>
+                <th scope="col">Importe <br>-</th>
             </tr>
         </thead>
         <tbody id="tbodydatos">
@@ -227,7 +250,7 @@ $conexion = $objeto->Conectar();
     </div>
     <div class="row">
         <div class="col-2">
-            <button type="button" class="btn btn-success" onclick="validarTodo()">Nuevo</button>
+            <button type="button" class="btn btn-success" onclick="validarTodo()">Registrar</button>
         </div>
         <div class="col-md-3"></div>
         <div class="col-md-3"></div>
@@ -246,9 +269,10 @@ $conexion = $objeto->Conectar();
     desc = document.getElementById('DescripcionProducto').textContent;
     cant = document.getElementById('Cantidad').value;
     precio = document.getElementById('Precio').value;
+    preciopuc = document.getElementById('PrecioPUC').value;
     exp = /\w+@\w+\.+[a-z]/;
 
-    if (idproducto == '' || desc == '' || cant == '' || precio == '') {
+    if (idproducto == '' || desc == '' || cant == '' || precio == '' || preciopuc == "") {
         alert("Todos los campos son obligatorios");
         return false;
     }
@@ -272,7 +296,7 @@ function registrarTabla() {
     var selected = combo.options[combo.selectedIndex].text;
     var cantidad = $("#Cantidad").val();
     var idProducto = $("#IdProd").val();
-    var precio = $("#Precio").val();
+    var precioAc = $("#PrecioPUC").val();
 
     var id = "";
     var cantidad1 = 0;
@@ -295,7 +319,7 @@ function registrarTabla() {
             encontrado = true;
 
             var tcan = parseFloat(cantidad) + parseFloat(cantidad1);
-            var tpre = parseFloat(precio);
+            var tpre = parseFloat(precioAc);
 
             tr.remove();
             cont++;
@@ -316,8 +340,8 @@ function registrarTabla() {
         cont++;
         fila = '<tr class="selected" id="fila' + cont + '"><td>' + cont + '</td><td><input type="hidden" value="' +
             selected + '"><input type="hidden" value="' + idProducto + '"><input type="hidden" value="' + cantidad +
-            '"><input type="hidden" value="' + precio + '">' + selected + '</td><td>' + idProducto + '</td><td>' +
-            Number.parseFloat(cantidad).toFixed(2) + '</td><td>' + Number.parseFloat(precio).toFixed(2) + '</td><td>' + Number.parseFloat(cantidad*precio).toFixed(2) + '</td></tr>';
+            '"><input type="hidden" value="' + precioAc + '">' + selected + '</td><td>' + idProducto + '</td><td>' +
+            Number.parseFloat(cantidad).toFixed(2) + '</td><td>' + Number.parseFloat(precioAc).toFixed(2) + '</td><td>' + Number.parseFloat(cantidad*precioAc).toFixed(2) + '</td></tr>';
         $('#tbodydatos').append(fila);
         calcularCosto();
         return;
@@ -435,12 +459,13 @@ function registrarComPro() {
 
 
 
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <br>
 <br>
 <div row>
     <div class="d-flex justify-content-center">
         <!-- FIN del contenido principal -->
-        <?php require_once "vistas/parte_inf.php"?>
     </div>
 </div>
+<?php require_once "vistas/parte_inf.php"?>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

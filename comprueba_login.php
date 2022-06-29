@@ -2,7 +2,8 @@
 
         try {
 
-            $base = new PDO ("mysql:host=db5003537921.hosting-data.io:3306; dbname=dbs2878085;", "dbu1577258", "w52NXfdnj.isC2B");
+            //$base = new PDO ("mysql:host=db5003537921.hosting-data.io:3306; dbname=dbs2878085;", "dbu1577258", "w52NXfdnj.isC2B");
+            $base = new PDO ("mysql:host=localhost; dbname=dbs2878085;", "dbu1577258", "w52NXfdnj.isC2B");
             
             $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
@@ -12,7 +13,7 @@
 
             $login=htmlentities(addslashes($_POST["login"])); /*Convierte cualquier simbolo en htm*/
             
-            $password=htmlentities(addslashes($_POST["password"]));
+            $password=htmlentities(addslashes(MD5($_POST["password"])));
             
             $resultado->bindValue(":login", $login);
 
@@ -26,7 +27,7 @@
             if($numero_registro != 0){
                 session_start();
                 $_SESSION["usuario"]=$_POST["login"];
-                $_SESSION["password"]=$_POST["password"];
+                $_SESSION["password"]=MD5($_POST["password"]);
                 header("location:principal.php");
 
             } else {

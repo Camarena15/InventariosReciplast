@@ -24,7 +24,8 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--, shrink-to-fit=no-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -50,6 +51,7 @@
     <!--datables estilo bootstrap 4 CSS-->  
     <link rel="stylesheet"  type="text/css" href="vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">    
     <link rel="stylesheet" href="rsc/css/content.css"> 
+    <link rel="stylesheet" href="rsc/css/responsive.css"> 
 </head>
 
 <body id="page-top">
@@ -64,7 +66,7 @@
             <br>
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="principal.php">
                 <div class="sidebar-brand-ico">
-                <img height="100px" width="100px" src="rsc/css/img/Icon.jpg">
+                <img height="100px" width="100px" src="rsc/css/img/Icon.png">
                     <i class="#"></i>
                 </div>
                 </a>
@@ -104,6 +106,7 @@
                         <a class="collapse-item" href="productos.php">Productos</a>
                         <a class="collapse-item" href="proveedores.php">Proveedores</a>
                         <a class="collapse-item" href="puestos.php">Puestos</a>
+						<a class="collapse-item" href="subcategoria.php">SubCategorías</a>
                     </div>
                 </div>
             </li>
@@ -216,6 +219,7 @@
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Informes Disponibles:</h6>
+						<a class="collapse-item" href="R_resepro.php">Reporte de Seguimiento <br> de Productos en <br> un periodo</a>
                         <a class="collapse-item" href="R_exisprod.php">Relación de Existencias<br> de Productos por<br> Categoría</a>
                         <a class="collapse-item" href="R_liprosur.php">Lista de Productos a<br> Surtir</a>
                         <a class="collapse-item" href="R_relprov.php">Relación de <br>Proveedores</a>
@@ -246,6 +250,7 @@
                 <div id="collapsettings" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="regNuevoUsr.php">Administrar Usuarios</a>
+                        <a class="collapse-item" href="admInfo.php">Respaldar Información</a>
                     </div>
                 </div>
             </li>';?>
@@ -287,6 +292,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                                <div style="text-align: center;"><?php echo $_SESSION["usuario"]?></div>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
