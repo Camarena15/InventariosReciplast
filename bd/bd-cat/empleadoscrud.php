@@ -24,7 +24,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch($opcion){
     case 1:
-        $consulta = "INSERT INTO empleados(IdArea, IdPuesto, Nombre, FechaNac, FechaIngreso Domicilio, Colonia, Ciudad, CP, Edo, Tel, Celular, Estado) 
+        $consulta = "INSERT INTO empleados(IdArea, IdPuesto, Nombre, FechaNac, FechaIngreso, Domicilio, Colonia, Ciudad, CP, Edo, Tel, Celular, Estado) 
         VALUES ($IdArea, $IdPuesto, '$Nombre', '$FechaNac', '$FechaIngreso', '$Domicilio', '$Colonia', '$Ciudad', '$CP', '$Edo', '$Tel', '$Celular', '$Estado')";			
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 

@@ -106,6 +106,7 @@
                         <a class="collapse-item" href="productos.php">Productos</a>
                         <a class="collapse-item" href="proveedores.php">Proveedores</a>
                         <a class="collapse-item" href="puestos.php">Puestos</a>
+						<a class="collapse-item" href="subcategoria.php">SubCategorías</a>
                     </div>
                 </div>
             </li>
@@ -218,6 +219,7 @@
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Informes Disponibles:</h6>
+						<a class="collapse-item" href="R_resepro.php">Reporte de Seguimiento <br> de Productos en <br> un periodo</a>
                         <a class="collapse-item" href="R_exisprod.php">Relación de Existencias<br> de Productos por<br> Categoría</a>
                         <a class="collapse-item" href="R_liprosur.php">Lista de Productos a<br> Surtir</a>
                         <a class="collapse-item" href="R_relprov.php">Relación de <br>Proveedores</a>

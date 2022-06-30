@@ -85,7 +85,7 @@ $(document).ready(function() {
         $("#formulario").trigger("reset");
         $(".modal-header").css( "background-color", "#28a745");
         $(".modal-header").css( "color", "white" );
-        $(".modal-title").text("Alta de Producto");
+        $(".modal-title").text("Alta de Empleados");
         $('#modalCRUD').modal('show');	    
     });
     
@@ -122,7 +122,7 @@ $(document).ready(function() {
         $("#Estado").val(Estado);
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white" );
-        $(".modal-title").text("Editar Producto");		
+        $(".modal-title").text("Editar Empleado");		
         $('#modalCRUD').modal('show');		   
     });
     

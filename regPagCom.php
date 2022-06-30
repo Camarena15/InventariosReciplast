@@ -37,7 +37,7 @@ $conexion = $objeto->Conectar();
             </div>
             <div class="form-group col-md-4">
                 <?php
-                  $consulta = "SELECT DISTINCTROW E.Nombre, E.IdProveedor FROM comprasproductos AS OM INNER JOIN proveedores AS E ON OM.IdProveedor = E.IdProveedor WHERE 1";
+                  $consulta = "SELECT DISTINCTROW E.NombreP, E.IdProveedor FROM comprasproductos AS OM INNER JOIN proveedores AS E ON OM.IdProveedor = E.IdProveedor WHERE 1";
                   $resultado = $conexion->prepare($consulta);
                   $resultado->execute();        
                   $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -46,7 +46,7 @@ $conexion = $objeto->Conectar();
                 <select type="text" class="form-control" id="IdProveedor">
                     <option value="0">Seleccione un proveedor</option>
                     <?php foreach ($data as $opciones): ?>
-                    <option value="<?php echo $opciones['IdProveedor'] ?>"><?php echo $opciones['Nombre'] ?></option>
+                    <option value="<?php echo $opciones['IdProveedor'] ?>"><?php echo $opciones['NombreP'] ?></option>
                     <?php endforeach ?>
                 </select>
             </div>

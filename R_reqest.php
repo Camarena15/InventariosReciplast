@@ -17,8 +17,8 @@ $conexion = $objeto->Conectar();
                 <label for="" class="form-label">Estado de la Requisición: </label>
                 <select type="number" class="form-control" id="Estado" name="Estado">
                     <option value="0">Seleccione un estado</option>
-                    <option value="Planeacion">Planeación</option>
-                    <option value="Ejecucion">Ejecución</option>
+                    <option value="Planeación">Planeación</option>
+                    <option value="Ejecución">Ejecución</option>
                     <option value="Cancelada">Cancelada</option>
                 </select>
             </div>

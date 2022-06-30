@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var Id, IdCategoria, IdSubCategoria, DescripcionSC;
+    var Id, IdCategoria, IdSubCategoria, Descripcion;
     opcion = 4;
         
     tabla = $('#tablaP').DataTable({  
@@ -10,12 +10,10 @@ $(document).ready(function() {
             "dataSrc":""
         },
         "columns":[
-            {"data": "Id"},
-            {"data": "IdCategoria"},
             {"data": "IdSubCategoria"},
-            {"data": "DescripcionSC"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar'><i class='material-icons'>Editar</i></button>"}
-        ],
+            {"data": "DescripcionC"},
+            {"data": "DescripcionSC"}
+		],
     
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -38,63 +36,63 @@ $(document).ready(function() {
     //submit para el Alta y Actualización
     $('#formulario').submit(function(e){                         
         e.preventDefault(); //evita el comportamiento normal del submit, es decir, recarga total de la página
-        IdCategoria =$.trim($("#IdCategoria").val());
-        IdSubCategoria =$.trim($("#IdSubCategoria").val());
-        DescripcionSC = $.trim($('#DescripcionSC').val());                               
+        IdCategoria = $.trim($('#IdCategoria').val());      
+        Descripcion = $.trim($('#Descripcion').val());                              
             $.ajax({
               url: "bd/bd-cat/subcategoriascrud.php",
               type: "POST",
               datatype:"json",    
-              data:  {Id:Id, IdCategoria:IdCategoria, IdSubCategoria:IdSubCategoria, DescripcionSC:DescripcionSC, opcion:opcion},    
+              data:  {IdCategoria:IdCategoria, IdSubCategoria:IdSubCategoria, Descripcion:Descripcion, opcion:opcion},    
               success: function(data) {
                 tabla.ajax.reload(null, false);
                }
             });			        
-        $('#modalCRUD').modal('hide');											     			
+        $('#modalCRUD').modal('hide');
+        setTimeout(function() {
+            allowEdition();
+        }, 500);											     			
     });
             
      
     
     //para limpiar los campos antes de dar de Alta
     $("#btnNuevo").click(function(){
-        opcion = 1; //alta           
-        Id=null;
+        opcion = 1; //alta
+        IdSubCategoria=null;   
         $("#formulario").trigger("reset");
         $(".modal-header").css( "background-color", "#28a745");
         $(".modal-header").css( "color", "white" );
-        $(".modal-title").text("Alta de Producto");
+        $(".modal-title").text("Alta de SubCategoría");
         $('#modalCRUD').modal('show');	    
     });
     
     //Editar        
     $(document).on("click", ".btnEditar", function(){		        
         opcion = 2;//editar
-        fila = $(this).closest("tr");	        
-        Id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID
-        IdCategoria =parseInt(fila.find('td:eq(1)').text());
-        IdSubCategoria = parseInt(fila.find('td:eq(2)').text());
-        DescripcionSC = fila.find('td:eq(3)').text();
+        fila = $(this).closest("tr");
+        IdSubCategoria = parseInt(fila.find('td:eq(0)').text());//capturo el ID
+        IdCategoria = parseInt(fila.find('td:eq(1)').text()); 
+        Descripcion = fila.find('td:eq(2)').text();
         $("#IdCategoria").val(IdCategoria);
-        $("#IdSubCategoria").val(IdSubCategoria);
-        $("#DescripcionSC").val(DescripcionSC);
+        $("#Descripcion").val(Descripcion);
         $(".modal-header").css("background-color", "#007bff");
         $(".modal-header").css("color", "white" );
-        $(".modal-title").text("Editar Producto");		
+        $(".modal-title").text("Editar Categoria");		
         $('#modalCRUD').modal('show');		   
     });
     
     //Borrar
     $(document).on("click", ".btnBorrar", function(){
         fila = $(this);           
-        Id = parseInt($(this).closest("tr").find('td:eq(0)').text());		
+        IdSubCategoria = parseInt($(this).closest("tr").find('td:eq(0)').text());	
         opcion = 3; //eliminar        
-        var respuesta = confirm("¿Está seguro de borrar el registro "+Id+"?");                
+        var respuesta = confirm("¿Está seguro de borrar el registro "+IdSubCategoria+"?");                
         if (respuesta) {            
             $.ajax({
               url: "bd/bd-cat/subcategoriascrud.php",
               type: "POST",
               datatype:"json",    
-              data:  {opcion:opcion, Id:Id},    
+              data:  {opcion:opcion, IdSubCategoria:IdSubCategoria},    
               success: function() {
                   tabla.row(fila.parents('tr')).remove().draw();                  
                }

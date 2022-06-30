@@ -4,18 +4,17 @@ include_once 'conexion.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-$data = json_decode($_POST['arregloId']);
-var_dump($data);
-$max=sizeof($data); 
-
 
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-
+$IdRequisicion = 0;
 
 
 switch($opcion){
     case 1:
+        $data = json_decode($_POST['arregloId']);
+        var_dump($data);
+        $max=sizeof($data); 
         $IdRequisicion = (isset($_POST['IdRequisicion'])) ? $_POST['IdRequisicion'] : '';
         $IdEmpleadoSolicita = (isset($_POST['IdEmpleadoSolicita'])) ? $_POST['IdEmpleadoSolicita'] : '';
         $Fecha = (isset($_POST['Fecha'])) ? $_POST['Fecha'] : '';
@@ -44,5 +43,5 @@ switch($opcion){
         $resultado1->execute(); 
 }
 
-print json_encode($data, JSON_UNESCAPED_UNICODE);//envio el array final el formato json a AJAX
+print json_encode($IdRequisicion, JSON_UNESCAPED_UNICODE);//envio el array final el formato json a AJAX
 $conexion=null;

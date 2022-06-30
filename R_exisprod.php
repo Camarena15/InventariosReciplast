@@ -15,7 +15,7 @@ $conexion = $objeto->Conectar();
         <div class="row">
         <div class="form-group col-md-4">
                 <?php
-                  $consulta = "SELECT * FROM SubCategorias  WHERE 1";
+                  $consulta = "SELECT * FROM subcategorias  WHERE 1";
                   $resultado = $conexion->prepare($consulta);
                   $resultado->execute();        
                   $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
