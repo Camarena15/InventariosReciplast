@@ -80,7 +80,7 @@ switch($opcion){
 
         break;
     case 3:
-        $sql="SELECT D.IdRequisicion, P.Descripcion, D.Cantidad, D.CantidadSurtida, D.CantidadDevuelta, D.CostoAprox FROM detallerequisicionproductos as D INNER JOIN productos as P ON
+        $sql="SELECT D.IdRequisicion, P.Descripcion, D.Cantidad, D.CostoAprox FROM detallerequisicionproductos as D INNER JOIN productos as P ON
         D.IdProducto = P.IdProducto 
         WHERE D.IdRequisicion='$idmov'";
 
@@ -95,8 +95,6 @@ switch($opcion){
                                     <th>IdRequisicion</th>
                                     <th>Producto</th>
                                     <th>Cantidad</th>
-                                    <th>Cantidad Surtida</th>
-                                    <th>Cantidad Devuelta</th>
                                     <th>CostoAprox</th>
                                 </tr>'
             ."            </thead>"
@@ -105,7 +103,7 @@ switch($opcion){
             while ($ver=mysqli_fetch_row($result)) {
                 $cad = $cad . "<tr>"
                 . "<td>".$ver[0]."</td><td>".$ver[1]."</td><td>".$ver[2]."</td>"
-                . "<td>".$ver[3]."</td><td>".$ver[4]."</td><td>".$ver[5]."</td>"
+                . "<td>".$ver[3]. "</td>"
                 . "</tr>";  
             }
             $cad = $cad . "</table>"
@@ -119,7 +117,7 @@ switch($opcion){
             echo  $cad;
         break;
         case 4:
-            $sql="SELECT D.IdValeCons, P.Descripcion, D.Cantidad FROM detvalesconsumibles as D INNER JOIN productos as P ON
+            $sql="SELECT D.IdValeCons, P.Descripcion, D.Cantidad, D.CantidadSurtida, D.CantidadDevuelta FROM detvalesconsumibles as D INNER JOIN productos as P ON
             D.IdProducto = P.IdProducto  
         WHERE IdValeCons='$idmov'";
 
@@ -133,14 +131,16 @@ switch($opcion){
                                 <tr>
                                     <th>IdValeCons <br>-</th>
                                     <th>Producto <br>-</th>
-                                    <th>Cantidad <br>-</th>
+                                    <th>Cantidad Solicitada<br>-</th>
+                                    <th>Cantidad Surtida<br>-</th>
+                                    <th>Cantidad Devuelta<br>-</th>
                                 </tr>'
             ."            </thead>"
             ."            <tbody>"
             ."            </tbody>"; 
             while ($ver=mysqli_fetch_row($result)) {
                 $cad = $cad . "<tr>"
-                . "<td>".$ver[0]."</td><td>".$ver[1]."</td><td>".$ver[2]."</td>"
+                . "<td>".$ver[0]."</td><td>".$ver[1]."</td><td>".$ver[2]."</td><td>".$ver[3]."</td><td>".$ver[4]."</td>"
                 . "</tr>";  
             }
             $cad = $cad . "</table>"

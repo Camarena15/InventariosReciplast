@@ -17,26 +17,26 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 switch($opcion){
     case 1:
         $IdDevolucion = (isset($_POST['IdDevolucion'])) ? $_POST['IdDevolucion'] : '';
-        $IdRequisicion = (isset($_POST['IdRequisicion'])) ? $_POST['IdRequisicion'] : '';
+        $IdValeCons = (isset($_POST['IdValeCons'])) ? $_POST['IdValeCons'] : '';
         $Fecha = (isset($_POST['Fecha'])) ? $_POST['Fecha'] : '';
-        $consulta2 = "INSERT INTO devprodvale(IdRequisicion, Fecha) VALUES ($IdRequisicion, '$Fecha')";		
+        $consulta2 = "INSERT INTO devprodvale(IdValeCons, Fecha) VALUES ($IdValeCons, '$Fecha')";		
         $resultado1 = $conexion->prepare($consulta2);
         $resultado1->execute(); 
         $c=0;
-        for($i = 0; $i<=$max; $i+=4){
+        for($i = 0; $i<=$max; $i+=5){
             $IdProducto[$c] = $data[$i+1];
-            $Cantidad[$c] = $data[$i+3];
+            $Cantidad[$c] = $data[$i+4]; //cantidad devuelta
             if($Cantidad[$c] > 0){
-                $consulta = "INSERT INTO detdevprodvale (IdDevolucion, IdProducto, Cantidad) VALUES($IdDevolucion, $IdProducto[$c], $Cantidad[$c]) ";	
-                $resultado = $conexion->prepare($consulta);
+                $consulta1 = "INSERT INTO detdevprodvale (IdDevolucion, IdProducto, Cantidad) VALUES($IdDevolucion, $IdProducto[$c], $Cantidad[$c]) ";	
+                $resultado = $conexion->prepare($consulta1);
                 $resultado->execute(); 	
 
-                $consulta = "UPDATE `productos` SET `Existencia`=`Existencia`+ $Cantidad[$c] WHERE `IdProducto`=$IdProducto[$c]";
-                $resultado1 = $conexion->prepare($consulta);
+                $consulta2 = "UPDATE `productos` SET `Existencia`=`Existencia`+ $Cantidad[$c] WHERE `IdProducto`=$IdProducto[$c]";
+                $resultado1 = $conexion->prepare($consulta2);
                 $resultado1->execute(); 
                 
-                $consulta = "UPDATE `detallerequisicionproductos` SET `CantidadDevuelta`=`CantidadDevuelta`+ $Cantidad[$c] WHERE `IdProducto`=$IdProducto[$c] AND `IdRequisicion` = $IdRequisicion";
-                $resultado1 = $conexion->prepare($consulta);
+                $consulta3 = "UPDATE `detvalesconsumibles` SET `CantidadDevuelta`=`CantidadDevuelta`+ $Cantidad[$c] WHERE `IdProducto`=$IdProducto[$c] AND `IdValeCons` = $IdValeCons";
+                $resultado1 = $conexion->prepare($consulta3);
                 $resultado1->execute();
             }
             $c++;
@@ -44,5 +44,5 @@ switch($opcion){
         break;
 }
 
-print json_encode($data, JSON_UNESCAPED_UNICODE);//envio el array final el formato json a AJAX
+print json_encode($consulta1 . $consulta2 . $consulta3, JSON_UNESCAPED_UNICODE);//envio el array final el formato json a AJAX
 $conexion=null;

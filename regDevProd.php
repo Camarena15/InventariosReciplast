@@ -25,66 +25,77 @@ $conexion = $objeto->Conectar();
             </div>
         </div>
         <hr>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <!-- SELECT DE NOMBRES -->
+        <!--div class="row">
+            <--div class="form-group col-md-4">
+                <-- SELECT DE NOMBRES
                 <?php
-                    $consulta = "SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON 
-                    R.IdEmpleadoSolicita = E.IdEmpleado INNER JOIN  `detallerequisicionproductos` AS D ON D.IdRequisicion = R.IdRequisicion 
-                    WHERE D.CantidadSurtida > 0 AND D.CantidadSurtida <> D.CantidadDevuelta";
+                    /*$consulta = "SELECT DISTINCT E.Nombre, R.* FROM valesconsumibles AS R INNER JOIN empleados AS E ON 
+                    R.IdEmpleadoRecibe = E.IdEmpleado INNER JOIN  detvalesconsumibles AS D ON D.IdValeCons = R.IdValeCons 
+                    WHERE D.CantidadSurtida > 0 AND D.CantidadSurtida <> D.CantidadDevuelta ORDER BY R.FechaSurte";
                     $resultado = $conexion->prepare($consulta);
                     $resultado->execute();  
-                    $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                    $data=$resultado->fetchAll(PDO::FETCH_ASSOC);*/
                     ?>
-                <label for="inputCp" class="form-label">Seleccionar Requisición: (sólo requisiciones surtidas)</label>
-                <select type="text" class="form-control" id="Requisicion">
-                    <option value="0">Seleccione una requisición</option>
+            </div-->
+        <!----------------------------------------------------------->
+        <div class="row">
+
+            <div class="form-group col-md-3">
+                <label for="" class="form-label">Fecha Inicial: </label>
+                <input type="date" class="form-control" id="FI">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="" class="form-label">Fecha Final: </label>
+                <input type="date" class="form-control" id="FF">
+            </div>
+            <div class="form-group col-md-4">
+                <?php
+                  $consulta = "SELECT DISTINCT E.Nombre, R.* FROM valesconsumibles AS R INNER JOIN empleados AS E ON 
+                  R.IdEmpleadoRecibe = E.IdEmpleado INNER JOIN  detvalesconsumibles AS D ON D.IdValeCons = R.IdValeCons 
+                  WHERE D.CantidadSurtida > 0 AND D.CantidadSurtida <> D.CantidadDevuelta ORDER BY R.FechaSurte";
+                  $resultado = $conexion->prepare($consulta);
+                  $resultado->execute();        
+                  $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <label for="" class="form-label">Nombre de Empleado: (opcional) </label>
+                <select type="text" class="form-control" id="Empleado">
+                    <option value="0">Seleccione un empleado</option>
                     <?php foreach ($data as $opciones): ?>
-
-                    <option value="<?php echo $opciones['IdRequisicion'] ?>"><?php echo $opciones['IdRequisicion'] ?> ->
-                        <?php echo $opciones['Nombre']?> (<?php echo $opciones['Fecha']?>)</option>
-
+                    <option value="<?php echo $opciones['IdEmpleadoRecibe'] ?>"><?php echo $opciones['Nombre'] ?>
+                    </option>
                     <?php endforeach ?>
                 </select>
             </div>
-            <div class="form-group col-3">
-                <label for="" class="form-label"> <br> Fecha: </label>
-                <input type="date" class="form-control" id="Fecha">
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-warning" onclick="buscar()">Buscar</button>
             </div>
         </div>
-        <script type="text/javascript">
-        $(document).ready(function() {
-            $('#Requisicion').val(0);
-            getDatosReq();
 
-            $('#Requisicion').change(function() {
-                getDatosReq();
-            });
-        })
-        </script>
-        <script type="text/javascript">
-        function getDatosReq() {
-            $.ajax({
-                type: "POST",
-                url: "bd/getDatosReq.php",
-                data: "requisicion=" + $('#Requisicion').val(),
-                success: function(r) {
-                    $('#DatosRequisicion').html(r);
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "bd/getDetReq3.php",
-                data: "requisicion=" + $('#Requisicion').val(),
-                success: function(r) {
-                    $('#tbodydatos').html(r);
-                }
-            });
-        }
-        </script>
+        <br>
+        <div class="container">
+            <h3>Vales encontrados:</h1>
+        </div>
+        <div class="container">
+            <table class="table table-stripped table-dark" id="tabla1">
+            </table>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="inputCp" class="form-label">Seleccionar Vale:</label>
+                <select type="text" class="form-control" id="ValeCons"></select>
+            </div>
+        </div>
+        <!----------------------------------------------------------->
 
-        <div id="DatosRequisicion"></div>
-        <hr>
+    <div id="DatosRequisicion"></div>
+    <div class="form-group col-3">
+            <label for="" class="form-label"> <br> Fecha: </label>
+            <input type="date" class="form-control" id="Fecha">
+        </div>
+    <hr>
 </form>
 
 
@@ -101,6 +112,7 @@ $conexion = $objeto->Conectar();
             <tr>
                 <th scope="col">Seleccionar</th>
                 <th scope="col">IdProducto</th>
+                <th scope="col">Producto</th>
                 <th scope="col">Cantidad Actual Surtida</th>
                 <th scope="col">Cantidad a Devolver</th>
             </tr>
@@ -115,6 +127,79 @@ $conexion = $objeto->Conectar();
 
 <!-- VALIDAR TODO -->
 <script>
+$(document).ready(function() {
+    $('#ValeCons').val(0);
+    getDatosVale();
+
+    $('#ValeCons').change(function() {
+        getDatosVale();
+    });
+})
+
+function getDatosVale() {
+    $.ajax({
+        type: "POST",
+        url: "bd/getDatosVale.php",
+        data: "vale=" + $('#ValeCons').val(),
+        success: function(r) {
+            $('#DatosRequisicion').html(r);
+        }
+    });
+    $.ajax({
+        type: "POST",
+        url: "bd/getDetReq2.php",
+        data: "vale=" + $('#ValeCons').val(),
+        success: function(r) {
+            $('#tbodydatos').html(r);
+        }
+    });
+}
+
+function buscar() {
+    var fi, ff;
+    fi = document.getElementById('FI').value;
+    ff = document.getElementById('FF').value;
+    exp = /\w+@\w+\.+[a-z]/;
+
+    if (fi == 0 || ff == 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Seleccione correctamente el periodo',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        return false;
+
+    } else {
+        registrarselect();
+    }
+
+}
+
+function registrarselect() {
+    let ide, fi, ff;
+    $(document).ready(function() {
+        ide = $.trim($("#Empleado").val());
+        fi = $.trim($("#FI").val());
+        ff = $.trim($("#FF").val());
+        $.ajax({
+            url: "bd/selectreq-2.php",
+            type: "POST",
+            datatype: "json",
+            data: {
+                ide: ide,
+                fi: fi,
+                ff: ff
+            },
+            success: function(r) {
+                $('#ValeCons').html(r);
+            }
+        });
+    });
+
+}
+
 function desactiva(n, c) {
     var caja = document.getElementById("cacom" + n);
     if (c == true)
@@ -126,15 +211,25 @@ function desactiva(n, c) {
 }
 
 function validarTodo() {
-    var IdRequisicion, Fecha, IdDevolucion;
-    IdRequisicion = document.getElementById('Requisicion').value;
+    var IdValeCons, Fecha, IdDevolucion, max;
+    IdValeCons = document.getElementById('ValeCons').value;
     Fecha = document.getElementById('Fecha').value;
     IdDevolucion = document.getElementById('IdDevolucion');
     exp = /\w+@\w+\.+[a-z]/;
 
-    if (IdDevolucion == '' || IdRequisicion == 0 || Fecha == '') {
+    if (IdDevolucion == '' || IdValeCons == 0 || Fecha == '') {
         alert("Todos los campos son obligatorios");
         return false;
+    }
+    var arregloId = new Array();
+    let celdasId = document.querySelectorAll('#tbodydatos td');
+    var c = 0;
+    for (let i = 0; i < celdasId.length / 5; i++) {
+        if (parseFloat(celdasId[c+3].firstChild.data, 10) < celdasId[c+4].firstChild.value){
+            alert("La cantidad devuelta no debe ser mayor que la cantidad surtida");
+            return false;
+        }
+        c += 5;
     }
 
     regDevProdV();
@@ -144,19 +239,19 @@ function regDevProdV() {
     var arregloId = new Array();
     let celdasId = document.querySelectorAll('#tbodydatos td');
     var c = 0;
-    for (let i = 0; i < celdasId.length / 4; ++i) {
+    for (let i = 0; i < celdasId.length / 5; i++) {
         arregloId[c] = celdasId[c].firstChild.checked;
         arregloId[c + 1] = celdasId[c + 1].firstChild.data;
         arregloId[c + 2] = celdasId[c + 2].firstChild.data;
-        arregloId[c + 3] = celdasId[c + 3].firstChild.value;
-        c += 4;
+        arregloId[c + 3] = celdasId[c + 3].firstChild.data;
+        arregloId[c + 4] = celdasId[c + 4].firstChild.value;
+        c += 5;
     }
-    let IdDevolucion, IdRequisicion, Fecha;
+    let IdDevolucion, IdValeCons, Fecha;
     $(document).ready(function() {
         IdDevolucion = $.trim($("#IdDevolucion").val());
-        IdRequisicion = $.trim($("#Requisicion").val());
+        IdValeCons = $.trim($("#ValeCons").val());
         Fecha = $.trim($("#Fecha").val());
-        console.log(IdDevolucion  + "---" + IdRequisicion + "---" + Fecha);
         opcion = 1;
         $.ajax({
             url: "bd/DevProd.php",
@@ -165,7 +260,7 @@ function regDevProdV() {
             data: {
                 opcion: opcion,
                 IdDevolucion: IdDevolucion,
-                IdRequisicion: IdRequisicion,
+                IdValeCons: IdValeCons,
                 Fecha: Fecha,
                 'arregloId': JSON.stringify(arregloId)
             },

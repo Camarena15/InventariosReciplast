@@ -16,8 +16,8 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 2:
-        $consulta = "SELECT E.Nombre, C.* FROM devprodvale AS C INNER JOIN requisicionesproductos as R 
-        ON R.IdRequisicion = C.IdRequisicion INNER JOIN empleados as E ON R.IdEmpleadoSolicita = E.IdEmpleado WHERE 1";
+        $consulta = "SELECT E.Nombre, C.* FROM devprodvale AS C INNER JOIN valesconsumibles as R 
+        ON R.IdValeCons = C.IdValeCons INNER JOIN empleados as E ON R.IdEmpleadoRecibe = E.IdEmpleado WHERE 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -30,7 +30,7 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
         break;
     case 4:
-        $consulta = "SELECT `IdValeCons`,`IdRequisicion`, `IdEmpleadoRecibe`, E.Nombre as Nombre,`FechaEmision`,`FechaSurte`,`Motivo` FROM 
+        $consulta = "SELECT `IdValeCons`, `IdEmpleadoRecibe`, E.Nombre as Nombre,`FechaSurte`,`Motivo` FROM 
         `valesconsumibles` AS V INNER JOIN `empleados` AS E ON V.IdEmpleadoRecibe = E.IdEmpleado WHERE 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        

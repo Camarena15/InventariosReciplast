@@ -39,23 +39,7 @@ $conexion = $objeto->Conectar();
 
 <script>
 function validar1() {
-    var IdSubCategoria;
-    IdSubCategoria = document.getElementById('IdSubCategoria').value;
-    exp = /\w+@\w+\.+[a-z]/;
-
-    if (IdSubCategoria == 0) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            text: 'Seleccione correctamente el periodo',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        return false;
-
-    } else {
         document.frm.submit();
-    }
 }
 </script>
 <!-- FIN del contenido principal -->

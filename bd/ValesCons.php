@@ -17,33 +17,26 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 switch($opcion){
     case 1:
         $IdValeCons = (isset($_POST['IdValeCons'])) ? $_POST['IdValeCons'] : '';
-        $IdRequisicion = (isset($_POST['IdRequisicion'])) ? $_POST['IdRequisicion'] : '';
         $IdEmpleadoRecibe = (isset($_POST['IdEmpleadoRecibe'])) ? $_POST['IdEmpleadoRecibe'] : '';
-        $FechaEmision = (isset($_POST['FechaEmision'])) ? $_POST['FechaEmision'] : '';
         $FechaSurte = (isset($_POST['FechaSurte'])) ? $_POST['FechaSurte'] : '';
         $Motivo = (isset($_POST['Motivo'])) ? $_POST['Motivo'] : '';
-        $consulta2 = "INSERT INTO valesconsumibles(IdRequisicion, IdEmpleadoRecibe, FechaEmision, FechaSurte, Motivo) VALUES 
-        ($IdRequisicion,$IdEmpleadoRecibe,'$FechaEmision','$FechaSurte','$Motivo')";		
+        $consulta2 = "INSERT INTO valesconsumibles(IdEmpleadoRecibe, FechaSurte, Motivo) VALUES 
+        ($IdEmpleadoRecibe,'$FechaSurte','$Motivo')";		
         $resultado1 = $conexion->prepare($consulta2);
-        $resultado1->execute(); 
-        $c=0;
+        $resultado1->execute();
         for($i = 0; $i<=$max; $i+=5){
-            $IdProducto[$c] = $data[$i+1];
-            $Cantidad[$c] = $data[$i+3];
-            if($Cantidad[$c] > 0){
-                $consulta = "INSERT INTO detvalesconsumibles (IdValeCons, IdProducto, Cantidad) VALUES($IdValeCons, $IdProducto[$c], $Cantidad[$c]) ";	
+            $IdProducto = $data[$i+2];
+            $Cantidad = $data[$i+3];
+            $CantidadSurtida = $data[$i+4];
+            if($Cantidad > 0){
+                $consulta = "INSERT INTO detvalesconsumibles (IdValeCons, IdProducto, Cantidad, CantidadSurtida, CantidadDevuelta) VALUES($IdValeCons, $IdProducto, $Cantidad, $CantidadSurtida, 0) ";	
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
 
-                $consulta = "UPDATE `productos` SET `Existencia`=`Existencia`- $Cantidad[$c] WHERE `IdProducto`=$IdProducto[$c]";
-                $resultado1 = $conexion->prepare($consulta);
+                $consulta1 = "UPDATE `productos` SET `Existencia`=`Existencia`- $CantidadSurtida WHERE `IdProducto`=$IdProducto";
+                $resultado1 = $conexion->prepare($consulta1);
                 $resultado1->execute(); 
-                
-                $consulta = "UPDATE `detallerequisicionproductos` SET `CantidadSurtida`=`CantidadSurtida`+ $Cantidad[$c] WHERE `IdProducto`=$IdProducto[$c] AND `IdRequisicion` = $IdRequisicion";
-                $resultado1 = $conexion->prepare($consulta);
-                $resultado1->execute();
             }
-            $c++;
         }
         break;
 }
