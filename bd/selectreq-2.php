@@ -6,18 +6,18 @@ $ide = (isset($_POST['ide'])) ? $_POST['ide'] : '';
 $fi = (isset($_POST['fi'])) ? $_POST['fi'] : '';
 $ff = (isset($_POST['ff'])) ? $_POST['ff'] : '';
     if ($ide != 0)
-	    $sql="SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado 
-		INNER JOIN detallerequisicionproductos AS D ON D.IdRequisicion = R.IdRequisicion 
-		WHERE D.Cantidad > D.CantidadSurtida AND IdEmpleadoSolicita ='$ide' AND Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Ejecución'";
+	    $sql="SELECT DISTINCT E.Nombre, R.* FROM valesconsumibles AS R INNER JOIN empleados AS E ON R.IdEmpleadoRecibe = E.IdEmpleado 
+		INNER JOIN detvalesconsumibles AS D ON D.IdValeCons = R.IdValeCons 
+		WHERE D.Cantidad > D.CantidadSurtida AND R.IdEmpleadoRecibe ='$ide' AND FechaSurte BETWEEN '$fi' AND '$ff'";
     else
-		$sql="SELECT DISTINCT E.Nombre, R.* FROM requisicionesproductos AS R INNER JOIN empleados AS E ON R.IdEmpleadoSolicita = E.IdEmpleado 
-		INNER JOIN detallerequisicionproductos AS D ON D.IdRequisicion = R.IdRequisicion 
-		WHERE D.Cantidad > D.CantidadSurtida AND Fecha BETWEEN '$fi' AND '$ff' AND R.Estado='Ejecución'";
+		$sql="SELECT DISTINCT E.Nombre, R.* FROM valesconsumibles AS R INNER JOIN empleados AS E ON R.IdEmpleadoRecibe = E.IdEmpleado 
+		INNER JOIN detvalesconsumibles AS D ON D.IdValeCons = R.IdValeCons 
+		WHERE D.Cantidad > D.CantidadSurtida AND FechaSurte BETWEEN '$fi' AND '$ff'";
 	$result=mysqli_query($conexion,$sql);
 
-	$cadena = "<option value='0'>Seleccione una Requisición: </option>";
+	$cadena = "<option value='0'>Seleccione un vale: </option>";
 	while ($ver=mysqli_fetch_row($result)) {
-		$cadena=$cadena.'<option value='.$ver[1].'>'.utf8_encode($ver[1]).' -> '. $ver[0] . ' (' . $ver[3] . ')' . '</option>';
+		$cadena=$cadena.'<option value='.$ver[1].'>'.$ver[1].' -> '. utf8_encode($ver[0]) . ' (' . $ver[3] . ')' . '</option>';
 	}
 
 	echo  $cadena;

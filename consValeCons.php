@@ -11,9 +11,7 @@
                     <thead class="text-center">
                         <tr>
                             <th>IdValeCons</th>
-                            <th>IdRequisicion</th>
                             <th>Nombre Empleado Recibe</th>
-                            <th>Fecha de Emisión</th>
                             <th>Fecha Surte</th>
                             <th>Motivo</th>
                         </tr>

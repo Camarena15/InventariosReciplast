@@ -16,6 +16,7 @@ $(document).ready(function() {
             {"data": "Nombre"},
             {"data": "FechaNac"},
             {"data": "FechaIngreso"},
+			{"data": "Antiguedad"},
             {"data": "Domicilio"},
             {"data": "Colonia"},
             {"data": "Ciudad"},
@@ -99,16 +100,16 @@ $(document).ready(function() {
         Nombre = fila.find('td:eq(3)').text();
         FechaNac = fila.find('td:eq(4)').text();
         FechaIngreso = fila.find('td:eq(5)').text();
-        Domicilio = fila.find('td:eq(6)').text();
-        Colonia = fila.find('td:eq(7)').text();
-        Ciudad = fila.find('td:eq(8)').text();
-        CP = fila.find('td:eq(9)').text();
-        Edo = fila.find('td:eq(10)').text();
-        Tel = fila.find('td:eq(11)').text();
-        Celular = fila.find('td:eq(12)').text();
-        Estado = fila.find('td:eq(13)').text();
-        $("#IdArea").val(IdArea);
-        $("#IdPuesto").val(IdPuesto);
+        Domicilio = fila.find('td:eq(7)').text();
+        Colonia = fila.find('td:eq(8)').text();
+        Ciudad = fila.find('td:eq(9)').text();
+        CP = fila.find('td:eq(10)').text();
+        Edo = fila.find('td:eq(11)').text();
+        Tel = fila.find('td:eq(12)').text();
+        Celular = fila.find('td:eq(13)').text();
+        Estado = fila.find('td:eq(14)').text();
+        $("#IdArea").prop("selectedIndex", IdArea);
+        $("#IdPuesto").prop("selectedIndex", IdPuesto);
         $("#Nombre").val(Nombre);
         $("#FechaNac").val(FechaNac);
         $("#FechaIngreso").val(FechaIngreso);

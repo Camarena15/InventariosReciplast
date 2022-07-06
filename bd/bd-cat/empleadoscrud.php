@@ -29,7 +29,7 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
         $resultado->execute(); 
         
-        $consulta = "SELECT * FROM empleados ORDER BY IdEmpleado DESC LIMIT 1";
+        $consulta = "SELECT E.*, TIMESTAMPDIFF(YEAR, E.FechaIngreso, NOW()) as Antiguedad FROM empleados AS E ORDER BY IdEmpleado DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);       
@@ -39,7 +39,7 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        
         
-        $consulta = "SELECT * FROM empleados WHERE IdEmpleado= $IdEmpleado ";       
+        $consulta = "SELECT E.*, TIMESTAMPDIFF(YEAR, E.FechaIngreso, NOW()) as Antiguedad FROM empleados AS E  WHERE IdEmpleado= $IdEmpleado ";       
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -50,7 +50,7 @@ switch($opcion){
         $resultado->execute();                           
         break;
     case 4:    
-        $consulta = "SELECT P.DescripcionP, A.DescripcionA, E.* FROM empleados as E INNER JOIN area as A ON E.IdArea = A.IdArea 
+        $consulta = "SELECT P.DescripcionP, A.DescripcionA, E.*, TIMESTAMPDIFF(YEAR, E.FechaIngreso, NOW()) as Antiguedad FROM empleados as E INNER JOIN area as A ON E.IdArea = A.IdArea 
         INNER JOIN puestos as P ON E.IdPuesto = P.IdPuesto WHERE 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();        

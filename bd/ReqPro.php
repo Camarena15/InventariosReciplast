@@ -4,11 +4,7 @@ include_once 'conexion.php';
 $objeto = new Conexion();
 $conexion = $objeto->Conectar();
 
-
-
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
-$IdRequisicion = 0;
-
 
 switch($opcion){
     case 1:
@@ -27,9 +23,8 @@ switch($opcion){
             $IdProducto[$c] = $data[$i+2];
             $Cantidad[$c] = $data[$i+3];
             $Costo[$c] = $data[$i+4];
-            echo 'console.log('.$IdProducto[$c] . ' + " " +' . $Cantidad[$c] . '+ " " +' . $Costo[$c] . ')';
-            $consulta = "INSERT INTO detallerequisicionproductos (IdRequisicion, IdProducto, Cantidad, CantidadSurtida, CantidadDevuelta, CostoAprox) 
-            VALUES($IdRequisicion, $IdProducto[$c], $Cantidad[$c], 0, 0, $Costo[$c]) ";	
+            $consulta = "INSERT INTO detallerequisicionproductos (IdRequisicion, IdProducto, Cantidad, CostoAprox) 
+            VALUES($IdRequisicion, $IdProducto[$c], $Cantidad[$c], $Costo[$c])";	
             $resultado = $conexion->prepare($consulta);
             $resultado->execute(); 	
             $c++;
@@ -43,5 +38,5 @@ switch($opcion){
         $resultado1->execute(); 
 }
 
-print json_encode($IdRequisicion, JSON_UNESCAPED_UNICODE);//envio el array final el formato json a AJAX
+print json_encode($data, JSON_UNESCAPED_UNICODE);//envio el array final el formato json a AJAX
 $conexion=null;

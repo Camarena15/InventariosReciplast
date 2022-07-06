@@ -19,11 +19,12 @@
                     <thead class="text-center">
                         <tr>
                             <th>IdEmpleado</th>
-                            <th>Area</th>
+                            <th>Área</th>
                             <th>Puesto</th>
                             <th>Nombre</th>
                             <th>Fecha de Nacimiento</th>
                             <th>Fecha de Ingreso</th>
+							<th>Antigüedad</th>
                             <th>Domicilio</th>
                             <th>Colonia</th>
                             <th>Ciudad</th>

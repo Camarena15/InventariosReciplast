@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var IdDevolucion, IdRequisicion, Fecha;
+    var IdDevolucion, IdValeCons, Fecha;
     opcion = 2;
     
     tabla = $('#tablaP').DataTable({  
@@ -11,7 +11,7 @@ $(document).ready(function() {
         },
         "columns":[
             {"data": "IdDevolucion"},
-            {"data": "IdRequisicion"},
+            {"data": "IdValeCons"},
             {"data": "Nombre"},
             {"data": "Fecha"}
         ],

@@ -171,7 +171,7 @@ $conexion = $objeto->Conectar();
         <thead>
             <tr>
                 <th scope="col">Movimiento</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col">Descripción</th>
                 <th scope="col">IdProducto</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio Unitario</th>

@@ -56,57 +56,12 @@ $conexion = $objeto->Conectar();
         </div>
         <br>
 
-
-        <div class="row">
-            <div class="form-group col-md-5" id="">
-                <label for="">Seleccionar Requisición: </label>
-                <select type="text" class="form-control" id="Requisiciones" name="">
-
-                </select>
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-6">
-                <button type="button" class="btn btn-success" onclick="validar2()" style="height: 130px; width: 130px;">Ejecutar Requisición</button>
-            <!--</div>
-            <div class="col-md-3">-->
-                <button type="button" class="btn btn-danger" onclick="validar3()" style="height: 130px; width: 130px;">Cancelar Requisición</button>
-            </div>
-        </div>
-
     </div>
 </form>
 
-<!-- SCRIPT PARA EL SELECT 2-->
-<script>
-function registrarselect() {
-    let ide, fi, ff;
-    $(document).ready(function() {
-        ide = $.trim($("#IdEmpleado").val());
-        fi = $.trim($("#FI").val());
-        ff = $.trim($("#FF").val());
-        $.ajax({
-            url: "bd/selectreq.php",
-            type: "POST",
-            datatype: "json",
-            data: {
-                ide: ide,
-                fi: fi,
-                ff: ff
-            },
-            success: function(r) {
-                $('#Requisiciones').html(r);
-            }
-        });
-    });
-
-}
-</script>
-
 <!-- VALIDAR 1 -->
 <script>
+
 function validar1() {
     var fi, ff;
     fi = document.getElementById('FI').value;
@@ -125,53 +80,6 @@ function validar1() {
 
     } else {
         registrar1();
-        registrarselect();
-    }
-
-}
-</script>
-
-<!-- VALIDAR 2-->
-<script>
-function validar2() {
-    var requ;
-    requ = document.getElementById("Requisiciones").value;
-    exp = /\w+@\w+\.+[a-z]/;
-
-    if (requ != 0) {
-        registrar2();
-    } else {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            text: 'Seleccione una requisición',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        return false;
-    }
-
-}
-</script>
-
-<!-- VALIDAR 3 -->
-<script>
-function validar3() {
-    var requ;
-    requ = document.getElementById("Requisiciones").value;
-    exp = /\w+@\w+\.+[a-z]/;
-
-    if (requ != 0) {
-        registrar3();
-    } else {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            text: 'Seleccione una requisición',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        return false;
     }
 
 }
@@ -201,14 +109,42 @@ function registrar1() {
     });
 
 }
+
+function busquedaInicial(){
+    $('#frm').submit(function(e){e.preventDefault();});
+    let fi, ff, ide, d;
+    $(document).ready(function() {
+        ide = $.trim($("#IdEmpleado").val());
+        fi = "2000-00-00";
+        d = new Date();
+        if ((d.getMonth() + 1) < 10)
+            ff = d.getFullYear() + "/0" + (d.getMonth() + 1)  + "/" + (d.getDate() + 1);
+        else
+            ff = d.getFullYear() + "/" + (d.getMonth() + 1)  + "/" + d.getDate();
+        console.log(fi + " " + ff);
+        $.ajax({
+            url: "bd/tabla1req.php",
+            type: "POST",
+            datatype: "json",
+            data: {
+              ide: ide,
+              fi: fi,
+              ff: ff
+            },
+            success: function(r) {
+                $('#tabla1').html(r);
+            }
+        });
+    });
+}
+window.onload = busquedaInicial();
 </script>
 
 <!-- REGISTRAR 2 -->
 <script>
-function registrar2() {
-    let IdRequisicion, Estado;
+function registrar2(IdRequisicion) {
+    let Estado;
     $(document).ready(function() {
-        IdRequisicion = $.trim($("#Requisiciones").val());
         Estado = "Ejecución";
         opcion = 2;
         $.ajax({
@@ -217,7 +153,7 @@ function registrar2() {
             datatype: "json",
             data: {
                 opcion: opcion,
-                IdRequisicion: IdRequisicion,
+                IdRequisicion: parseInt(IdRequisicion),
                 Estado: Estado
             },
             success: function() {
@@ -226,11 +162,12 @@ function registrar2() {
                     title: 'Todo correcto!',
                     text: 'La Requisición seleccionada ha pasado al estado de Ejecución',
                     showConfirmButton: false,
-                    footer: '<a href = "consReqPro.php">Ir a consultar</a>'
+                    footer: '<a href = "caesReqPro.php">Regresar</a>'
                 })
 
             }
         });
+        
     });
 
 }
@@ -238,10 +175,9 @@ function registrar2() {
 
 <!-- REGISTRAR 3 -->
 <script>
-function registrar3() {
-  let IdRequisicion, Estado;
+function registrar3(IdRequisicion) {
+  let Estado;
     $(document).ready(function() {
-        IdRequisicion = $.trim($("#Requisiciones").val());
         Estado = "Cancelada";
         opcion = 2;
         $.ajax({
@@ -250,7 +186,7 @@ function registrar3() {
             datatype: "json",
             data: {
                 opcion: opcion,
-                IdRequisicion: IdRequisicion,
+                IdRequisicion: parseInt(IdRequisicion),
                 Estado: Estado
             },
             success: function() {
@@ -259,7 +195,7 @@ function registrar3() {
                     title: 'Todo correcto!',
                     text: 'La Requisición seleccionada se ha cancelado!',
                     showConfirmButton: false,
-                    footer: '<a href = "consReqPro.php">Ir a consultar</a>'
+                    footer: '<a href = "caesReqPro.php">Regresar</a>'
                 })
 
             }

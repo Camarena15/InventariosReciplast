@@ -34,9 +34,15 @@ switch($opcion){
         $data=$resultado->fetchAll(PDO::FETCH_ASSOC);       
         break;    
     case 2:        
+        //UPDATE SIN CONSIDERAR EXISTENCIA, COSTO PROMEDIO Y UTLIMO COSTO
         $consulta = "UPDATE productos SET IdSubCategoria=  $IdSubCategoria, Descripcion='$Descripcion', Maximo = $Maximo, Minimo= $Minimo, PuntoReorden = $PuntoReorden, UnidadMedida = '$UnidadMedida', Marca= '$Marca', Modelo = '$Modelo', NoParte='$NoParte' WHERE IdProducto = $IdProducto ";		
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();        
+        $resultado->execute();
+        
+        //UPDATE CONSIDERANDO EXISTENCIA, COSTO PROMEDIO Y ULTIMO COSTO
+        /*$consulta = "UPDATE productos SET IdSubCategoria=  $IdSubCategoria, Descripcion='$Descripcion', Maximo = $Maximo, Minimo= $Minimo, PuntoReorden = $PuntoReorden, Existencia=$Existencia, CostoProm=$CostoProm, UltCosto=$UltCosto, UnidadMedida = '$UnidadMedida', Marca= '$Marca', Modelo = '$Modelo', NoParte='$NoParte' WHERE IdProducto = $IdProducto ";		
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();*/
         
         $consulta = "SELECT * FROM productos WHERE IdProducto= $IdProducto ";       
         $resultado = $conexion->prepare($consulta);

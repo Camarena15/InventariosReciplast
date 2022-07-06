@@ -93,16 +93,16 @@
                         </div>
                         </div>
                         <div class="row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3" id="CampoExistencia">
                             <label for="" class="col-form-label">Existencia: </label>
                             <input type="number" class="form-control" id="Existencia" min="0" step="0.01">
                         </div>
                        
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4" id="CampoCostoProm">
                             <label for="" class="col-form-label">Costo Promedio: </label>
                             <input type="number" class="form-control" id="CostoProm" min="0" step="0.01">
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4" id="CampoUltCosto">
                             <label for="" class="col-form-label">Ult Costo: </label>
                             <input type="number" class="form-control" id="UltCosto" min="0" step="0.01">
                         </div>

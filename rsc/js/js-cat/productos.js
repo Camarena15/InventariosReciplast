@@ -81,6 +81,9 @@ $(document).ready(function() {
         opcion = 1; //alta           
         IdProducto=null;
         $("#formulario").trigger("reset");
+        $("#CampoExistencia").show();
+        $("#CampoCostoProm").show();
+        $("#CampoUltCosto").show();
         $(".modal-header").css( "background-color", "#28a745");
         $(".modal-header").css( "color", "white" );
         $(".modal-title").text("Alta de Producto");
@@ -97,15 +100,27 @@ $(document).ready(function() {
         Maximo = fila.find('td:eq(3)').text();
         Minimo = fila.find('td:eq(4)').text();
         PuntoReorden = fila.find('td:eq(5)').text();
+        Existencia = fila.find('td:eq(6)').text();
+        CostoProm = fila.find('td:eq(7)').text();
+        UltCosto = fila.find('td:eq(8)').text();
         UnidadMedida = fila.find('td:eq(9)').text();
         Marca = fila.find('td:eq(10)').text();
         Modelo = fila.find('td:eq(11)').text();
         NoParte = fila.find('td:eq(12)').text();
-        $("#IdSubCategoria").val(IdSubCategoria);
+        $("#IdSubCategoria").prop("selectedIndex", IdSubCategoria);
         $("#Descripcion").val(Descripcion);
         $("#Maximo").val(Maximo);
         $("#Minimo").val(Minimo);
         $("#PuntoReorden").val(PuntoReorden);
+        $("#Existencia").val(Existencia);
+        $("#CostoProm").val(CostoProm);
+        $("#UltCosto").val(UltCosto);
+        //Comentar las lineas 120, 121 y 122 para permitir que aparezcan los campos
+        //Para modificar existencia, costo promedio y ultimo costo. RECARGAR LA PAGINA
+        $("#CampoExistencia").hide();
+        $("#CampoCostoProm").hide();
+        $("#CampoUltCosto").hide();
+        //-------------------------------------------------------------------------
         $("#UnidadMedida").val(UnidadMedida);
         $("#Marca").val(Marca);
         $("#Modelo").val(Modelo);

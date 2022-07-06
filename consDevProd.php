@@ -11,8 +11,8 @@
                     <thead class="text-center">
                         <tr>
                             <th>IdDevolucion</th>
-                            <th>IdRequisicion</th>
-                            <th>Empleado que<br> solicitó productos</th>
+                            <th>IdValeCons</th>
+                            <th>Empleado que<br> recibió productos</th>
                             <th>Fecha</th>
                         </tr>
                     </thead>

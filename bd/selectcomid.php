@@ -49,7 +49,7 @@
 
 			$cadena = "<option value='0'>Seleccione un Vale: </option>";
 			while ($ver=mysqli_fetch_row($result)) {
-				$cadena=$cadena.'<option value='.$ver[0].'>Vale: '.utf8_encode($ver[0]). ' (' . $ver[3] . ')' . '</option>';
+				$cadena=$cadena.'<option value='.$ver[0].'>Vale: '.utf8_encode($ver[0]). ' (' . $ver[2] . ')' . '</option>';
 			}
 
 			echo  $cadena;

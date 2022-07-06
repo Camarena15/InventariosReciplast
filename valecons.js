@@ -11,9 +11,7 @@ $(document).ready(function() {
         },
         "columns":[
             {"data": "IdValeCons"},
-            {"data": "IdRequisicion"},
             {"data": "Nombre"},
-            {"data": "FechaEmision"},
             {"data": "FechaSurte"},
             {"data": "Motivo"}
         ],

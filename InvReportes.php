@@ -113,18 +113,25 @@ $pdf->SetFont('Times','',10);
 		case 2: //Lista de productos a surtir
 			#region Busqueda
 			$IdSubCategoria = (isset($_POST['IdSubCategoria'])) ? $_POST['IdSubCategoria'] : '';
-			$sql="SELECT DescripcionSC FROM SubCategorias WHERE IdSubCategoria=$IdSubCategoria";
-			$resultado = $conexion->prepare($sql);
-			$resultado->execute();  
-			$data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-			foreach ($data as $opciones):{
-				$pdf->Cell(0,0,'Categoria=' . utf8_decode($opciones['DescripcionSC']),0,1,'L');
-				$pdf->Cell(0,0,utf8_decode("Fecha de Impresión: " . date("d/m/Y")),0,1,'R');
-				$pdf->Cell(0,0,'                 ______________',0,0,'L');
-				$pdf->Cell(0,10,'',0,1);
-			}endforeach;
+			if ($IdSubCategoria == 0)
+				$pdf->Cell(0,0,'Categoria= TODAS',0,1,'L');
+			else{
+				$sql="SELECT DescripcionSC FROM subcategorias WHERE IdSubCategoria=$IdSubCategoria";
+				$resultado = $conexion->prepare($sql);
+				$resultado->execute();  
+				$data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+				foreach ($data as $opciones):{
+					$pdf->Cell(0,0,'Categoria=' . utf8_decode($opciones['DescripcionSC']),0,1,'L');
+				}endforeach;
+			}
+			$pdf->Cell(0,0,utf8_decode("Fecha de Impresión: " . date("d/m/Y")),0,1,'R');
+			$pdf->Cell(0,0,'                 ______________',0,0,'L');
+			$pdf->Cell(0,10,'',0,1);
 			$pdf->SetFont('Times','',7);
-			$sql="SELECT * FROM productos WHERE IdSubCategoria=$IdSubCategoria AND Existencia Between 0 AND Minimo";
+			if ($IdSubCategoria == 0)
+				$sql="SELECT * FROM productos WHERE Existencia Between 0 AND Minimo";
+			else
+				$sql="SELECT * FROM productos WHERE IdSubCategoria=$IdSubCategoria AND Existencia Between 0 AND Minimo";
 			$resultado = $conexion->prepare($sql);
 			$resultado->execute();  
 			$data=$resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -205,7 +212,7 @@ $pdf->SetFont('Times','',10);
 			$pdf->Cell(0,0,utf8_decode("Fecha de Impresión: " . date("d/m/Y")),0,1,'R');
 			$pdf->SetFont('Times','',7);
 			$pdf->Ln(5);
-			$sql="SELECT E.*, A.DescripcionA as Area, P.DescripcionP as Puesto, DATEDIFF(YEAR, E.FechaIngreso, date('d/m/Y')) FROM empleados as E INNER JOIN area as A ON E.IdArea = A.IdArea INNER JOIN puestos as P 
+			$sql="SELECT E.*, A.DescripcionA as Area, P.DescripcionP as Puesto, TIMESTAMPDIFF(YEAR, E.FechaIngreso, NOW()) as Antiguedad FROM empleados as E INNER JOIN area as A ON E.IdArea = A.IdArea INNER JOIN puestos as P 
 			ON P.IdPuesto = E.IdPuesto WHERE Estado='Activo' Order By A.DescripcionA, P.DescripcionP, E.Nombre";
 			$resultado = $conexion->prepare($sql);
 			$resultado->execute();  
@@ -213,9 +220,9 @@ $pdf->SetFont('Times','',10);
 			#endregion
 			#region Tabla
 			//$header = array('IdEmpleado', 'Area', 'Puesto', 'Nombre', 'Fecha Nac.', /*'Domicilio', 'Colonia',*/ 'Ciudad', 'CP', /*'Edo', 'Tel',*/ 'Celular','Estado');
-			$header = array('IdEmpleado', 'Area', 'Puesto', 'Nombre', 'Fecha Nac.','Ciudad', 'CP','Edo','Celular','Estado');
+			$header = array('IdEmpleado', 'Area', 'Puesto', 'Nombre', 'Fecha Ingreso',utf8_decode('Antigüedad'),'Ciudad', 'CP','Edo','Celular','Estado');
 			//$w = array(10,20,22,40,14,/*17,17,*/15,8,/*14,14,*/14,14);
-			$w = array(10,20,22,45,14,17,17,14,15,8);
+			$w = array(10,20,22,45,14,14,17,17,14,15,8);
 			$pdf->FancyTable($header,$w);
 			// Datos
 				$fill = false;
@@ -224,16 +231,17 @@ $pdf->SetFont('Times','',10);
 					$pdf->Cell($w[0],6,$opciones['IdEmpleado'],'LR',0,'C',$fill);
 					$pdf->Cell($w[1],6,utf8_decode($opciones['Area']),'LR',0,'C',$fill);
 					$pdf->Cell($w[2],6,substr(utf8_decode($opciones['Puesto']),0,18),'LR',0,'C',$fill);
-					$pdf->Cell($w[3],6,substr(utf8_decode($opciones['Nombre']),0,30),'LR',0,'L',$fill);
-					$pdf->Cell($w[4],6,$opciones['FechaNac'],'LR',0,'C',$fill);
+					$pdf->Cell($w[3],6,substr(utf8_decode($opciones['Nombre']),0,29),'LR',0,'L',$fill);
+					$pdf->Cell($w[4],6,$opciones['FechaIngreso'],'LR',0,'C',$fill);
+					$pdf->Cell($w[5],6,$opciones['Antiguedad'],'LR',0,'C',$fill);
 					//$pdf->Cell($w[5],6,utf8_decode($opciones['Domicilio']),'LR',0,'C',$fill);
 					//$pdf->Cell($w[6],6,utf8_decode($opciones['Colonia']),'LR',0,'C',$fill);
-					$pdf->Cell($w[5],6,utf8_decode($opciones['Ciudad']),'LR',0,'C',$fill);
-					$pdf->Cell($w[6],6,$opciones['CP'],'LR',0,'C',$fill);
-					$pdf->Cell($w[7],6,utf8_decode($opciones['Edo']),'LR',0,'C',$fill);
+					$pdf->Cell($w[6],6,utf8_decode($opciones['Ciudad']),'LR',0,'C',$fill);
+					$pdf->Cell($w[7],6,$opciones['CP'],'LR',0,'C',$fill);
+					$pdf->Cell($w[8],6,utf8_decode($opciones['Edo']),'LR',0,'C',$fill);
 					//$pdf->Cell($w[10],6,$opciones['Tel'],'LR',0,'C',$fill);
-					$pdf->Cell($w[8],6,$opciones['Celular'],'LR',0,'C',$fill);
-					$pdf->Cell($w[9],6,$opciones['Estado'],'LR',0,'C',$fill);
+					$pdf->Cell($w[9],6,$opciones['Celular'],'LR',0,'C',$fill);
+					$pdf->Cell($w[10],6,$opciones['Estado'],'LR',0,'C',$fill);
 					$pdf->Ln();
 					$fill = !$fill;
 				}
