@@ -8,11 +8,11 @@ $ff = (isset($_POST['ff'])) ? $_POST['ff'] : '';
     if ($ide != 0)
 	    $sql="SELECT DISTINCT E.Nombre, R.* FROM valesconsumibles AS R INNER JOIN empleados AS E ON R.IdEmpleadoRecibe = E.IdEmpleado 
 		INNER JOIN detvalesconsumibles AS D ON D.IdValeCons = R.IdValeCons 
-		WHERE D.Cantidad > D.CantidadSurtida AND R.IdEmpleadoRecibe ='$ide' AND FechaSurte BETWEEN '$fi' AND '$ff'";
+		WHERE D.CantidadSurtida > 0 AND D.CantidadSurtida <> D.CantidadDevuelta AND R.IdEmpleadoRecibe ='$ide' AND FechaSurte BETWEEN '$fi' AND '$ff'";
     else
 		$sql="SELECT DISTINCT E.Nombre, R.* FROM valesconsumibles AS R INNER JOIN empleados AS E ON R.IdEmpleadoRecibe = E.IdEmpleado 
 		INNER JOIN detvalesconsumibles AS D ON D.IdValeCons = R.IdValeCons 
-		WHERE D.Cantidad > D.CantidadSurtida AND FechaSurte BETWEEN '$fi' AND '$ff'";
+		WHERE D.CantidadSurtida > 0 AND D.CantidadSurtida <> D.CantidadDevuelta AND FechaSurte BETWEEN '$fi' AND '$ff'";
 	$result=mysqli_query($conexion,$sql);
 
 	$cadena = "<option value='0'>Seleccione un vale: </option>";
